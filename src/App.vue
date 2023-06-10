@@ -1,47 +1,61 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+<!-- <template>
+  <nav v-if="false">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view/>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+nav {
+  padding: 30px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style> -->
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+
+<template>
+  <div id="nav">
+      <!-- <router-link to="/">HelloWorld</router-link> |
+      <router-link to="/landing-page">Landing Page</router-link> -->
+  <router-view /> 
+  </div>
+</template>
+
+<!-- <script>
+import HelloWorld from './views/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+      HelloWorld
   }
+}
+</script> -->
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #222634;
+  margin-top: 60px; */
 }
 </style>

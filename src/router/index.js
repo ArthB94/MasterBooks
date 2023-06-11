@@ -53,7 +53,7 @@ import EntryForm2 from "@/views/EntryForm copy 2.vue";
 // import TodoListPage from "@/views/TodolistPage.vue";
 // import CreateCalendarPage from "@/views/CreateCalendar.vue";
 import HelpPage from "@/views/HelpPage.vue";
-// import ProfilePage from "@/views/UserProfilePage.vue";
+import ProfilePage from "@/views/UserProfilePage.vue";
 // import TodoList2Page from "@/views/TodolistPage2.vue";
 // import CalendarPage from "@/views/CalendarPage.vue";
 
@@ -128,11 +128,11 @@ const routes = [
     name: "HelpPage",
     component: HelpPage,
   },
-  // {
-  //   path: "/profile-page",
-  //   name: "ProfilePage",
-  //   component: ProfilePage,
-  // },
+  {
+    path: "/profile-page",
+    name: "ProfilePage",
+    component: ProfilePage,
+  },
   // {
   //   path: "/calendar-page",
   //   name: "CalendarPage",

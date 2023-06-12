@@ -70,6 +70,7 @@
   
   .hide {
     opacity: 0;
+    display: none;
   }
   .show {
     opacity: 1;
@@ -1830,7 +1831,483 @@ input:checked + .slider:before {
   font-size: 2em;
 }
 
+ /*--------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------CATALOG PAGE----------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------------*/
+
+
+.catalog-page{
+  height: 100%;
+  display: flex;
+  width: 100%;
+  border-top: 0.2px solid rgba(0, 0, 0, 0.178);
+  border-bottom: 0.2px solid rgba(0, 0, 0, 0.178);
+}
+
+body.dark .catalog-page{
+  border-top: 0.2px solid rgba(255, 255, 255, 0.178);
+  border-bottom: 0.2px solid rgba(255, 255, 255, 0.178);
+}
+
+.filter-container{
+  /* display: flex;
+  flex-direction: column;
+  background: #d2b2df;
+  width: 290px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center; */
+  width: 290px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-right: 80px;
+  padding-left: 60px;
+  background: linear-gradient( 55deg, #16dcff, #90b5ff, #c18cd6, #f291bb, #ff9ca3 );
+  border-bottom-right-radius: 18px;
+  /* border-bottom-left-radius: 0%; */
+  position: relative;
+  box-shadow: 20px 20px 256px 20px rgba(255, 255, 255, 0.778) inset;
+  align-items: center;
+}
+
+.filter-title-container{
+  background: linear-gradient( -175deg, #16dcff90, #90b5ff93, #c18cd68c, #f291bb8f, #ff9ca3a9 );
+  width: 100%;
+  padding: 0.4px;
+  /* border-radius: 20px;   */
+  border-top-right-radius: 20px;
+}
+
+.filter-main-Title{
+  /* color: rgba(85, 84, 85, 0.986); */
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-shadow: 2px 2px rgba(211, 116, 240, 0.437);
+  font-size: 35px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+body.dark .filter-title-container{
+  background: linear-gradient( 55deg, #16dcffc9, #90b5ffd4, #c18cd6c8, #f291bbe8, #ff9ca3de );
+}
+
+body.dark .filter-main-Title{
+  color: rgba(232, 225, 232, 0.986);
+}
+
+.filters-list{
+  display: flex;
+}
+
+.filters-list-li{
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.178);
+  list-style: none;
+}
+
+.filter-title{
+  /* color: rgba(85, 84, 85, 0.986); */
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-shadow: 2px 2px rgba(211, 116, 240, 0.437);
+  font-size: 28px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.filters{
+  margin-bottom: 30px;
+  display:flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+/* Hide the browser's default checkbox */
+.task-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  border: solid rgba(0, 0, 0, 0.678);
+  border-width: 2px;
+}
+
+body.dark .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #0000005b;
+  border-radius: 2px;
+  border: solid rgba(255, 255, 255, 0.678);
+  border-width: 2px;
+}
+
+.task-container {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 22px;
+  /* margin-left: 8%; */
+  /* max-width: 60%; */
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: rgb(255, 255, 255);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* On mouse-over, add a grey background color */
+.task-container:hover input ~ .checkmark {
+  background-color: #ffffff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.task-container input:checked ~ .checkmark {
+  background-color: #000000a1;
+}
+
+body.dark .task-container input:checked ~ .checkmark {
+  background-color: #77dfff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.task-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.task-container .checkmark:after {
+  left: 4.5px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+body.dark .task-container .checkmark:after {
+  left: 4.5px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid rgb(0, 0, 0);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.search-and-book-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+
+}
+
+
+
+.dark .search-container{
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.178);
+}
+
+.search-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  /* margin-top:30px;   
+    position:fixed;*/
+  /* margin-bottom: 20px; */
+  height: 90px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.178);
+}
+
+
+
+/*------------Input box backgrounds after auto fill-------------*/
+
+.SearchInputBox input:-webkit-autofill,
+.SearchInputBox input:-webkit-autofill:hover,
+.SearchInputBox input:-webkit-autofill:focus,
+.SearchInputBox input:-webkit-autofill:active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.search-container input[type=text]::placeholder {
+  color: rgba(114, 114, 114, 0.858);
+}
+
+.dark .search-container input[type=text]::placeholder {
+  color: rgba(225, 254, 253, 0.858);
+}
+
+
+.search-container input[type=text] {
+  width: 80%;
+  background-color: #f291bb57;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  border: 1px solid rgba(0, 155, 252, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgba(114, 114, 114, 0.858);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+.dark .search-container input[type=text] {
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+}
+
+.search-container .search-bar-container button {
+  float: right;
+  width: 20%;
+  background-color: #f291bb57;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  border: 1px solid rgba(0, 155, 252, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgba(114, 114, 114, 0.858);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.dark .search-container .search-bar-container button {
+  float: right;
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.dark .search-container .search-bar-container button:hover {
+  background: #ccc;
+}
+
+
+.search-container-fixe{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+}
+
+.dark .search-container-fixe{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background: #282c2d;
+}
+
+.arrow-left-calendar{
+  margin-left: 15px;
+  color: #7a7474;
+}
+
+.dark .arrow-left-calendar{
+  margin-left: 15px;
+  color: #dbdbdb;
+}
+
+.page{
+  color: #7a7474;
+}
+
+.dark .page{
+  color: #dbdbdb;
+}
+
+.page-turner{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.book-counter-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.book-catalog-container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  height:1300px;
+  overflow: hidden;
+}
+
+
+
   
+.book{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+  margin-top: 60px;
+}
+
+@media (max-width: 1000px){
+  .book{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+  }
+}
+
+.book-cover{
+  height : 180px;
+  width : 140px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  /* box-shadow: 7px 8px 18px -5px rgba(255, 0, 0, 0.997); */
+  box-shadow: 6px -4px 19px -1px rgba(245, 136, 211, 0.516);
+  /* cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1; */
+}
+
+/* .book-cover:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: rgba(192, 135, 214, 0.1);
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.book-cover:hover:after {
+  left: 0;
+  width: 100%;
+} */
+
+.dark .book-cover{
+  box-shadow: 6px -4px 19px -1px rgba(249, 187, 241, 0.516);
+}
+
+.book-title{
+  color:rgba(22, 22, 22, 0.895);
+  text-transform: uppercase;
+}
+
+.dark .book-title{
+  color:rgba(255, 255, 255, 0.895);
+}
+
+.book-specs{
+  color:rgba(74, 74, 74, 0.667);
+  font-size: smaller;
+}
+
+.dark .book-specs{
+  color:rgba(255, 255, 255, 0.667);
+}
+
+.book-page-link{
+  text-decoration: none;
+  width: 25%;
+}
+
+@media (max-width: 1000px){
+  .book-page-link{
+    text-decoration: none;
+    width: 100%;
+  }
+  
+}
+
+.book-page-link:hover{
+  background: #b6b6b653;
+  /* box-shadow: 2px 2px 50px 2px rgba(112, 112, 112, 0.255) inset; */
+}
+
+
   /*--------------------------------------------------------------------------------------------------*/
 
 /*------------------------------------------------FOOTER----------------------------------------------------*/

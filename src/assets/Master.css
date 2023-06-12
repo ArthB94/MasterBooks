@@ -2181,6 +2181,57 @@ body.dark .task-container .checkmark:after {
   color: #dbdbdb;
 }
 
+.custom-select{
+  width: 100%;
+  background-color: #f291bb57;
+  outline: none;
+  /* padding: 10px 20px; */
+  border-radius: 35px;
+  border: 1px solid rgba(0, 155, 252, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #7a7474;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-left: 10px;
+}
+
+
+.dark .custom-select{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+  /* padding: 10px 20px; */
+  border-radius: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  margin-left: 10px;
+}
+
+.dark .custom-select select{
+  background-color: transparent;
+  border : none;
+  /* width:inherit; */
+  padding: 10px 20px;
+  outline: none;
+  color: aliceblue;
+}
+
+.custom-select select{
+  background-color: transparent;
+  border : none;
+  /* width:inherit; */
+  padding: 10px 20px;
+  outline: none;
+  color: #7a7474;
+}
+
 .page{
   color: #7a7474;
 }

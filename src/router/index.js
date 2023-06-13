@@ -51,7 +51,7 @@ import EntryForm from "@/views/EntryForm.vue";
 // import EntryForm1 from "@/views/EntryForm copy.vue";
 import EntryForm2 from "@/views/EntryForm copy 2.vue";
 import CatalogPage from "@/views/CatalogPage.vue";
-// import CreateCalendarPage from "@/views/CreateCalendar.vue";
+import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
 // import TodoList2Page from "@/views/TodolistPage2.vue";
@@ -118,11 +118,11 @@ const routes = [
   //   name: "TodoList2Page",
   //   component: TodoList2Page,
   // },
-  // {
-  //   path: "/create-calendar-page",
-  //   name: "CreateCalendarPage",
-  //   component: CreateCalendarPage,
-  // },
+  {
+    path: "/catalog-admin-page",
+    name: "CatalogPageAdmin",
+    component: CatalogPageAdmin,
+  },
   {
     path: "/help-page",
     name: "HelpPage",

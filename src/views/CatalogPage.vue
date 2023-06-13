@@ -36,22 +36,10 @@
                                     Genre
                                 </div>
                                 <div class="filters">
-                                    <label class="task-container">Action
-                                        <input type="checkbox" />
+                                    <label class="task-container" v-for = "genre in genres" :key = "genre" >{{ genre }}
+                                        <input type="checkbox" :value = genre  v-model="selectedGenres"/>
                                         <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">Horror
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">Romance
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">Sci-fi
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
+                                    </label>                             
                                 </div>
                             </li>
                             <li class="filters-list-li">
@@ -59,45 +47,19 @@
                                     Language
                                 </div>
                                 <div class="filters">
-                                    <label class="task-container">English
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">French
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">Arabic
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">German
-                                        <input type="checkbox" />
+                                    <label class="task-container" v-for = "language in languages" :key = language>{{language}}
+                                        <input type="checkbox" :value = "language" v-model="selectedLanguages"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                             </li>
                             <li class="filters-list-li">
-
-
                                 <div class="filter-title">
                                     Number of pages
                                 </div>
                                 <div class="filters">
-                                    <label class="task-container"> Under 100
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">100 ~ 500
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">500 ~ 1000
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container"> Over 1000
-                                        <input type="checkbox" />
+                                    <label class="task-container" v-for = "numberOfPage in numberOfPages" :key = "numberOfPage"> {{numberOfPage}}
+                                        <input type="checkbox" :value = "numberOfPage" v-model="selectedNumberOfPages"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -107,24 +69,8 @@
                                     Parution year
                                 </div>
                                 <div class="filters">
-                                    <label class="task-container">Before 1980
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">1980 ~ 2000
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">2000 ~ 2010
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">2010 ~ 2020
-                                        <input type="checkbox" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="task-container">After 2020
-                                        <input type="checkbox" />
+                                    <label class="task-container" v-for="parutionYear in parutionYears " :key = "parutionYear">{{parutionYear}}
+                                        <input type="checkbox" :value="parutionYear" v-model="selectedParutionYears"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -243,6 +189,16 @@ export default {
             nbBooksPerPage: this.getNbBooksPerPage(),
             selectedPage: 0,
             nbBooks: 100,
+            genres:["Action","Horror","Romance","Sci_fi"],
+            selectedGenres:[],
+            languages:["English","French","Arabic","German"],
+            selectedLanguages:[],
+            numberOfPages:["Under 100","100 ~ 500","500 ~ 1000","Over 1000"],
+            selectedNumberOfPages:[],
+            parutionYears:["Under 10","10 ~ 50","50 ~ 100","Over 100"],
+            selectedParutionYears:[],
+
+
         };
     },
     // Definit les variables calculées utilisées dans la page

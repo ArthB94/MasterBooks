@@ -54,7 +54,7 @@ import CatalogPage from "@/views/CatalogPage.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
-// import TodoList2Page from "@/views/TodolistPage2.vue";
+import CatalogLibraryPage from "@/views/CatalogPage_Mylib.vue";
 // import CalendarPage from "@/views/CalendarPage.vue";
 
 const routes = [
@@ -113,11 +113,11 @@ const routes = [
     name: "CatalogPage",
     component: CatalogPage,
   },
-  // {
-  //   path: "/todo-list2-page",
-  //   name: "TodoList2Page",
-  //   component: TodoList2Page,
-  // },
+  {
+    path: "/catalog-library-page",
+    name: "CatalogLibraryPage",
+    component: CatalogLibraryPage,
+  },
   {
     path: "/catalog-admin-page",
     name: "CatalogPageAdmin",

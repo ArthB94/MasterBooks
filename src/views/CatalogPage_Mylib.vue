@@ -439,7 +439,7 @@
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
 export default {
-    name: "CatalogPage",
+    name: "CatalogLibraryPage",
     components: {
         DarkLightMode,
         UserMenu

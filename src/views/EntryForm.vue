@@ -9,10 +9,10 @@
                         <img alt="Vue logo" style="opacity: 0.7;" src="../assets/logo_book.png" class="VueLogo" />
                     </div>
                     <div class="Navbar">
-                        <router-link to="/calendar-page" class="to-page-nav">Book catalog</router-link>
-                        <router-link to="/todo-list2-page" class="to-page-nav">My Library</router-link>
-                        <router-link to="/create-calendar-page" class="to-page-nav">Recommendations</router-link>
-                    </div>
+                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                </div>
                     <UserMenu></UserMenu>
                 
             </div>

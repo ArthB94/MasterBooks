@@ -2327,6 +2327,7 @@ body.dark .task-container .checkmark:after {
 .book-title{
   color:rgba(22, 22, 22, 0.895);
   text-transform: uppercase;
+  text-align: center;
 }
 
 .dark .book-title{
@@ -2336,6 +2337,7 @@ body.dark .task-container .checkmark:after {
 .book-specs{
   color:rgba(74, 74, 74, 0.667);
   font-size: smaller;
+  text-align: center;
 }
 
 .dark .book-specs{

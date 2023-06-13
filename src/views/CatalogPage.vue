@@ -144,17 +144,12 @@
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangeWeek(-1)" />
-                        <div class="custom-select">
-                            <select>
-                                <option value="0">1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                            </select>
-                        </div>
+                            @click="ChangePage(-1)" />
+
+                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangeWeek(+1)" />
+                            @click="ChangePage(+1)" />
                     </div>
                 </div>
                 <div class="search-container search-container-fixe hide" id="search-container-fixe">
@@ -167,28 +162,14 @@
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangeWeek(-1)" />
-                        <div class="custom-select">
-                            <select>
-                                <option value="0">1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                            </select>
-                        </div>
+                            @click="ChangePage(-1)" />
+                        
+                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+                        
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangeWeek(+1)" />
+                            @click="ChangePage(+1)" />
                     </div>
                 </div>
-                <!-- <div class="custom-select">
-                                <select>
-                                    <option value="0">Order By :</option>
-                                    <option value="1">A-Z Title</option>
-                                    <option value="2">Z-A Title</option>
-                                    <option value="3">A-Z Author</option>
-                                    <option value="4">Z-A Author</option>
-                                </select>
-                            </div> -->
                 <div class="book-counter-container">
                 <div class="book-catalog-container">
                     <router-link to="/book-page" class="book-page-link">
@@ -392,17 +373,12 @@
                 </div><div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangeWeek(-1)" />
-                        <div class="custom-select">
-                            <select>
-                                <option value="0">1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                            </select>
-                        </div>
+                            @click="ChangePage(-1)" />
+
+                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangeWeek(+1)" />
+                            @click="ChangePage(+1)" />
                     </div>
                 </div>
 
@@ -438,11 +414,31 @@
 <script>
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
+import ListePage from "../components/CatalogPage/ListePage.vue";
 export default {
     name: "CatalogPage",
     components: {
         DarkLightMode,
-        UserMenu
+        UserMenu,
+        ListePage
+    },
+    data() {
+        return {
+            selectedPage: 0,
+            nbPages: 10,
+        };
+    },
+
+    methods: {
+        ChangePage: function (value) {
+            this.selectedPage += value;
+            if (this.selectedPage < 0) {
+                this.selectedPage = 0;
+            }
+            if (this.selectedPage > this.nbPages - 1) {
+                this.selectedPage = this.nbPages - 1;
+            }
+        },
     },
     mounted() {
         var thisID = document.getElementById("TopBtn");
@@ -466,7 +462,6 @@ export default {
         window.addEventListener("scroll", myScrollFunc);
         window.addEventListener("scroll", myScrollFunc1);
     },
-   
     
 }
 </script>

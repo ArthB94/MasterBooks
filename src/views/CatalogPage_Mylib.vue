@@ -23,10 +23,10 @@
         <a id="top"></a>
         <div class="catalog-page">
             <div class="filterblock-container">
-                <div class="filter-title-container">
+                <div class="filter-title-container1">
                     <p class="filter-main-Title">Filters</p>
                 </div>
-                <div class="filter-container">
+                <div class="filter-container1">
 
                     <div class="filters-list">
                         <ul>

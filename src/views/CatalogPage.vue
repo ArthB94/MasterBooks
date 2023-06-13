@@ -144,12 +144,12 @@
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangePage(-1)" />
+                            @click=ChangePage(-1) />
 
-                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+                        <ListePage class="custom-select" v-model:selected-page = selectedPage v-model:nb-pages = nbPages />
 
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangePage(+1)" />
+                            @click=ChangePage(1) />
                     </div>
                 </div>
                 <div class="search-container search-container-fixe hide" id="search-container-fixe">
@@ -162,223 +162,37 @@
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangePage(-1)" />
+                            @click=ChangePage(-1) />
                         
-                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+                        <ListePage class="custom-select" v-model:selected-page = selectedPage v-model:nb-pages = nbPages />
                         
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangePage(+1)" />
+                            @click=ChangePage(1) />
                     </div>
                 </div>
                 <div class="book-counter-container">
                 <div class="book-catalog-container">
-                    <router-link to="/book-page" class="book-page-link">
+
+                    <router-link to="/book-page" v-for="i in  getBooks().slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "i" class="book-page-link">
                         <div class="book">
                             <div>
                                 <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
                             </div>
-                            <div class="book-title">Some girls do</div>
+                            <div class="book-title">Some girls do {{i +1}}</div>
                             <div class="book-specs">Jennifer Dugan, 2019</div>
                         </div>
                     </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                            </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
+                    
                 </div><div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
-                            @click="ChangePage(-1)" />
+                            @click=ChangePage(-1) />
 
-                        <ListePage v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+                        <ListePage class="custom-select" v-model:selected-page="selectedPage" v-model:nb-pages="nbPages" />
+
 
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
-                            @click="ChangePage(+1)" />
+                            @click=ChangePage(1) />
                     </div>
                 </div>
 
@@ -417,29 +231,63 @@ import DarkLightMode from "../components/DarkLightMode.vue";
 import ListePage from "../components/CatalogPage/ListePage.vue";
 export default {
     name: "CatalogPage",
+    // Importe les composants utilisés dans la page
     components: {
         DarkLightMode,
         UserMenu,
         ListePage
     },
+    // Definit les variables utilisées dans la page
     data() {
         return {
+            nbBooksPerPage: this.getNbBooksPerPage(),
             selectedPage: 0,
-            nbPages: 10,
+            nbBooks: 100,
         };
     },
-
+    // Definit les variables calculées utilisées dans la page
+    computed: {
+        nbPages() {
+            return Math.ceil(this.nbBooks / this.nbBooksPerPage);
+        },
+    },
+    // Definit les méthodes utilisées dans la page
     methods: {
+        // incremente ou décremente la page selectionnée
         ChangePage: function (value) {
-            this.selectedPage += value;
+            this.selectedPage += parseInt(value);
             if (this.selectedPage < 0) {
                 this.selectedPage = 0;
             }
             if (this.selectedPage > this.nbPages - 1) {
-                this.selectedPage = this.nbPages - 1;
+                this.selectedPage = parseInt(this.nbPages - 1);
             }
         },
+        // permet de faire des action dés que la page change de taille
+        handleWindowResize() {
+            let firstBook = this.selectedPage*this.nbBooksPerPage;
+            this.nbBooksPerPage = this.getNbBooksPerPage();
+            this.selectedPage = Math.floor(firstBook/this.nbBooksPerPage);
+            console.log(window.innerWidth);
+        },
+        // permet de définir le nombre de livre par page en fonction de la taille de la page
+        getNbBooksPerPage() {
+            if (window.innerWidth <= 1000) {
+                return 4;
+            } else {
+                return 16;
+            }
+        },
+        // permet de créer un tableau de la taille du nombre de livre (juste pour les tests)
+        getBooks: function () {
+            var books = [];
+            for (var i = 0; i < this.nbBooks; i++) {
+                books.push(i);
+            }
+            return books;
+        },
     },
+    // permet de faire des action dés que la page est montée
     mounted() {
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
@@ -461,6 +309,10 @@ export default {
         };
         window.addEventListener("scroll", myScrollFunc);
         window.addEventListener("scroll", myScrollFunc1);
+        window.addEventListener('resize', this.handleWindowResize);
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
     },
     
 }

@@ -1,7 +1,7 @@
 <template>
-    <div class="custom-select">
-        <select :value="selectedPage" @input="updateSelectedPage($event.target.value)">
-            <option v-for="i in nbPages" :key="i" :value="i-1">{{ i }}</option>
+    <div>
+        <select :value = selectedPage @input =updateSelectedPage(parseInt($event.target.value))>
+            <option v-for= "i in nbPages" :key="i" :value= i-1 >{{ i }}</option>
         </select>
     </div>
 </template>

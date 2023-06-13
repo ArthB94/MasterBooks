@@ -194,7 +194,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -206,7 +206,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -218,7 +218,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -230,7 +230,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -242,7 +242,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -254,7 +254,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -266,7 +266,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -278,7 +278,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -290,7 +290,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -302,7 +302,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -314,7 +314,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -326,7 +326,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -338,7 +338,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -350,7 +350,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -362,7 +362,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -374,7 +374,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -386,7 +386,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -398,7 +398,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -410,7 +410,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -422,7 +422,7 @@
                         <router-link to="/book-page" class="book-page-link1">
                             <button :id="'CloseTask-' + index" class="CloseTask"
                                         @click="OpenDeleteTask(task.id_task)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+                                            style="transform:rotate(45deg);" /></button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">

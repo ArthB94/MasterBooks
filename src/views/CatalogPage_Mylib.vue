@@ -141,6 +141,10 @@
                             <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
                         </form>
                     </div>
+                    <div class="lib-button-container">
+                    <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                    <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                    </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
@@ -163,6 +167,10 @@
                             <input type="text" placeholder="Search.." name="search">
                             <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
                         </form>
+                    </div>
+                    <div class="lib-button-container">
+                    <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                    <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>

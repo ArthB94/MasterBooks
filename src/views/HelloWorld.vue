@@ -33,6 +33,8 @@
 import DarkLightMode from '@/components/DarkLightMode.vue';
 
 <template>
+  Comment ca va jean claude?
+
   <div id="nav">
     <router-link to="/landing-page">Landing Page</router-link> |
     <router-link to="/login-page">Login Page</router-link> |

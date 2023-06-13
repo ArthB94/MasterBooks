@@ -8,6 +8,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faUserLarge } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 // import { faPlus } from '@fortawesome/free-solid-svg-icons'
 // import { faCircle } from '@fortawesome/free-solid-svg-icons'
 // import { faClock } from '@fortawesome/free-regular-svg-icons'
@@ -19,13 +20,13 @@ import { faUserLarge } from '@fortawesome/free-solid-svg-icons'
 // import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 // import { faListCheck } from '@fortawesome/free-solid-svg-icons'
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
-// import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-// import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 import VScrollLock from 'v-scroll-lock'
 
 /* add icons to the library */
-library.add(faGoogle,faLinkedinIn,faGithub,faUserLarge,faArrowUp)
+library.add(faGoogle,faLinkedinIn,faGithub,faUserLarge,faArrowUp,faMagnifyingGlass,faAngleLeft,faAngleRight)
 
 createApp(App).use(router).use(VScrollLock).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
 

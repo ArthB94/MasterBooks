@@ -119,12 +119,12 @@
                 <div class="book-counter-container">
                 <div class="book-catalog-container">
 
-                    <router-link to="/book-page" v-for="i in  getBooks().slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "i" class="book-page-link">
+                    <router-link to="/book-page" v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link">
                         <div class="book">
                             <div>
                                 <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
                             </div>
-                            <div class="book-title">Some girls do {{i +1}}</div>
+                            <div class="book-title">Some girls do {{book +1}}</div>
                             <div class="book-specs">Jennifer Dugan, 2019</div>
                         </div>
                     </router-link>
@@ -189,6 +189,9 @@ export default {
             nbBooksPerPage: this.getNbBooksPerPage(),
             selectedPage: 0,
             nbBooks: 100,
+            books:[],
+
+            //filtres
             genres:["Action","Horror","Romance","Sci_fi"],
             selectedGenres:[],
             languages:["English","French","Arabic","German"],
@@ -265,7 +268,10 @@ export default {
         };
         window.addEventListener("scroll", myScrollFunc);
         window.addEventListener("scroll", myScrollFunc1);
+        // permet de faire des action dés que la page change de taille
         window.addEventListener('resize', this.handleWindowResize);
+
+        this.books = this.getBooks();
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);

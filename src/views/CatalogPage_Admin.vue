@@ -237,7 +237,7 @@ export default {
             selectedLanguages:[],
             numberOfPages:["Under 100","100 ~ 500","500 ~ 1000","Over 1000"],
             selectedNumberOfPages:[],
-            parutionYears:["Under 10","10 ~ 50","50 ~ 100","Over 100"],
+            parutionYears:["Before 1980","1980 ~ 2000","2000 ~ 2010","2010 ~ 2020","After 2020"],
             selectedParutionYears:[],
 
 

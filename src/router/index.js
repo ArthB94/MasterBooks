@@ -1,42 +1,3 @@
-// import { createRouter, createWebHashHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
-
-// const routes = [
-//   {
-//     path: '/',
-//     name: 'home',
-//     component: HomeView
-//   },
-//   {
-//     path: '/about',
-//     name: 'about',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-//   },
-//   {
-//     path: '/login',
-//     name: 'login',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
-//   },
-//   {
-//     path: '/calendar',
-//     name: 'calendar',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/CalendarView.vue')
-//   }
-// ]
-
-// const router = createRouter({
-//   history: createWebHashHistory(),
-//   routes
-// })
 
 // export default router
 import { createWebHistory, createRouter } from "vue-router";
@@ -50,7 +11,7 @@ import ForgotPwd from "@/views/ForgotPwd.vue";
 import EntryForm from "@/views/EntryForm.vue";
 // import EntryForm1 from "@/views/EntryForm copy.vue";
 import EntryForm2 from "@/views/EntryForm copy 2.vue";
-import CatalogPage from "@/views/CatalogPage.vue";
+//import CatalogPage from "@/views/CatalogPage.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
@@ -111,7 +72,8 @@ const routes = [
   {
     path: "/catalog-page",
     name: "CatalogPage",
-    component: CatalogPage,
+    meta: { isAdmin: false },
+    component: CatalogPageAdmin,
   },
   // {
   //   path: "/todo-list2-page",
@@ -121,7 +83,9 @@ const routes = [
   {
     path: "/catalog-admin-page",
     name: "CatalogPageAdmin",
+    meta: { isAdmin: true },
     component: CatalogPageAdmin,
+    
   },
   {
     path: "/help-page",

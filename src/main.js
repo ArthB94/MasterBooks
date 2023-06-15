@@ -25,6 +25,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 import VScrollLock from 'v-scroll-lock'
 
+
 /* add icons to the library */
 library.add(faGoogle,faLinkedinIn,faGithub,faUserLarge,faArrowUp,faMagnifyingGlass,faAngleLeft,faAngleRight,faPlus)
 

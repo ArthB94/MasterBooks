@@ -116,13 +116,16 @@
                             @click="ChangePage(+1)" />
                     </div>
                 </div>
+
+
                 <div class="book-counter-container">
-                    <div class="book-catalog-container">
-                        
-                        <router-link to="/book-page" v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link1">
-                            <button :id="'CloseTask-' + book" class="CloseTask"
-                                        @click.prevent="OpenDeleteBook(book)"><font-awesome-icon icon="fa-solid fa-plus" size="sm"
-                                            style="transform:rotate(45deg); margin-left: 15px;" /></button>
+
+                    <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
+                    <div class="book-catalog-container" v-if="isAdmin" >
+                        <router-link to="/book-page"  v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link1">
+                            <button  :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
+                                <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
+                            </button>
                             <div class="book">
                                 <div>
                                     <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -131,8 +134,24 @@
                                 <div class="book-specs">Jennifer Dugan, 2019</div>
                             </div>
                         </router-link>
-            
                     </div>
+
+                    <!----------- Sinon, on affiche pas le bouton et le css de base----------->
+                    <div class="book-catalog-container" v-else>
+                        <router-link to="/book-page" v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link">
+                            <div class="book">
+                                <div>
+                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                </div>
+                                <div class="book-title">Some girls do {{book +1}}</div>
+                                <div class="book-specs">Jennifer Dugan, 2019</div>
+                            </div>
+                        </router-link>
+                    </div>
+
+                    
+
+
                     <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
@@ -233,15 +252,19 @@ export default {
     // Definit les méthodes utilisées dans la page
     methods: {
 
-
+        // Permet d'afficher le pop up de suppression du livre
         OpenDeleteBook(book) {
             this.deleteBook = book;
             document.getElementById("myModalDeleteBook").style.display = "block";
         },
+
+        // Permet de fermer le pop up de suppression du livre
         CloseDeleteBook() {
             document.getElementById("myModalDeleteBook").style.display = "none";
             console.log("close"+this.deleteBook);
         },
+
+        // Permet de supprimer le livre selectionné
         DeleteBook() {
             
             this.books.splice(this.books.indexOf(this.deleteBook),1);
@@ -249,9 +272,6 @@ export default {
             this.CloseDeleteBook()
             console.log("deleted index = "+this.deleteBook);
         },
-
-
-
 
 
 
@@ -293,6 +313,8 @@ export default {
 
 
     mounted() {
+        this.isAdmin = this.$route.meta.isAdmin;
+        console.log("isAdmin =",this.isAdmin);
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
         var myScrollFunc = function () {

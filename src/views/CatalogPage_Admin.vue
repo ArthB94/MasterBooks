@@ -157,7 +157,7 @@
                             @click="ChangeWeek(+1)" />
                     </div>
                 </div>
-                <div class="search-container search-container-fixe hide" id="search-container-fixe">
+                <div class="search-container-fixe hide" id="search-container-fixe">
                     <div class="search-bar-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
@@ -510,9 +510,24 @@ export default {
     mounted() {
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
+        // Get a reference to the element
+        var element = document.getElementsByClassName("search-container");
+
+        // Get the position of the element relative to the viewport
+        var rect = element.getBoundingClientRect();
+
+        // Extract the position values
+        var position = {
+            top: rect.top,
+            left: rect.left,
+            right: rect.right,
+            bottom: rect.bottom,
+            width: rect.width,
+            height: rect.height
+        };
         var myScrollFunc = function () {
             var y = window.scrollY;
-            if (y >= 300) {
+            if (y >= position) {
                 thisID.className = "fa fa-angle-double-up show";
             } else {
                 thisID.className = "fa fa-angle-double-up hide";

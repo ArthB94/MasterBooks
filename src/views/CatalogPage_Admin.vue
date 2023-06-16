@@ -208,6 +208,7 @@
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
 import ListePage from "../components/CatalogPage/ListePage.vue";
+import axios from "axios";
 export default {
     name: "CatalogPageAdmin",
     components: {
@@ -216,9 +217,21 @@ export default {
         ListePage,
 
     },
+
+
+
+
+
+
+
+
+
+
+
     // Definit les variables utilisées dans la page
     data() {
         return {
+
             nbBooksPerPage: this.getNbBooksPerPage(),
             booksNotVisible: this.getBooksNotVisible(),
             selectedPage: 0,
@@ -252,6 +265,9 @@ export default {
         },
         isAdmin() {
             return this.$route.meta.isAdmin;
+        },
+        userData() {
+            return this.$store.state.userData;
         },
 
 
@@ -399,6 +415,90 @@ export default {
             }
             return books;
         },
+
+
+        // -----------------------------------------------------------Communication avec l'API-----------------------------------------------------------
+        getAPIBooks() {
+        this.message = "";
+        
+        axios
+          .post("http://localhost:8080/api/auth/login", this.userData)
+          .then((response) => {
+            if (response.status === 200) {
+              return response.data;
+            } else {
+              throw new Error(JSON.stringify(response.data));
+            }
+          })
+          .then((parsed) => {
+            localStorage.setItem("token", parsed.token);
+          })
+          .then(() => {
+            this.$router.push("/calendar-page");
+          })
+          .catch((error) => {
+            let errorMessage;
+            try {
+              errorMessage = JSON.parse(error.message);
+            } catch {
+              errorMessage = {
+                message: "An error occurred while processing your request.",
+              };
+            }
+            if (
+              errorMessage.message === "Email not registered" ||
+              errorMessage.message === "Wrong password"
+            ) {
+              this.message = errorMessage.message;
+            } else {
+              const keys = Object.keys(errorMessage);
+              if (keys.length > 0) {
+                const firstKey = keys[0];
+                if (Array.isArray(errorMessage[firstKey])) {
+                  this.message = errorMessage[firstKey][0];
+                } else {
+                  this.message = errorMessage[firstKey];
+                }
+              } else {
+                this.message = errorMessage;
+              }
+            }
+          });
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
 
 

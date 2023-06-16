@@ -44,7 +44,8 @@
                  
               </div> 
               <div class="Navbar" style="margin-top: 50px;">
-                    <button class="to-page-nav" style="border-top:none; border-left:none;" @click="$refs.fileupload.click()">Add Book</button>
+                    <!-- <button class="to-page-nav" style="border-top:none; border-left:none;" @click="$refs.fileupload.click()">Add Book</button> -->
+                    <router-link to="/add-book-page" class="to-page-nav">Add Book</router-link>
                     <router-link to="/catalog-admin-page" class="to-page-nav">Delete Book</router-link>
                 </div>
           </div>

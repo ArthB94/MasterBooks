@@ -15,7 +15,7 @@ import EntryForm2 from "@/views/EntryForm copy 2.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
-import CatalogLibraryPage from "@/views/CatalogPage_Mylib.vue";
+//import CatalogLibraryPage from "@/views/CatalogPage_Mylib.vue";
 // import TodoList2Page from "@/views/TodolistPage2.vue";
 // import CalendarPage from "@/views/CalendarPage.vue";
 
@@ -73,13 +73,15 @@ const routes = [
   {
     path: "/catalog-page",
     name: "CatalogPage",
-    meta: { isAdmin: false },
+    meta: { isAdmin: false,
+          MyLibrary: false },
     component: CatalogPageAdmin,
   },
   {
     path: "/catalog-library-page",
     name: "CatalogLibraryPage",
-    component: CatalogLibraryPage,
+    meta: { MyLibrary: true },
+    component: CatalogPageAdmin,
   },
   {
     path: "/catalog-admin-page",

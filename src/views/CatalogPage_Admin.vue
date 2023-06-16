@@ -10,9 +10,9 @@
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/calendar-page" class="to-page-nav">Book catalog</router-link>
+                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
                     <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/create-calendar-page" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-admin-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -23,10 +23,10 @@
         <a id="top"></a>
         <div class="catalog-page">
             <div class="filterblock-container">
-                <div class="filter-title-container">
+                <div :class="[MyLibrary ? 'filter-title-container1' : 'filter-title-container']" >
                     <p class="filter-main-Title">Filters</p>
                 </div>
-                <div class="filter-container">
+                <div :class="[MyLibrary ? 'filter-container1' : 'filter-container']">
 
                     <div class="filters-list">
                         <ul>
@@ -83,9 +83,13 @@
                 <div class="search-container">
                     <div class="search-bar-container" id="first-searchy-bar">
                         <form action="">
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+                            <input type="text" placeholder="Search.." v-model="searchBar" name="search" id="search-bar" >
+                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></button>
                         </form>
+                    </div>
+                    <div class="lib-button-container" v-if="MyLibrary">
+                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -98,12 +102,16 @@
                             @click="ChangePage(+1)" />
                     </div>
                 </div>
-                <div class="search-container search-container-fixe hide" id="search-container-fixe">
+                <div class="search-container-fixe hide" id="search-container-fixe">
                     <div class="search-bar-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
                             <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
                         </form>
+                    </div>
+                    <div class="lib-button-container" v-if="MyLibrary">
+                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -121,35 +129,21 @@
                 <div class="book-counter-container">
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
-                    <div class="book-catalog-container" v-if="isAdmin" >
-                        <router-link to="/book-page"  v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link1">
-                            <button  :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
+                    <div class="book-catalog-container"  >
+                        <router-link to="/book-page"  v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
+                            <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
                             <div class="book">
                                 <div>
-                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                    <img :src="require('@/assets/'+book.image)" alt="book_pic" class="book-cover">
                                 </div>
-                                <div class="book-title">Some girls do {{book +1}}</div>
-                                <div class="book-specs">Jennifer Dugan, 2019</div>
+                                <div class="book-title">{{book.title }}</div>
+                                <div class="book-specs">{{+book.parutionYear+" "+book.genre+" "+ book.numberOfPages+" p. "+book.language}}</div>
                             </div>
                         </router-link>
                     </div>
 
-                    <!----------- Sinon, on affiche pas le bouton et le css de base----------->
-                    <div class="book-catalog-container" v-else>
-                        <router-link to="/book-page" v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)" :key = "book" :id = "'Book-'+book" class="book-page-link">
-                            <div class="book">
-                                <div>
-                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
-                                </div>
-                                <div class="book-title">Some girls do {{book +1}}</div>
-                                <div class="book-specs">Jennifer Dugan, 2019</div>
-                            </div>
-                        </router-link>
-                    </div>
-
-                    
 
 
                     <div class="page-turner">
@@ -228,10 +222,12 @@ export default {
             nbBooksPerPage: this.getNbBooksPerPage(),
             selectedPage: 0,
             nbBooks: 100,
+            nbTotalBooks: 100,
+            searchBar: "",
             books : this.getBooks(),
 
             //filtres
-            genres:["Action","Horror","Romance","Sci_fi"],
+            genres:["Action","Horror","Romance","Sci-fi"],
             selectedGenres:[],
             languages:["English","French","Arabic","German"],
             selectedLanguages:[],
@@ -247,6 +243,12 @@ export default {
     computed: {
         nbPages() {
             return Math.ceil(this.nbBooks / this.nbBooksPerPage);
+        },
+        MyLibrary() {
+            return this.$route.meta.MyLibrary
+        },
+        isAdmin() {
+            return this.$route.meta.isAdmin;
         },
     },
     // Definit les méthodes utilisées dans la page
@@ -304,8 +306,24 @@ export default {
         // permet de créer un tableau de la taille du nombre de livre (juste pour les tests)
         getBooks: function () {
             var books = [];
-            for (var i = 0; i < this.nbBooks; i++) {
-                books.push(i);
+            let genres = this.genres;
+            let languages = this.languages;
+            for (var i = 0; i < this.nbTotalBooks; i++) {
+                let genre = genres[Math.floor(Math.random() * genres.length)];
+                let language = languages[Math.floor(Math.random() * languages.length)];
+                let numberOfPages = Math.floor(Math.random() * 1500);
+                let parutionYear = Math.floor(Math.random() * 100) + 1970;
+                let book = {
+                    title: "Book " + (i+1),
+                    specs: "Author " + (i+1) ,
+                    image: "Book_example.jpg",
+                    genre: genre,
+                    language: language,
+                    parutionYear: parutionYear,
+                    numberOfPages: numberOfPages,
+                    
+                }
+                books.push(book);
             }
             return books;
         },
@@ -313,8 +331,6 @@ export default {
 
 
     mounted() {
-        this.isAdmin = this.$route.meta.isAdmin;
-        console.log("isAdmin =",this.isAdmin);
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
         var myScrollFunc = function () {

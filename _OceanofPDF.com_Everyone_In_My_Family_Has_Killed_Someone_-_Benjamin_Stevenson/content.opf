@@ -1,0 +1,182 @@
+<opf:package xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" unique-identifier="BookId" version="2.0">
+  <opf:metadata>
+    <dc:identifier id="BookId" opf:scheme="">urn:isbn:9781760144678</dc:identifier>
+    <dc:identifier opf:scheme="">9780143795650</dc:identifier>
+    <dc:title>Everyone In My Family Has Killed Someone</dc:title>
+    <dc:publisher>Penguin Random House Australia</dc:publisher>
+    <dc:creator opf:file-as="Stevenson, Benjamin" opf:role="aut">Benjamin Stevenson</dc:creator>
+    <dc:language>en</dc:language>
+    <opf:meta content="my-cover-image" name="cover"/>
+  </opf:metadata>
+  <opf:manifest>
+    <opf:item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ack01.xhtml" id="ack01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_adc01.xhtml" id="adc01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ata01.xhtml" id="ata01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_atb01.xhtml" id="atb01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_bm01.xhtml" id="bm01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_br01.xhtml" id="br01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch01.xhtml" id="ch01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch02.xhtml" id="ch02" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch03.xhtml" id="ch03" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch04.xhtml" id="ch04" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch05.xhtml" id="ch05" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch06.xhtml" id="ch06" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch07.xhtml" id="ch07" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch08.xhtml" id="ch08" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch09.xhtml" id="ch09" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch10.xhtml" id="ch10" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch11.xhtml" id="ch11" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch12.xhtml" id="ch12" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch13.xhtml" id="ch13" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch14.xhtml" id="ch14" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch15.xhtml" id="ch15" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch16.xhtml" id="ch16" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch17.xhtml" id="ch17" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch18.xhtml" id="ch18" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch19.xhtml" id="ch19" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch20.xhtml" id="ch20" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch21.xhtml" id="ch21" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch22.xhtml" id="ch22" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch22a.xhtml" id="ch22a" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch23.xhtml" id="ch23" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch24.xhtml" id="ch24" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch25.xhtml" id="ch25" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch26.xhtml" id="ch26" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch27.xhtml" id="ch27" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch28.xhtml" id="ch28" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch29.xhtml" id="ch29" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch30.xhtml" id="ch30" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch31.xhtml" id="ch31" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch32.xhtml" id="ch32" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch33.xhtml" id="ch33" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch34.xhtml" id="ch34" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch35.xhtml" id="ch35" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch36.xhtml" id="ch36" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch37.xhtml" id="ch37" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch38.xhtml" id="ch38" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch39.xhtml" id="ch39" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch40.xhtml" id="ch40" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch41.xhtml" id="ch41" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch41a.xhtml" id="ch41a" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch42.xhtml" id="ch42" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ch43.xhtml" id="ch43" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_con01.xhtml" id="con01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_cop01.xhtml" id="cop01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_cov.xhtml" id="coverpage" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_ded01.xhtml" id="ded01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_epil01.xhtml" id="epil01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_fm02.xhtml" id="fm02" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_fm03.xhtml" id="fm03" media-type="application/xhtml+xml"/>
+    <opf:item href="Images/brand.jpg" id="image_0001" media-type="image/jpeg"/>
+    <opf:item href="Images/tp.jpg" id="image_0002" media-type="image/jpeg"/>
+    <opf:item href="Images/PRHA.jpg" id="image_0004" media-type="image/jpeg"/>
+    <opf:item href="Images/NLA.jpg" id="image_0005" media-type="image/jpeg"/>
+    <opf:item href="Images/logo_small.jpg" id="image_0006" media-type="image/jpeg"/>
+    <opf:item href="Images/logo_small_mono.jpg" id="image_0007" media-type="image/jpeg"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_mar01.xhtml" id="mar01" media-type="application/xhtml+xml"/>
+    <opf:item href="Styles/everyoneinmyfamilyhaskilledsomeone.css" id="msrcss" media-type="text/css"/>
+    <opf:item href="Images/cover.jpg" id="my-cover-image" media-type="image/jpeg"/>
+    <opf:item href="Text/nav.xhtml" id="nav" media-type="application/xhtml+xml"/>
+    <opf:item href="Styles/nav.css" id="nav.css" media-type="text/css"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pro01.xhtml" id="pro01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt01.xhtml" id="pt01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt02.xhtml" id="pt02" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt03.xhtml" id="pt03" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt04.xhtml" id="pt04" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt05.xhtml" id="pt05" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt06.xhtml" id="pt06" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt07.xhtml" id="pt07" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt08.xhtml" id="pt08" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt09.xhtml" id="pt09" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt10.xhtml" id="pt10" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt11.xhtml" id="pt11" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt12.xhtml" id="pt12" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_pt13.xhtml" id="pt13" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_rev01.xhtml" id="rev01" media-type="application/xhtml+xml"/>
+    <opf:item href="Text/everyoneinmyfamilyhaskilledsomeone_tp01.xhtml" id="tp01" media-type="application/xhtml+xml"/>
+  </opf:manifest>
+  <opf:spine toc="ncx">
+    <opf:itemref idref="coverpage"/>
+    <opf:itemref idref="atb01"/>
+    <opf:itemref idref="br01"/>
+    <opf:itemref idref="tp01"/>
+    <opf:itemref idref="con01"/>
+    <opf:itemref idref="ded01"/>
+    <opf:itemref idref="fm02"/>
+    <opf:itemref idref="fm03"/>
+    <opf:itemref idref="pro01"/>
+    <opf:itemref idref="pt01"/>
+    <opf:itemref idref="ch01"/>
+    <opf:itemref idref="pt02"/>
+    <opf:itemref idref="ch02"/>
+    <opf:itemref idref="ch03"/>
+    <opf:itemref idref="ch04"/>
+    <opf:itemref idref="ch05"/>
+    <opf:itemref idref="ch06"/>
+    <opf:itemref idref="ch07"/>
+    <opf:itemref idref="ch08"/>
+    <opf:itemref idref="pt03"/>
+    <opf:itemref idref="ch09"/>
+    <opf:itemref idref="pt04"/>
+    <opf:itemref idref="ch10"/>
+    <opf:itemref idref="ch11"/>
+    <opf:itemref idref="ch12"/>
+    <opf:itemref idref="ch13"/>
+    <opf:itemref idref="ch14"/>
+    <opf:itemref idref="ch15"/>
+    <opf:itemref idref="ch16"/>
+    <opf:itemref idref="pt05"/>
+    <opf:itemref idref="ch17"/>
+    <opf:itemref idref="ch18"/>
+    <opf:itemref idref="ch19"/>
+    <opf:itemref idref="ch20"/>
+    <opf:itemref idref="ch21"/>
+    <opf:itemref idref="ch22"/>
+    <opf:itemref idref="ch22a"/>
+    <opf:itemref idref="pt06"/>
+    <opf:itemref idref="ch23"/>
+    <opf:itemref idref="ch24"/>
+    <opf:itemref idref="ch25"/>
+    <opf:itemref idref="ch26"/>
+    <opf:itemref idref="ch27"/>
+    <opf:itemref idref="ch28"/>
+    <opf:itemref idref="pt07"/>
+    <opf:itemref idref="ch29"/>
+    <opf:itemref idref="ch30"/>
+    <opf:itemref idref="ch31"/>
+    <opf:itemref idref="pt08"/>
+    <opf:itemref idref="ch32"/>
+    <opf:itemref idref="ch33"/>
+    <opf:itemref idref="ch34"/>
+    <opf:itemref idref="pt09"/>
+    <opf:itemref idref="ch35"/>
+    <opf:itemref idref="ch36"/>
+    <opf:itemref idref="ch37"/>
+    <opf:itemref idref="ch38"/>
+    <opf:itemref idref="ch39"/>
+    <opf:itemref idref="pt10"/>
+    <opf:itemref idref="ch40"/>
+    <opf:itemref idref="pt11"/>
+    <opf:itemref idref="ch41"/>
+    <opf:itemref idref="pt12"/>
+    <opf:itemref idref="ch41a"/>
+    <opf:itemref idref="ch42"/>
+    <opf:itemref idref="pt13"/>
+    <opf:itemref idref="ch43"/>
+    <opf:itemref idref="epil01"/>
+    <opf:itemref idref="bm01"/>
+    <opf:itemref idref="ack01"/>
+    <opf:itemref idref="ata01"/>
+    <opf:itemref idref="rev01"/>
+    <opf:itemref idref="adc01"/>
+    <opf:itemref idref="cop01"/>
+    <opf:itemref idref="mar01"/>
+  </opf:spine>
+  <opf:guide>
+    <opf:reference href="Text/everyoneinmyfamilyhaskilledsomeone_cov.xhtml" title="cover" type="cover"/>
+    <opf:reference href="Text/everyoneinmyfamilyhaskilledsomeone_cov.xhtml" title="Cover" type="text"/>
+    <opf:reference href="Text/everyoneinmyfamilyhaskilledsomeone_cop01.xhtml" title="Copyright" type="copyright"/>
+    <opf:reference href="Text/everyoneinmyfamilyhaskilledsomeone_con01.xhtml" title="Table of Contents" type="toc"/>
+  </opf:guide>
+</opf:package>

@@ -1,0 +1,189 @@
+<package xmlns="http://www.idpf.org/2007/opf" prefix="schema: http://schema.org/ rendition: http://www.idpf.org/vocab/rendition/# ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" unique-identifier="EbookISBN" version="3.0" xml:lang="en-US">
+ 	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 		<meta content="coverimg" name="cover"/>
+ 		<meta content="2020-10-16T00:00:00Z" name="created"/>
+ 		<meta content="Easypress PRH_prodW" name="generator"/>
+ 		<dc:title id="maintitle">The Cousins</dc:title>
+		<meta property="title-type" refines="#maintitle">main</meta>
+		<meta property="display-seq" refines="#maintitle">1</meta>
+ 		<dc:language>en-US</dc:language>
+ 		<dc:rights>Text copyright © 2020 by Karen M. McManus, LLC</dc:rights>
+ 		<meta content="Delacorte Press" name="imprint"/>
+		<dc:creator id="creator1">Karen M. McManus</dc:creator>
+		<meta property="display-seq" refines="#creator1">1</meta>
+		<meta property="role" refines="#creator1" scheme="marc:relators">aut</meta>
+		<meta property="file-as" refines="#creator1">McManus, Karen M.</meta>
+		<dc:publisher>Random House Children's Books</dc:publisher>
+ 		<meta property="dcterms:modified">2020-11-06T13:10:19Z</meta>
+		<dc:date>2020-12-01</dc:date>
+ 		<dc:identifier id="EbookISBN">9780525708025</dc:identifier>
+ 		<dc:source id="SourceISBN">9780525708001</dc:source>
+ 		<meta property="ibooks:specified-fonts">true</meta>
+ 		<meta property="schema:accessMode">textual</meta>
+		<meta property="schema:accessMode">visual</meta>
+		<meta property="schema:accessModeSufficient">textual,visual</meta>
+		<meta property="schema:accessibilityFeature">displayTransformability</meta>
+		<meta property="schema:accessibilityFeature">tableOfContents</meta>
+		<meta property="schema:accessibilityFeature">bookmarks</meta>
+		<meta property="schema:accessibilityHazard">none</meta>
+		<meta property="schema:accessibilitySummary">Accessibility metadata derived programmatically based on file type.</meta>
+		<meta content="1.5" name="EPUB_Scrub_version"/>
+		<meta content="2020-11-06T13:10:19Z" name="EPUB_Scrub_date"/>
+	<description xmlns="http://purl.org/dc/elements/1.1/">&lt;b&gt;From the #1 &lt;i&gt;New York Times&lt;/i&gt; bestselling author of &lt;i&gt;One of Us Is Lying&lt;/i&gt; comes your next obsession. You'll never feel the same about family again.&lt;/b&gt;&lt;br&gt;Milly, Aubrey, and Jonah Story are cousins, but they barely know each another, and they've never even &lt;i&gt;met&lt;/i&gt; their grandmother. Rich and reclusive, she disinherited their parents before they were born. So when they each receive a letter inviting them to work at her island resort for the summer, they're surprised . . . and curious.&lt;br&gt;Their parents are all clear on one point&amp;#8212;not going is &lt;i&gt;not&lt;/i&gt; an option. This could be the opportunity to get back into Grandmother's good graces. But when the cousins arrive on the island, it's immediately clear that she has different plans for them. And the longer they stay, the more they realize how mysterious&amp;#8212;and dark&amp;#8212;their family's past is.&lt;br&gt;The entire Story family has secrets. Whatever pulled them apart years ago isn't over&amp;#8212;and this summer, the...</description>
+</metadata>
+ 	<manifest>
+ 		<item href="9780525708025_ncx.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
+ 		<item href="9780525708025_nav.xhtml" id="generatedNavDoc" media-type="application/xhtml+xml" properties="nav"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_cvi_r1.xhtml" id="cvi" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_adc_r1.xhtml" id="adc" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_tp_r1.xhtml" id="tp" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_cop_r1.xhtml" id="cop" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_toc_r1.xhtml" id="inlinetoc" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_ded_r1.xhtml" id="ded" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_fam_r1.xhtml" id="fam" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c001_r1.xhtml" id="c001" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c002_r1.xhtml" id="c002" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c003_r1.xhtml" id="c003" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c004_r1.xhtml" id="c004" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c005_r1.xhtml" id="c005" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c006_r1.xhtml" id="c006" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c007_r1.xhtml" id="c007" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c008_r1.xhtml" id="c008" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c009_r1.xhtml" id="c009" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c010_r1.xhtml" id="c010" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c011_r1.xhtml" id="c011" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c012_r1.xhtml" id="c012" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c013_r1.xhtml" id="c013" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c014_r1.xhtml" id="c014" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c015_r1.xhtml" id="c015" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c016_r1.xhtml" id="c016" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c017_r1.xhtml" id="c017" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c018_r1.xhtml" id="c018" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c019_r1.xhtml" id="c019" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c020_r1.xhtml" id="c020" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c021_r1.xhtml" id="c021" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c022_r1.xhtml" id="c022" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c023_r1.xhtml" id="c023" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c024_r1.xhtml" id="c024" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c025_r1.xhtml" id="c025" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c026_r1.xhtml" id="c026" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c027_r1.xhtml" id="c027" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c028_r1.xhtml" id="c028" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c029_r1.xhtml" id="c029" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c030_r1.xhtml" id="c030" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c031_r1.xhtml" id="c031" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_c032_r1.xhtml" id="c032" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_epl_r1.xhtml" id="epl" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_ack_r1.xhtml" id="ack" media-type="application/xhtml+xml"/>
+ 		<item href="xhtml/McMa_9780525708025_epub3_ata_r1.xhtml" id="ata" media-type="application/xhtml+xml"/>
+ 		<item href="css/9780525708025_style.css" id="css1" media-type="text/css"/>
+ 		<item href="images/9780525708025_cover.jpg" id="coverimg" media-type="image/jpeg" properties="cover-image"/>
+ 		<item href="css/prhStyle.css" id="extra1" media-type="text/css"/>
+ 		<item href="css/prhStyle-media-queries.css" id="extra2" media-type="text/css"/>
+ 		<item href="fonts/BookmanOldStylePro-Regular.otf" id="ef2a" media-type="font/otf"/>
+ 		<item href="fonts/BookmanOldStylePro-Italic.otf" id="ef2b" media-type="font/otf"/>
+ 		<item href="fonts/BookmanOldStylePro-Bold.otf" id="ef2c" media-type="font/otf"/>
+ 		<item href="fonts/BookmanOldStylePro-BoldIt.otf" id="ef2d" media-type="font/otf"/>
+ 		<item href="images/9780525708025_title_page.jpg" id="img1" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_010_r1.jpg" id="img2" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_011_r1.jpg" id="img3" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_012_r1.jpg" id="img4" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_013_r1.jpg" id="img5" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_014_r1.jpg" id="img6" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_015_r1.jpg" id="img7" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_016_r1.jpg" id="img8" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_017_r1.jpg" id="img9" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_018_r1.jpg" id="img10" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_019_r1.jpg" id="img11" media-type="image/jpeg"/>
+ 		<item href="images/002_McMa_9780525708001_all_art_r3.jpg" id="img12" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_020_r1.jpg" id="img13" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_021_r1.jpg" id="img14" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_022_r1.jpg" id="img15" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_023_r1.jpg" id="img16" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_024_r1.jpg" id="img17" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_025_r1.jpg" id="img18" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_026_r1.jpg" id="img19" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_027_r1.jpg" id="img20" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_028_r1.jpg" id="img21" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_029_r1.jpg" id="img22" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_003_r1.jpg" id="img23" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_030_r1.jpg" id="img24" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_031_r1.jpg" id="img25" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_032_r1.jpg" id="img26" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_033_r1.jpg" id="img27" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_034_r1.jpg" id="img28" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_035_r1.jpg" id="img29" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_036_r1.jpg" id="img30" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_037_r1.jpg" id="img31" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_004_r1.jpg" id="img32" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_005_r1.jpg" id="img33" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_006_r1.jpg" id="img34" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_007_r1.jpg" id="img35" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_008_r1.jpg" id="img36" media-type="image/jpeg"/>
+ 		<item href="images/McMa_9780525708025_epub3_009_r1.jpg" id="img37" media-type="image/jpeg"/>
+ 		<item href="fonts/Shift-BoldItalic.otf" id="Shift-BoldItalic.otf" media-type="font/otf"/>
+		<item href="fonts/Shift-Bold.otf" id="Shift-Bold.otf" media-type="font/otf"/>
+		<item href="images/next-reads_logo.jpg" id="next-reads_logo.jpg" media-type="image/jpeg"/>
+		<item href="xhtml/next-reads.xhtml" id="next-reads.xhtml" media-type="application/xhtml+xml"/>
+ 		<item href="fonts/AvenirNextLTPro-Light.otf" id="AvenirNextLTPro-Light.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-LightIt.otf" id="AvenirNextLTPro-LightIt.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-Medium.otf" id="AvenirNextLTPro-Medium.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-MediumIt.otf" id="AvenirNextLTPro-MediumIt.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-Regular.otf" id="AvenirNextLTPro-Regular.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-It.otf" id="AvenirNextLTPro-It.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-Bold.otf" id="AvenirNextLTPro-Bold.otf" media-type="font/otf"/>
+ 		<item href="fonts/AvenirNextLTPro-BoldIt.otf" id="AvenirNextLTPro-BoldIt.otf" media-type="font/otf"/>
+	</manifest>
+ 	<spine toc="toc">
+ 		<itemref idref="cvi"/>
+ 		<itemref idref="adc"/>
+ 		<itemref idref="tp"/>
+ 		<itemref idref="cop"/>
+ 		<itemref idref="inlinetoc"/>
+ 		<itemref idref="ded"/>
+ 		<itemref idref="fam"/>
+ 		<itemref idref="c001"/>
+ 		<itemref idref="c002"/>
+ 		<itemref idref="c003"/>
+ 		<itemref idref="c004"/>
+ 		<itemref idref="c005"/>
+ 		<itemref idref="c006"/>
+ 		<itemref idref="c007"/>
+ 		<itemref idref="c008"/>
+ 		<itemref idref="c009"/>
+ 		<itemref idref="c010"/>
+ 		<itemref idref="c011"/>
+ 		<itemref idref="c012"/>
+ 		<itemref idref="c013"/>
+ 		<itemref idref="c014"/>
+ 		<itemref idref="c015"/>
+ 		<itemref idref="c016"/>
+ 		<itemref idref="c017"/>
+ 		<itemref idref="c018"/>
+ 		<itemref idref="c019"/>
+ 		<itemref idref="c020"/>
+ 		<itemref idref="c021"/>
+ 		<itemref idref="c022"/>
+ 		<itemref idref="c023"/>
+ 		<itemref idref="c024"/>
+ 		<itemref idref="c025"/>
+ 		<itemref idref="c026"/>
+ 		<itemref idref="c027"/>
+ 		<itemref idref="c028"/>
+ 		<itemref idref="c029"/>
+ 		<itemref idref="c030"/>
+ 		<itemref idref="c031"/>
+ 		<itemref idref="c032"/>
+ 		<itemref idref="epl"/>
+ 		<itemref idref="ack"/>
+ 		<itemref idref="ata"/>
+ 		<itemref idref="next-reads.xhtml"/>
+	</spine>
+ 	<guide>
+		<reference href="xhtml/McMa_9780525708025_epub3_cvi_r1.xhtml" title="Cover" type="cover"/>
+		<reference href="xhtml/McMa_9780525708025_epub3_toc_r1.xhtml" title="Table of Contents" type="toc"/>
+		<reference href="xhtml/McMa_9780525708025_epub3_ded_r1.xhtml" title="Text" type="text"/>
+		<reference href="xhtml/McMa_9780525708025_epub3_ded_r1.xhtml" title="Start" type="start"/>
+		<reference href="xhtml/McMa_9780525708025_epub3_cop_r1.xhtml" title="Copyright" type="copyright-page"/>
+	</guide>
+</package>

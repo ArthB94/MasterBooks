@@ -169,7 +169,11 @@
                         </form>
                     </div>
                     <div class="lib-button-container">
-                    <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                    <div class="dropdown">
+                    <font-awesome-icon icon="fa-regular fa-heart" />
+                    <div class="dropdown-content">
+                    <p>Hello World!</p>
+                    </div></div>
                     <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
                     </div>
                     <div class="page-turner">

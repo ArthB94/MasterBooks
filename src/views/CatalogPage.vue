@@ -157,7 +157,7 @@
                             @click="ChangeWeek(+1)" />
                     </div>
                 </div>
-                <div class="search-container search-container-fixe hide" id="search-container-fixe">
+                <div class="search-container-fixe hide" id="search-container-fixe">
                     <div class="search-bar-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
@@ -209,7 +209,7 @@
                             <div class="book-specs">Jennifer Dugan, 2019</div>
                         </div>
                     </router-link>
-                    <router-link to="/book-page" class="book-page-link">
+                    <!-- <router-link to="/book-page" class="book-page-link">
                         <div class="book">
                             <div>
                                 <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -370,7 +370,7 @@
                             <div class="book-title">Some girls do</div>
                             <div class="book-specs">Jennifer Dugan, 2019</div>
                         </div>
-                    </router-link>
+                    </router-link> -->
                     <router-link to="/book-page" class="book-page-link">
                         <div class="book">
                             <div>

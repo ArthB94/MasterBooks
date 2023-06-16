@@ -1,7 +1,7 @@
-CREATE TABLE Utilisateur(
+CREATE TABLE utilisateur(
    email_user VARCHAR(50),
    pseudo VARCHAR(50),
-   mdp VARCHAR(50),
+   mdp VARCHAR(60),
    PRIMARY KEY(email_user)
 );
 

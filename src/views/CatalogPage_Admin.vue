@@ -130,7 +130,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div class="book-catalog-container"  >
-                        <router-link to="/book-page"  v-for="book in  filteredBooks.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
+                        <router-link to="/book-page"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
@@ -220,6 +220,7 @@ export default {
     data() {
         return {
             nbBooksPerPage: this.getNbBooksPerPage(),
+            booksNotVisible: this.getBooksNotVisible(),
             selectedPage: 0,
             nbTotalBooks: 100,
             searchBar: "",
@@ -253,6 +254,9 @@ export default {
             return this.$route.meta.isAdmin;
         },
 
+
+
+        // fonction de filtrage edes livres
         filteredBooks(){
             let books = this.books;
             if (this.searchBar != "") {
@@ -331,8 +335,6 @@ export default {
         },
 
 
-
-
         // incremente ou décremente la page selectionnée
         ChangePage (value) {
             this.selectedPage += parseInt(value);
@@ -347,15 +349,30 @@ export default {
         handleWindowResize() {
             let firstBook = this.selectedPage*this.nbBooksPerPage;
             this.nbBooksPerPage = this.getNbBooksPerPage();
+            this.booksNotVisible = this.getBooksNotVisible();
             this.selectedPage = Math.floor(firstBook/this.nbBooksPerPage);
             console.log(window.innerWidth);
         },
         // permet de définir le nombre de livre par page en fonction de la taille de la page
         getNbBooksPerPage() {
-            if (window.innerWidth <= 1000) {
+            if (window.innerWidth <= 900) {
                 return 4;
-            } else {
+            } 
+            else if (window.innerWidth <= 1200) {
+                return 8;
+            }
+            else {
                 return 16;
+            }
+        },
+
+        getBooksNotVisible() {
+            if ( 1200 < window.innerWidth  && window.innerWidth < 1555) {
+                console.log("4");
+                return 4;
+                
+            } else {
+                return 0;
             }
         },
         // permet de créer un tableau de la taille du nombre de livre (juste pour les tests)

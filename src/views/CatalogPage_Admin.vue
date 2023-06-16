@@ -130,7 +130,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div class="book-catalog-container"  >
-                        <router-link to="/book-page"  v-for="book in  books.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
+                        <router-link to="/book-page"  v-for="book in  filteredBooks.slice(selectedPage*nbBooksPerPage,(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
@@ -221,10 +221,9 @@ export default {
         return {
             nbBooksPerPage: this.getNbBooksPerPage(),
             selectedPage: 0,
-            nbBooks: 100,
             nbTotalBooks: 100,
             searchBar: "",
-            books : this.getBooks(),
+            books: [],
 
             //filtres
             genres:["Action","Horror","Romance","Sci-fi"],
@@ -241,6 +240,9 @@ export default {
     },
     // Definit les variables calculées utilisées dans la page
     computed: {
+        nbBooks() {
+            return this.filteredBooks.length;
+        },
         nbPages() {
             return Math.ceil(this.nbBooks / this.nbBooksPerPage);
         },
@@ -250,6 +252,59 @@ export default {
         isAdmin() {
             return this.$route.meta.isAdmin;
         },
+
+        filteredBooks(){
+            let books = this.books;
+            if (this.searchBar != "") {
+                books = books.filter(book => book.title.toLowerCase().includes(this.searchBar.toLowerCase()));
+            }
+            if(this.selectedGenres.length > 0){
+                books = books.filter(book => this.selectedGenres.includes(book.genre));
+            }
+            if(this.selectedLanguages.length > 0){
+                books = books.filter(book => this.selectedLanguages.includes(book.language));
+            }
+            
+            if(this.selectedNumberOfPages.length > 0){
+                let books1 = [];
+                if(this.selectedNumberOfPages.includes("Under 100")){
+                    books1 = books1.concat(books.filter(book => book.numberOfPages < 100));
+                }
+                if(this.selectedNumberOfPages.includes("100 ~ 500")){
+                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 100 && book.numberOfPages < 500));
+                }
+                if(this.selectedNumberOfPages.includes("500 ~ 1000")){
+                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 500 && book.numberOfPages < 1000));
+                }
+                if(this.selectedNumberOfPages.includes("Over 1000")){
+                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 1000));
+                }
+                books = books1;
+            }
+            if(this.selectedParutionYears.length > 0){
+                let books1 = [];
+                if(this.selectedParutionYears.includes("Before 1980")){
+                    books1 = books1.concat(books.filter(book => book.parutionYear < 1980));
+                }
+                if(this.selectedParutionYears.includes("1980 ~ 2000")){
+                    books1 = books1.concat(books.filter(book => book.parutionYear >= 1980 && book.parutionYear < 2000));
+                }
+                if(this.selectedParutionYears.includes("2000 ~ 2010")){
+                    books1 = books1.concat(books.filter(book => book.parutionYear >= 2000 && book.parutionYear < 2010));
+                }
+                if(this.selectedParutionYears.includes("2010 ~ 2020")){
+                    books1 = books1.concat(books.filter(book => book.parutionYear >= 2010 && book.parutionYear < 2020));
+                }
+                books = books1;
+            }
+            return books;
+        }
+
+
+
+
+
+
     },
     // Definit les méthodes utilisées dans la page
     methods: {
@@ -279,7 +334,7 @@ export default {
 
 
         // incremente ou décremente la page selectionnée
-        ChangePage: function (value) {
+        ChangePage (value) {
             this.selectedPage += parseInt(value);
             if (this.selectedPage < 0) {
                 this.selectedPage = 0;
@@ -304,7 +359,7 @@ export default {
             }
         },
         // permet de créer un tableau de la taille du nombre de livre (juste pour les tests)
-        getBooks: function () {
+        getBooks() {
             var books = [];
             let genres = this.genres;
             let languages = this.languages;

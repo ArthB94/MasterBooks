@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"node server/server.js\" \"vue-cli-service serve\"",
-    "serv": "node server/server.js",
+    "serve": "node server/server.js",
     "cli": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

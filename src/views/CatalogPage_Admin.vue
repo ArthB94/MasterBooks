@@ -441,7 +441,7 @@
                                 <option value="0">1</option>
                                 <option value="1">2</option>
                                 <option value="2">3</option>
-                                <option value="3">4</option>
+                                <option value="3">25</option>
                             </select>
                         </div>
                         <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"

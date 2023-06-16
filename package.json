@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "concurrently \"node server/server.js\" \"vue-cli-service serve\"",
+    "serv": "node server/server.js",
+    "cli": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -25,6 +27,7 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "concurrently": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3"
   },

@@ -1,7 +1,6 @@
 <template>
     <body>
         <a id="top"></a>
-        <!-- <?php if($_SESSION['admin']==1){?> -->
         <div class="FormPage1">
             <div class="headernav">
                 
@@ -42,22 +41,6 @@
                                 <div class="loginInputBox">
                                                 <input v-model = "email" type="text" name="txtEmail" placeholder="Edition">
                                             </div>
-                                <!-- <p class="Form-question">Would you rather have schedules in the morning or the afternoon ?
-                                </p>
-                                <div class="Switch-container">
-                                    <p class="Switch-label">Morning</p>
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                    <p class="Switch-label">Afternoon</p>
-                                </div> -->
-                                <!-- <div class="loginInputBox">
-                                    <input type="text" name="txtCategory" value="<?php echo $row['category']?>" />
-                                </div>
-                                <div class="loginInputBox">
-                                    <input type="text" name="txtLevel" value="<?php echo $row['level']?>" />
-                                </div> -->
                                 <br><br>
                                 <div class="loginInputBox FormInputBox">
                                     <input type="submit" value="Submit Information" name="btnUpdate" />

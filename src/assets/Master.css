@@ -2407,7 +2407,7 @@ body.dark .task-container .checkmark:after {
     text-decoration: none;
     width: 25%;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row-reverse;
     flex-wrap: wrap;
 }
@@ -2432,17 +2432,26 @@ body.dark .task-container .checkmark:after {
 @media (max-width: 900px){
   .book-page-link1{
     text-decoration: none;
+    justify-content: center;
     width: 100%;
   }
   
+  .book-page-link1:hover{
+    background: #b6b6b653;
+    /* box-shadow: 2px 2px 50px 2px rgba(112, 112, 112, 0.255) inset; */
+  }
 }
 
 @media ((max-width: 1200px) and (min-width:900px)){
   .book-page-link1{
     text-decoration: none;
+    justify-content: center;
     width: 50%;
   }
-  
+  .book-page-link1:hover{
+    background: #b6b6b653;
+    /* box-shadow: 2px 2px 50px 2px rgba(112, 112, 112, 0.255) inset; */
+  }
 }
 
 .book-page-link:hover{
@@ -2450,10 +2459,6 @@ body.dark .task-container .checkmark:after {
   /* box-shadow: 2px 2px 50px 2px rgba(112, 112, 112, 0.255) inset; */
 }
 
-.book-page-link1:hover{
-  background: #b6b6b653;
-  /* box-shadow: 2px 2px 50px 2px rgba(112, 112, 112, 0.255) inset; */
-}
 
 
 

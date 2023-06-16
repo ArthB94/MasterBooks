@@ -511,38 +511,41 @@ export default {
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
         // Get a reference to the element
-        var element = document.getElementsByClassName("search-container");
+        var element = document.getElementById("first-searchy-bar");
 
-        // Get the position of the element relative to the viewport
-        var rect = element.getBoundingClientRect();
+        // // Extract the position values
+        // var position = {
+        //     top: rect.top,
+        //     left: rect.left,
+        //     right: rect.right,
+        //     bottom: rect.bottom,
+        //     width: rect.width,
+        //     height: rect.height
+        // };
 
-        // Extract the position values
-        var position = {
-            top: rect.top,
-            left: rect.left,
-            right: rect.right,
-            bottom: rect.bottom,
-            width: rect.width,
-            height: rect.height
-        };
         var myScrollFunc = function () {
             var y = window.scrollY;
-            if (y >= position) {
+            if (y >= 300 ) {
                 thisID.className = "fa fa-angle-double-up show";
             } else {
                 thisID.className = "fa fa-angle-double-up hide";
             }
         };
-        var myScrollFunc1 = function () {
-            var z = window.scrollY;
-            if (z >= 315) {
+        window.addEventListener("scroll", myScrollFunc);
+        window.addEventListener("scroll", function() {
+        // Get the position of the target element
+        var elementPosition = element.getBoundingClientRect();
+
+        // Check if the top of the element is above the viewport
+            if (elementPosition.top < 0) {
+            // Get the position of the element relative to the viewport
                 SearchClass.className = "search-container search-container-fixe show";
             } else {
                 SearchClass.className = "search-container-fixe hide";
             }
-        };
-        window.addEventListener("scroll", myScrollFunc);
-        window.addEventListener("scroll", myScrollFunc1);
+        })
+        
+        // window.addEventListener("scroll", myScrollFunc1);
     },
     methods: {
         OpenDeleteTask(id) {

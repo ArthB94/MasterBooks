@@ -19,7 +19,7 @@ npm run cli
 
 #####both:
 ```
-npm run start
+npm start
 ```
 
 ### Compiles and minifies for production

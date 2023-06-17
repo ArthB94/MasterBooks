@@ -87,6 +87,8 @@
                             <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></button>
                         </form>
                     </div>
+                    <button type="submit" @click="addBooks(filteredBooks)">Add Books</button>
+                    <button type="submit" @click="getAllBooks">Get Books</button>
                     <div class="lib-button-container" v-if="MyLibrary">
                         <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                         <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
@@ -130,7 +132,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div class="book-catalog-container"  >
-                        <router-link to="/book-page"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
+                        <router-link to="/"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
@@ -163,7 +165,7 @@
                             <h1 class="modal-Title">Delete Book</h1>
                             <div class="modal-center">
                                 <p style="margin-top: 50px;">Are you sure you want to delete this Book ?</p>
-                                <div class="message"> {{ message }}</div>
+                                <div class="message"> {{"" /*message */}}</div>
                                 <div class="delete-list-button">
                                     <div class="AddTaskInputBox no">
                                         <input class="close" type="submit" value="Cancel" name="submit"
@@ -217,12 +219,6 @@ export default {
         ListePage,
 
     },
-
-
-
-
-
-
 
 
 
@@ -401,15 +397,18 @@ export default {
                 let language = languages[Math.floor(Math.random() * languages.length)];
                 let numberOfPages = Math.floor(Math.random() * 1500);
                 let parutionYear = Math.floor(Math.random() * 100) + 1970;
+                let parution_date = new Date(parutionYear, 0);
                 let book = {
                     title: "Book " + (i+1),
-                    specs: "Author " + (i+1) ,
+                    autor: "Author " + (i+1) ,
                     image: "Book_example.jpg",
                     genre: genre,
                     language: language,
+                    parution_date: parution_date,
                     parutionYear: parutionYear,
                     numberOfPages: numberOfPages,
-                    
+                    summary: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
+                    url: "https://www.imdb.com/title/tt1462769/?ref_=fn_al_tt_1",
                 }
                 books.push(book);
             }
@@ -418,52 +417,74 @@ export default {
 
 
         // -----------------------------------------------------------Communication avec l'API-----------------------------------------------------------
-        getAPIBooks() {
-        this.message = "";
         
-        axios
-          .post("http://localhost:8080/api/auth/login", this.userData)
-          .then((response) => {
-            if (response.status === 200) {
-              return response.data;
-            } else {
-              throw new Error(JSON.stringify(response.data));
-            }
-          })
-          .then((parsed) => {
-            localStorage.setItem("token", parsed.token);
-          })
-          .then(() => {
-            this.$router.push("/calendar-page");
-          })
-          .catch((error) => {
-            let errorMessage;
-            try {
-              errorMessage = JSON.parse(error.message);
-            } catch {
-              errorMessage = {
-                message: "An error occurred while processing your request.",
-              };
-            }
-            if (
-              errorMessage.message === "Email not registered" ||
-              errorMessage.message === "Wrong password"
-            ) {
-              this.message = errorMessage.message;
-            } else {
-              const keys = Object.keys(errorMessage);
-              if (keys.length > 0) {
-                const firstKey = keys[0];
-                if (Array.isArray(errorMessage[firstKey])) {
-                  this.message = errorMessage[firstKey][0];
+
+        // Permet d'ajouter des livres à l'API
+        addBooks(newBooks){
+            axios.get("http://localhost:8080/api/livre/all").then((response) => {
+                if (response.status === 200) {
+                    return response.data;
                 } else {
-                  this.message = errorMessage[firstKey];
+                    console.log(new Error(JSON.stringify(response.data)));
+                    throw new Error(JSON.stringify(response.data));
                 }
-              } else {
-                this.message = errorMessage;
-              }
+            })
+
+
+            
+            axios.post("http://localhost:8080/api/livre/add", newBooks[0]).then((response) => {
+                    if (response.status === 200) {
+                        return response.data;
+                    } else {
+                        console.log(new Error(JSON.stringify(response.data)));
+                        throw new Error(JSON.stringify(response.data));
+                    }
+                })
+
+            /* newBooks.forEach(book => {
+                axios.post("http://localhost:8080/api/livre/add", book).then((response) => {
+                    if (response.status === 200) {
+                        return response.data;
+                    } else {
+                        console.log(new Error(JSON.stringify(response.data)));
+                        throw new Error(JSON.stringify(response.data));
+                    }
+                })
+            });  */
+        },
+        
+        
+        // Permet de récupérer les livres de l'API
+        
+        getAllBooks() {
+        this.message = "";
+
+        axios.get('http://localhost:8080/api/livre/all')
+        .then(response => {
+            // Les données sont récupérées avec succès
+            const data = response.data;
+            console.log(data);
+        })
+        .catch(error => {
+            // Une erreur s'est produite lors de la récupération des données
+            console.error(error);
+        });
+        /*
+        axios.get("http://localhost:8080/api/livre/all").then((response) => {
+            if (response.status === 200) {
+                this.books = response.data;
+                this.nbBooks = this.books.length;
+                this.nbPages = Math.ceil(this.nbBooks/this.nbBooksPerPage);
+                this.booksNotVisible = this.getBooksNotVisible();
+                console.log(this.books);
+            } else {
+                throw new Error(JSON.stringify(response.data));
             }
-          });
+        }).catch((error) => {
+            this.message = error.message;
+        });
+*/
+          
       },
 
 

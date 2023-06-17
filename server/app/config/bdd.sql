@@ -1,3 +1,6 @@
+DROP TABLE `masterbooks`.`partager`;
+DROP TABLE `masterbooks`.`livre`;
+
 CREATE TABLE utilisateur(
    email_user VARCHAR(50),
    pseudo VARCHAR(50),
@@ -10,13 +13,16 @@ CREATE TABLE Admin(
    PRIMARY KEY(email_admin)
 );
 
-CREATE TABLE Livre(
-   reference INT,
+Create TABLE Livre(
+   reference INT AUTO_INCREMENT,
    titre VARCHAR(50),
    auteur VARCHAR(50),
-   pages INT,
    genre VARCHAR(100),
+   date_parution DATE,
+   pages INT,
+   langue VARCHAR(50),
    resume VARCHAR(500),
+   image_src VARCHAR(200),
    url VARCHAR(200),
    PRIMARY KEY(reference)
 );

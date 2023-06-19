@@ -51,7 +51,6 @@
   
   <script>
   import axios from "axios";
-import { response } from "express";
   
   export default {
     name: "LoginPage",
@@ -85,9 +84,9 @@ import { response } from "express";
           .then(() => {
             axios
               .post("http://localhost:8080/api/auth/isAdmin", {email: this.email})
-              .then((admin) => {
+              .then((response) => {
                 if(response.status === 200){
-                  admin = response.data.isAdmin;
+                  let admin = response.data.isAdmin;
                   if(admin === true){
                     this.$router.push("/catalog-admin-page");
                   }

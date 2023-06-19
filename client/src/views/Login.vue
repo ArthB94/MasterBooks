@@ -51,6 +51,7 @@
   
   <script>
   import axios from "axios";
+import { response } from "express";
   
   export default {
     name: "LoginPage",
@@ -80,8 +81,25 @@
           .then((parsed) => {
             localStorage.setItem("token", parsed.token);
           })
+          
           .then(() => {
-            this.$router.push("/calendar-page");
+            axios
+              .post("http://localhost:8080/api/auth/isAdmin", {email: this.email})
+              .then((admin) => {
+                if(response.status === 200){
+                  admin = response.data.isAdmin;
+                  if(admin === true){
+                    this.$router.push("/catalog-admin-page");
+                  }
+                  else{
+                    this.$router.push("/catalog-page");
+                  }
+                }
+                else{
+                  throw new Error(JSON.stringify(response.data));
+                }
+              })
+              
           })
           .catch((error) => {
             let errorMessage;

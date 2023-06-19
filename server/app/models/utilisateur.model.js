@@ -159,5 +159,19 @@ Utilisateur.login = (req, result) => {
   );
 };
 
+Utilisateur.isAdmin = (req, result) => {
+  const email = req.body.email_user;
+
+  sql.query(
+    "select count(*) as count from Admin where email_admin = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+    })
+}
 
 module.exports = Utilisateur;

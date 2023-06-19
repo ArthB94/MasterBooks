@@ -10,5 +10,7 @@ module.exports = app =>{
 
     router.post('/login',utilisateurs.login);
 
+    router.post('/isAdmin', utilisateurs.isAdmin);
+    
     app.use('/api/auth', router);
 }

@@ -1,5 +1,6 @@
 const Utilisateur = require("../models/utilisateur.model.js");
 const db = require("../models/db.js");
+const utilisateurRoutes = require("../routes/utilisateur.routes.js");
 
 exports.create = (req, res) =>{
     // Validate request
@@ -75,3 +76,28 @@ exports.createUser = async (req,res) => { {
         }  
       }
 }
+
+//'select count(*) as count from Admin where email_admin = ?'
+
+exports.isAdmin = async (email) => {
+  //Return is admin or not
+  Admin.count({
+    where: {
+      email_admin: email
+    }
+  })
+  
+  .then(count => {
+    if (count > 0) {
+      res.json({ isAdmin: true });
+    } else {
+      res.json({ isAdmin: false });
+    }
+  })
+
+  .catch(error => {
+    console.error('Error checking admin status : ', error);
+    throw error;
+  });
+};
+

@@ -90,7 +90,7 @@ exports.isAdmin = (req, res) => {
     if (error) {
       res.status(500).json({message : error.message});
     } else {
-      res.json({ isAdmin: result });
+      res.status(200).json({ isAdmin: result });
     }
   });
 };

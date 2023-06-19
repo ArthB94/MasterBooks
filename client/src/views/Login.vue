@@ -83,10 +83,11 @@
           
           .then(() => {
             axios
-              .post("http://localhost:8080/api/auth/isAdmin", {email: this.email})
+              .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
               .then((response) => {
                 if(response.status === 200){
                   let admin = response.data.isAdmin;
+                  
                   if(admin === true){
                     this.$router.push("/catalog-admin-page");
                   }

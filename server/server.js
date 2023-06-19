@@ -38,7 +38,7 @@ app.post('/test', (req,res)=>{
 
 
 // 
-//require("./app/routes/utilisateur.routes.js")(app);
+require("./app/routes/utilisateur.routes.js")(app);
 require("./app/routes/livre.routes.js")(app);
 
 // notre port d'écoute

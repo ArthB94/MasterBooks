@@ -163,7 +163,7 @@ Utilisateur.isAdmin = (req, result) => {
   const email = req.body.email_user;
 
   sql.query(
-    "select count(*) as count from Admin where email_admin = ?",
+    "select * from Admin where email_admin = ?",
     [email],
     (err, rows) => {
       if (err) {

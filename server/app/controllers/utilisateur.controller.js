@@ -79,25 +79,19 @@ exports.createUser = async (req,res) => { {
 
 //'select count(*) as count from Admin where email_admin = ?'
 
-exports.isAdmin = async (email) => {
-  //Return is admin or not
-  Admin.count({
-    where: {
-      email_admin: email
-    }
-  })
-  
-  .then(count => {
-    if (count > 0) {
-      res.json({ isAdmin: true });
-    } else {
-      res.json({ isAdmin: false });
-    }
-  })
+exports.isAdmin = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content cannot be empty!"
+    });
+  }
 
-  .catch(error => {
-    console.error('Error checking admin status : ', error);
-    throw error;
+  Utilisateur.isAdmin(req, (error, result) => {
+    if (error) {
+      res.status(500).json({message : error.message});
+    } else {
+      res.json({ isAdmin: result });
+    }
   });
 };
 

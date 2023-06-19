@@ -171,6 +171,16 @@ Utilisateur.isAdmin = (req, result) => {
         result(err, null);
         return;
       }
+
+      if (rows.length === 0) {
+        // User is not in admin table
+        result(null, false);
+        return;
+      } else {
+        // User is in admin table
+        result(null, true);
+        return;
+      }
     })
 }
 

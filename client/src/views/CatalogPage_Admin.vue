@@ -87,7 +87,7 @@
                             <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></button>
                         </form>
                     </div>
-                    <button type="submit" @click="addBooks(filteredBooks)">Add Books</button>
+                    <button type="submit" @click="addBooks(getBooks())">Add Books</button>
                     <button type="submit" @click="getAllBooks">Get Books</button>
                     <div class="lib-button-container" v-if="MyLibrary">
                         <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
@@ -138,10 +138,10 @@
                             </button>
                             <div class="book">
                                 <div>
-                                    <img :src="require('@/assets/'+book.image)" alt="book_pic" class="book-cover">
+                                    <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover">
                                 </div>
-                                <div class="book-title">{{book.title }}</div>
-                                <div class="book-specs">{{+book.parutionYear+" "+book.genre+" "+ book.numberOfPages+" p. "+book.language}}</div>
+                                <div class="book-title">{{book.titre }}</div>
+                                <div class="book-specs">{{book.date_parution+" "+book.genre+" "+ book.pages+" p. "+book.langue}}</div>
                             </div>
                         </router-link>
                     </div>
@@ -278,38 +278,41 @@ export default {
                 books = books.filter(book => this.selectedGenres.includes(book.genre));
             }
             if(this.selectedLanguages.length > 0){
-                books = books.filter(book => this.selectedLanguages.includes(book.language));
+                books = books.filter(book => this.selectedLanguages.includes(book.langue));
             }
             
             if(this.selectedNumberOfPages.length > 0){
                 let books1 = [];
                 if(this.selectedNumberOfPages.includes("Under 100")){
-                    books1 = books1.concat(books.filter(book => book.numberOfPages < 100));
+                    books1 = books1.concat(books.filter(book => book.pages < 100));
                 }
                 if(this.selectedNumberOfPages.includes("100 ~ 500")){
-                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 100 && book.numberOfPages < 500));
+                    books1 = books1.concat(books.filter(book => book.pages >= 100 && book.pages < 500));
                 }
                 if(this.selectedNumberOfPages.includes("500 ~ 1000")){
-                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 500 && book.numberOfPages < 1000));
+                    books1 = books1.concat(books.filter(book => book.pages >= 500 && book.pages < 1000));
                 }
                 if(this.selectedNumberOfPages.includes("Over 1000")){
-                    books1 = books1.concat(books.filter(book => book.numberOfPages >= 1000));
+                    books1 = books1.concat(books.filter(book => book.pages >= 1000));
                 }
                 books = books1;
             }
             if(this.selectedParutionYears.length > 0){
                 let books1 = [];
                 if(this.selectedParutionYears.includes("Before 1980")){
-                    books1 = books1.concat(books.filter(book => book.parutionYear < 1980));
+                    books1 = books1.concat(books.filter(book => book.date_parution < 1980));
                 }
                 if(this.selectedParutionYears.includes("1980 ~ 2000")){
-                    books1 = books1.concat(books.filter(book => book.parutionYear >= 1980 && book.parutionYear < 2000));
+                    books1 = books1.concat(books.filter(book => book.date_parution >= 1980 && book.date_parution < 2000));
                 }
                 if(this.selectedParutionYears.includes("2000 ~ 2010")){
-                    books1 = books1.concat(books.filter(book => book.parutionYear >= 2000 && book.parutionYear < 2010));
+                    books1 = books1.concat(books.filter(book => book.date_parution >= 2000 && book.date_parution < 2010));
                 }
                 if(this.selectedParutionYears.includes("2010 ~ 2020")){
-                    books1 = books1.concat(books.filter(book => book.parutionYear >= 2010 && book.parutionYear < 2020));
+                    books1 = books1.concat(books.filter(book => book.date_parution >= 2010 && book.date_parution < 2020));
+                }
+                if(this.selectedParutionYears.includes("After 2020")){
+                    books1 = books1.concat(books.filter(book => book.date_parution >= 2020));
                 }
                 books = books1;
             }
@@ -397,15 +400,13 @@ export default {
                 let language = languages[Math.floor(Math.random() * languages.length)];
                 let numberOfPages = Math.floor(Math.random() * 1500);
                 let parutionYear = Math.floor(Math.random() * 100) + 1970;
-                let parution_date = new Date(parutionYear, 0);
                 let book = {
                     title: "Book " + (i+1),
                     autor: "Author " + (i+1) ,
                     image: "Book_example.jpg",
                     genre: genre,
                     language: language,
-                    parution_date: parution_date,
-                    parutionYear: parutionYear,
+                    parution_date: parutionYear,
                     numberOfPages: numberOfPages,
                     summary: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
                     url: "https://www.imdb.com/title/tt1462769/?ref_=fn_al_tt_1",
@@ -421,27 +422,8 @@ export default {
 
         // Permet d'ajouter des livres à l'API
         addBooks(newBooks){
-            axios.get("http://localhost:8080/api/livre/all").then((response) => {
-                if (response.status === 200) {
-                    return response.data;
-                } else {
-                    console.log(new Error(JSON.stringify(response.data)));
-                    throw new Error(JSON.stringify(response.data));
-                }
-            })
-
-
-            
-            axios.post("http://localhost:8080/api/livre/add", newBooks[0]).then((response) => {
-                    if (response.status === 200) {
-                        return response.data;
-                    } else {
-                        console.log(new Error(JSON.stringify(response.data)));
-                        throw new Error(JSON.stringify(response.data));
-                    }
-                })
-
-            /* newBooks.forEach(book => {
+            console.log("newBooks",newBooks);
+            newBooks.forEach(book => {
                 axios.post("http://localhost:8080/api/livre/add", book).then((response) => {
                     if (response.status === 200) {
                         return response.data;
@@ -450,25 +432,24 @@ export default {
                         throw new Error(JSON.stringify(response.data));
                     }
                 })
-            });  */
+            });  
         },
         
         
         // Permet de récupérer les livres de l'API
         
-        getAllBooks() {
-        this.message = "";
+        async getAllBooks() {
+            try {
+                const response = await axios.get('http://localhost:8080/api/livre/all');
+                const data = response.data;
+                console.log("getAllBooks", data);
+                this.books = data;
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
+        },
 
-        axios.get('http://localhost:8080/api/livre/all')
-        .then(response => {
-            // Les données sont récupérées avec succès
-            const data = response.data;
-            console.log(data);
-        })
-        .catch(error => {
-            // Une erreur s'est produite lors de la récupération des données
-            console.error(error);
-        });
         /*
         axios.get("http://localhost:8080/api/livre/all").then((response) => {
             if (response.status === 200) {
@@ -485,45 +466,12 @@ export default {
         });
 */
           
-      },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     },
 
 
-    mounted() {
+    async mounted  ()  {
         var thisID = document.getElementById("TopBtn");
         var SearchClass = document.getElementById("search-container-fixe");
         var myScrollFunc = function () {
@@ -547,7 +495,8 @@ export default {
         // permet de faire des action dés que la page change de taille
         window.addEventListener('resize', this.handleWindowResize);
         
-        this.books = this.getBooks();
+
+        this.getAllBooks();
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);

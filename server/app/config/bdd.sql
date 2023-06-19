@@ -17,12 +17,12 @@ Create TABLE Livre(
    reference INT AUTO_INCREMENT,
    titre VARCHAR(50),
    auteur VARCHAR(50),
-   genre VARCHAR(100),
-   date_parution DATE,
    pages INT,
    langue VARCHAR(50),
+   genre VARCHAR(100),
+   date_parution DATE,
    resume VARCHAR(500),
-   image_src VARCHAR(200),
+   image_src VARCHAR(50),
    url VARCHAR(200),
    PRIMARY KEY(reference)
 );

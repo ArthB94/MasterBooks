@@ -48,16 +48,18 @@ exports.create = (req, res) => {
     }
     
     // Create a Book
+    console.log("-----------------------------------------mon nouveau livre",req.body);
     const livre = new Livre({
-        titre : req.title,
-        auteur : req.autor,
-        genre : req.genre,
-        date_parution : req.parution_date,
-        nb_pages : req.nb_pages,
-        langue : req.language,
-        resume : req.summary,    
-        image_src : req.image,
-        url : req.url,
+        
+        titre : req.body.title,
+        auteur : req.body.autor,
+        genre : req.body.genre,
+        date_parution : req.body.parution_date,
+        nb_pages : req.body.numberOfPages,
+        langue : req.body.language,
+        resume : req.body.summary,    
+        image_src : req.body.image,
+        url : req.body.url,
     });
 
     console.log(livre);

@@ -20,7 +20,7 @@ const Livre = function (livre) {
 // methode pour créer un livre et l'ajouter à la base de données
 Livre.create = (newLivre, result) => {
   sql.query(
-    "INSERT INTO livre (titre, auteur, genre, date_parution, pages, langue, resume, image_src, url) VALUES (?,?,?,?,?,?,?,?)",
+    "INSERT INTO livre (titre, auteur, genre, date_parution, pages, langue, resume, image_src, url) VALUES (?,?,?,?,?,?,?,?,?)",
     [newLivre.titre, newLivre.auteur, newLivre.genre, newLivre.date_parution, newLivre.nb_pages, newLivre.langue, newLivre.resume, newLivre.image_src, newLivre.url],
     (err, res) => {
       if (err) {
@@ -54,7 +54,6 @@ Livre.getAll = result => {
       return;
 
     }
-    console.log("livres: ", res);
     result(null, res);
   });
 }

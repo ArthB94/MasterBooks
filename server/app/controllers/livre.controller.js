@@ -115,60 +115,69 @@ exports.findOne = (req, res) => {
  * @param {Object} req           La requête envoyée à l'API.
  * @param {Object} res           La réponse renvoyée par l'API.
  */
-exports.share = (req, res) => {
+exports.share = (req, res) => { 
     // 1. Récupérer les informations de la requête concernant l'utilisateur qui souhaite partager et le livre
-    if (!req.body) {
+    if (!req.body.from_email || !req.body.book) {
         res.status(400).json({ message: "Request body cannot be empty!" });
+        return;
     }
 
     const Info = {
-        from_email: req.from_email,
-        book: req.book,
-        to: req.to  // TODO: Vérifier s'il y a une erreur quand req.to n'existe pas. 
+        from_email: req.body.from_email,
+        book: req.body.book,
+        to: req.body.to 
     };
 
     // 2. Vérifier possibilité de partager de la part de l'utilisateur
     // On vérifie que l'utilisateur existe
     // FIXME: Nécessaire ??
-    const user_res = Utilisateur.get({ email_user: req.from_email })
-    if (user_res[0]) {
-        // Il y a une erreur interne
-        res.status(500).json({ message: user_res[0] });
-    }
+    Utilisateur.get({ email_user: Info.from_email }, (err, result) => {
+        if (err) {
+            // Il y a une erreur interne
+            res.status(500).json({ message: err });
+            return;
+        }
 
-    if (user_res[1] === false) {
-        // Erreur 400 : mauvais paramètres
-        res.status(400).json({ message: "User does not exist!" });
-    }
+        if (result === false) {
+            // Erreur 400 : mauvais paramètres
+            res.status(400).json({ message: "User does not exist!" });
+            return;
+        }
 
-    // Aucune erreur, l'utilisateur a été trouvé
-    const user = user_res[1]; // TODO: supprimer si on ne l'utilise pas. 
+        // Aucune erreur, l'utilisateur a été trouvé
 
-    // On vérifie si l'utilisateur peut partager
-    if (!ShareToken.checkIfPossible(req.from_email)) {
-        // L'utilisateur ne peut pas partager : il a déjà atteint sa limite
+        // On vérifie si l'utilisateur peut partager
+        ShareToken.checkIfPossible(Info.from_email, (result) => {
+            if (!result) {
+                // L'utilisateur ne peut pas partager : il a déjà atteint sa limite
+                res.status(400).json({ message: "User has shared too many books!" });
+            } else {
+                // 3. Générer le token pour le livre
+                ShareToken.create(Info.book, (token) => {
+                    // 4. Ajouter le token à la base de données
+                    var addedToDb = false;
+                    ShareToken.addToDb(token, Info.from_email, Info.book,
+                        (err, result) => {
+                            if (err) {
+                                // Il y a eu une erreur
+                                res.status(500).json({ message: "An error occured while adding the token to the database." });
+                                return;
+                            } else {
+                                // 5. Si req.to existe, envoyer un mail au destinataire avec le lien vers le livre et le token
+                                if (Info.to != undefined) {
+                                    // Info.to existe, on veut partager le mail
 
-        res.status(400).json({ message: "User has shared too many books!" });
-        return;
-    }
-
-    // 3. Générer le token pour le livre
-    const token = ShareToken.create(Info.from_email, Info.book);
-
-    // 4. Ajouter le token à la base de données
-    if (ShareToken.addToDb(token, Info.from_email, Info.book)[0]) {
-        // Il y a eu une erreur
-        res.status(500).json({ message: "An error occured while adding the token to the database." });
-        return;
-    }
-
-    // 5. Si req.to existe, envoyer un mail au destinataire avec le lien vers le livre et le token
-    if (Info.to) {
-        // Info.to existe, on veut partager le mail
-        
-        // TODO: Envoyer un mail
-    }
-    
-    // 6. Retourner le token à l'utilisateur
-    res.status(200).json({ message: token });
+                                    // TODO: Envoyer un mail
+                                }
+                                
+                                // 6. Retourner le token à l'utilisateur
+                                res.status(200).json({ message: token });
+                                return;
+                            }
+                        }
+                    );
+                });
+            }
+        });
+    });
 }

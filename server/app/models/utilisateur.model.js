@@ -185,18 +185,18 @@ Utilisateur.isAdmin = (req, result) => {
 }
 
 // helper
-Utilisateur.get = (userInfo) => {
-  sql.query("SELECT * FROM utilisateur WHERE email_user = ?", [userInfo.email], (err, rows) => {
+Utilisateur.get = (userInfo, result) => {
+  sql.query("SELECT * FROM utilisateur WHERE email_user = ?", [userInfo.email_user], (err, rows) => {
     if (err) {
       console.log("Error: ", err);
-      return (err, null);
-    }
-
-    if (rows.length === 0) {
-      return (null, null);
+      result(err, null);
     } else {
-      const user = rows[0];
-      return (null, {email_user: user.email_user, pseudo: user.pseudo});
+      if (rows.length === 0) {
+        result(null, null);
+      } else {
+        const user = rows[0];
+        result(null, {email_user: user.email_user, pseudo: user.pseudo});
+      }
     }
   });
 }

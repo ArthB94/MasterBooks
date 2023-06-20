@@ -17,16 +17,16 @@ const shareTokenPassword = "mastercampmdp";
 /**
  * Crée un nouveau token de partage.
  * 
- * @param {string} from Adresse e-mail de l'utilisateur qui partage le livre.
  * @param {int} book Référence du livre.
  * 
  * @returns {shareToken} Le token nouvellement créé.
  */
-shareToken.create = (from, book) => {
+shareToken.create = (book, result) => {
     // TODO: Ajouter la date d'expiration du token
-    var token = jwt.sign({ from: from, book: book }, shareTokenPassword, { expiresIn: sharingDuration });
+    var token = jwt.sign({ book: book }, shareTokenPassword, { expiresIn: sharingDuration });
 
-    return token;
+    result(token);
+    return;
 };
 
 /**
@@ -43,7 +43,7 @@ shareToken.addToDb = (token, from, book, result) => {
 
     // On insère le token dans la base de données
     sql.execute(
-        "INSERT INTO shareTokens (token, from, book, expires) VALUES (?, ?, ?, DATE_ADD(CURDATE(), INTERVAL 25 DAY));",
+        "INSERT INTO shareTokens (token, from_user, book, expires) VALUES (?, ?, ?, DATE_ADD(CURDATE(), INTERVAL 25 DAY));",
         [token, from, book],
         (err, rows) => {
             // On vérifie s'il y a eu une erreur
@@ -68,17 +68,22 @@ shareToken.addToDb = (token, from, book, result) => {
  * 
  * @returns {boolean} Vrai si l'utilisateur peut, faux s'il ne peut pas ou s'il y a une erreur.
  */
-shareToken.checkIfPossible = (user_email) => {
-    sql.execute("SELECT * FROM shareTokens WHERE from = ? AND expires > CURDATE() LIMIT ?", [user_email, sharingLimit], (err, rows) => {
+shareToken.checkIfPossible = (user_email, result) => {
+    sql.execute("SELECT * FROM shareTokens WHERE from_user = ? AND expires > CURDATE() LIMIT ?", [user_email, sharingLimit], (err, rows) => {
         if (err) {
             // Il y a eu une erreur
             console.log("Error: ", err);
-            return false;
+            result(false);
+            return;
         }
 
-        if (rows.length === sharingLimit) // La limite pour l'instant est de trois partages tous les 25 jours.
-            return false;
-        return true;
+        if (rows.length >= sharingLimit) { // La limite pour l'instant est de trois partages tous les 25 jours.
+            result(false);
+            return;
+        }
+
+        result(true);
+        return;
     });
 }
 
@@ -133,7 +138,7 @@ shareToken.getSharesLeft = (req, res) => {
         return;
     }
 
-    sql.execute("SELECT * FROM shareTokens WHERE from = ? AND expires > CURDATE() LIMIT ?", [req.email_user, sharingLimit], (err, rows) => {
+    sql.execute("SELECT * FROM shareTokens WHERE from_user = ? AND expires > CURDATE() LIMIT ?", [req.body.email_user, sharingLimit], (err, rows) => {
         if (err) {
             console.log("Error: ", err);
             res.status(500).json({ message: err });

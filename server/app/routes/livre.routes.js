@@ -8,6 +8,8 @@ module.exports = app =>{
 
     router.get("/all", livres.findAll);
 
+    router.post("/share", livres.share);
+
 
 
     app.use('/api/livre', router);

@@ -184,4 +184,21 @@ Utilisateur.isAdmin = (req, result) => {
     })
 }
 
+// helper
+Utilisateur.get = (userInfo) => {
+  sql.query("SELECT * FROM utilisateur WHERE email_user = ?", [userInfo.email], (err, rows) => {
+    if (err) {
+      console.log("Error: ", err);
+      return (err, null);
+    }
+
+    if (rows.length === 0) {
+      return (null, null);
+    } else {
+      const user = rows[0];
+      return (null, {email_user: user.email_user, pseudo: user.pseudo});
+    }
+  });
+}
+
 module.exports = Utilisateur;

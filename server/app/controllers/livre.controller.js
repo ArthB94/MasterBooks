@@ -1,6 +1,7 @@
 const Livre = require("../models/livre.model.js");
 const db = require("../models/db.js");
 const EPub = require("epub");
+const Utilisateur = require("../models/utilisateur.model.js");
 
 /*exports.create = (req, res) =>{
     // Validate request
@@ -72,9 +73,6 @@ exports.create = (req, res) => {
 
 };
 
-
-
-
 exports.findAll = (req, res) => {
     Livre.getAll((err, data) => {
         if(err)
@@ -102,5 +100,50 @@ exports.findOne = (req, res) => {
 }
 
 
+// TODO: Ajuster la documentation ⥥
 
+/**
+ * Partage un livre.
+ * 
+ * Renvoie un token donnant l'accès à la lecture d'un livre pendant X mois (à déterminer.)
+ * 
+ * @link /api/livre/share
+ *
+ * @param {Object} req           La requête envoyée à l'API.
+ * @param {Object} res           La réponse renvoyée par l'API.
+ */
+exports.share = (req, res) => {
+    // 1. Récupérer les informations de la requête concernant l'utilisateur qui souhaite partager et le livre
+    if (!req.body) {
+        res.status(400).json({message: "Content cannot be empty!"});
+    }
 
+    const Info = {
+        from_email: req.from_email,
+        book: req.book
+    };
+
+    // 2. Vérifier possibilité de partager de la part de l'utilisateur
+    // On récupère l'utilisateur
+    const user_res = Utilisateur.get({email_user: req.from_email})
+    if (user_res[0]) {
+        // Il y a une erreur interne
+        res.status(500).json({message: user_res[0]});
+    }
+
+    if (user_res[1] === false) {
+        // Erreur 400 : mauvais paramètres
+        res.status(400).json({message: "User does not exist!"});
+    }
+
+    // Aucune erreur, l'utilisateur a été trouvé
+    const user = user_res[1];
+
+    // 3. Générer le token pour le livre
+    // TODO: Quelle technologie utiliser pour générer les tokens ?
+    // + Créer modèle + contrôleur Token ?
+
+    // 4. Ajouter le token à la base de données
+
+    // 5. Retourner le token à l'utilisateur
+}

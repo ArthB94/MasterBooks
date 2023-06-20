@@ -1,5 +1,5 @@
 module.exports = app =>{
-    const shareToken = require("../controllers/shareToken.controller.js");
+    const shareToken = require("../models/shareToken.model.js");
 
     var router = require("express").Router();
 

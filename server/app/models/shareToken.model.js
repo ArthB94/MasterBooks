@@ -97,11 +97,13 @@ shareToken.checkIfPossible = (user_email, result) => {
  * @returns {json} possible: boolean
  */
 shareToken.getCheckIfPossible = (req, res) => {
-    if (!req.body) {
+    if (!req.body.user_email) {
         res.status(400).json({ message: "Request body cannot be empty!" })
     }
 
-    res.status(200).json({ possible: this.checkIfPossible(req.user_email)});
+    shareToken.checkIfPossible(req.body.user_email, (result) => {
+        res.status(200).json({ possible: result });
+    });
     return;
 }
 

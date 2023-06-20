@@ -43,10 +43,10 @@ import { createWebHistory, createRouter } from "vue-router";
 import HelloWorld from "@/views/HelloWorld.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
-// import LoginFgPwd from "@/views/LoginFgPwd.vue";
+import LoginFgPwd from "@/views/LoginFgPwd.vue";
 import Register from "@/views/Register.vue";
 import ForgotPwd from "@/views/ForgotPwd.vue";
-// import ResetPwd from "@/views/ResetPwd.vue";
+import ResetPwd from "@/views/ResetPwd.vue";
 import EntryForm from "@/views/RequestForm.vue";
 // import EntryForm1 from "@/views/EntryForm copy.vue";
 import EntryForm2 from "@/views/AddBookPage.vue";
@@ -73,11 +73,11 @@ const routes = [
     name: "LoginPage",
     component: Login,
   },
-  // {
-  //   path: "/login-Fg-Pwd-page",
-  //   name: "LoginFgPwdPage",
-  //   component: LoginFgPwd,
-  // },
+  {
+    path: "/login-Fg-Pwd-page",
+    name: "LoginFgPwdPage",
+    component: LoginFgPwd,
+  },
   {
     path: "/register-page",
     name: "RegisterPage",
@@ -88,11 +88,11 @@ const routes = [
     name: "ForgotPwdPage",
     component: ForgotPwd,
   },
-  // {
-  //   path: "/reset-password-page",
-  //   name: "ResetPwdPage",
-  //   component: ResetPwd,
-  // },
+  {
+    path: "/reset-password-page",
+    name: "ResetPwdPage",
+    component: ResetPwd,
+  },
   {
     path: "/entry-form-page",
     name: "EntryFormPage",

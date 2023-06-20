@@ -692,7 +692,7 @@ body.dark {
     content: "";
     position: absolute;
     bottom: -17px;
-    left: 130px;
+    left: 190px;
     width: 60px;
     height: 3px;
     background: aliceblue;
@@ -720,6 +720,7 @@ body.dark {
     color: aliceblue;
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
   }
+
   
   .loginInputBox input::placeholder {
     color: rgba(225, 254, 253, 0.858);
@@ -1095,6 +1096,12 @@ body.dark {
     /*margin-left: 30%;*/
   }
 
+  @media screen {
+    .Create-planning-Btn{
+      margin-left: 0px;
+    }
+  }
+
   
   .Create-planning-Btn1{
     width: 100%;
@@ -1359,11 +1366,24 @@ body.dark {
     background: linear-gradient(15deg, #125bec8e, #90b5ff, #c18cd6, #bc05f9c5);
     box-shadow: 0px -20px 256px 28px rgba(255, 255, 255, 0.623) inset;
   }
-  
+
   .FormPage1 {
     height: 100%;
     overflow-x: hidden;
     box-shadow: 0px -20px 256px 28px rgba(255, 255, 255, 0.623) inset;
+  }
+
+  .FormPage2 {
+    height: 100%;
+    overflow-x: hidden;
+    box-shadow: 0px -20px 256px 28px rgba(255, 255, 255, 0.623) inset;
+    display:flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
   }
   
   .Form-banner-container {
@@ -2688,6 +2708,159 @@ body.dark .modal{
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+
+  /*--------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------ADD BOOK PAGE----------------------------------------------------*/
+
+/*--------------------------------------------------------------------------------------------------*/
+
+  
+.add-book-input{
+  width:100%;
+  float: center;
+  background-color: rgba(206, 204, 204, 0.2);
+  border: none;
+  outline: none;
+  padding: 5px 20px;
+  border-radius: 15px;
+  border-bottom: 1px solid rgba(65, 64, 64, 0.5);
+  border-right: 1px solid rgba(19, 19, 19, 0.2);
+  /* borde: 1px solid rgba(48, 48, 48, 0.2); */
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgba(27, 27, 27, 0.858);
+  box-shadow: 0 5px 15px rgba(77, 77, 77, 0.05);
+
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+}
+
+.AddBookInput{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  /* padding: 10px 20px; */
+  border-radius: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+}
+
+
+.add-book-input::placeholder {
+  color:rgba(225, 254, 253, 0.858);
+}
+
+
+.custom-select1{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+  /* padding-right:150px; */
+  border-radius: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  margin-left: 10px;
+}
+
+.custom-select1 select{
+  
+  background-color: transparent;
+  border: none;
+  /* width: inherit; */
+  padding: 10px 20px;
+  outline: none;
+  color: aliceblue;
+  max-width: 400px;
+}
+
+/* option {
+  font-weight: normal;
+  display: block;
+  background-color: transparent;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
+} */
+
+/*-------------------------------------------------------------------------------*/
+
+/**--------------------------------- Change password page ------------------------------------**/
+
+/*-------------------------------------------------------------------------------*/
+
+.ResetPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background: linear-gradient(to bottom, #2e2e2e, #6b6b6b); */
+  background: linear-gradient(
+    95deg,
+    #16dcff,
+    #90b5ff,
+    #c18cd6,
+    #f291bb,
+    #ff9ca3
+  );
+  box-shadow: 0px -20px 256px 28px rgba(255, 255, 255, 0.778) inset;
+}
+
+.resetBox {
+  position: relative;
+  color: aliceblue;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+/* 
+@media (max-width: 1400px) {
+  .resetBox {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10%;
+  }
+} */
+
+/*------------Explanation prompt at top of the box-------------*/
+
+.NewPswdPrompt {
+  text-align: center;
+  margin-top: 4em;
+  margin-bottom: 2em;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+
 
   /*--------------------------------------------------------------------------------------------------*/
 

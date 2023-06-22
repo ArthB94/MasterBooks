@@ -64,8 +64,8 @@
                     <router-link to="/book-read-page" class="LogRegBtnLink"
                         style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link></div>
                         <div class="help-question">
-                            <label for="fname" class="help-label" style="text-align: center; ">Want to share this book with someone?</label>
-                            <input type="text" id="fname" name="fname" class="help-input" placeholder="Email" v-model="email"><br>
+                            <label for="fname" class="help-label label-recs-book" style="text-align: center; ">Want to share this book with someone?</label>
+                            <input type="text" id="fname" name="fname" class="help-input label-recs-book" placeholder="Email" v-model="email"><br>
                         </div>
                         <!-- <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Number of pages*</i> </p>
                                 <div class="loginInputBox">

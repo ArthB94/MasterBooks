@@ -3008,6 +3008,10 @@ body.dark .modal{
   /* font-variant: small-caps; */
 }
 
+.dark .label-recs-book {
+  color:#e9edef;
+}
+
 
 .dark .date-and-language-info {
   color:#e9edefbd;
@@ -3099,6 +3103,11 @@ body.dark .modal{
   font-size: small;
   color:#404344cc;
 }
+
+.dark .book-disclaimer-info {
+  color: aliceblue;
+}
+
 
 @media (max-width: 900px) {
   .adapted-wishlist{

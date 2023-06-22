@@ -50,7 +50,7 @@ import DarkLightMode from '@/components/DarkLightMode.vue';
     <router-link to="/help-page">Help Page</router-link> |
     <router-link to="/profile-page">Profile Page</router-link> |
     <router-link to="/catalog-library-page">My library page</router-link> |
-    <router-link to="/calendar-page">Calendar Page</router-link> |
+    <router-link to="/catalog-recs-page">Catalog Recs Page</router-link> |
   </div>
 </template>
 

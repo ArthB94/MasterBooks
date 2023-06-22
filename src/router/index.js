@@ -55,7 +55,7 @@ import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
 import CatalogLibraryPage from "@/views/CatalogPage_Mylib.vue";
-// import CalendarPage from "@/views/CalendarPage.vue";
+import CatalogPageRecs from "@/views/CatalogPage_Recs.vue";
 
 const routes = [
   {
@@ -133,11 +133,11 @@ const routes = [
     name: "ProfilePage",
     component: ProfilePage,
   },
-  // {
-  //   path: "/calendar-page",
-  //   name: "CalendarPage",
-  //   component: CalendarPage,
-  // },
+  {
+    path: "/catalog-recs-page",
+    name: "CatalogPageRecs",
+    component: CatalogPageRecs,
+  },
 ];
 
 const router = createRouter({

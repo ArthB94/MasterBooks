@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js\mail.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <!-- Placez cet élément où vous voulez afficher les données -->
+    <div id="formData"></div>
+
+    <script>
+    // Récupération des données du formulaire depuis l'URL
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get('title');
+    const author = params.get('author');
+    const edition = params.get('edition');
+
+    // Affichage des données dans la page admin.html
+    const formDataDiv = document.getElementById('formData');
+    formDataDiv.innerHTML = `
+    <h1>Form Data:</h1>
+    <p><strong>Title:</strong> ${title}</p>
+    <p><strong>Author:</strong> ${author}</p>
+    <p><strong>Edition:</strong> ${edition}</p>
+    `;
+    </script>
+
+</body>
+</html>

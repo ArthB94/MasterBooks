@@ -1,0 +1,379 @@
+
+body{ /*certains navigateurs mettent des marges mais on veut un rendu identique*/
+    margin:0px;
+    padding:0px;
+    font-family: Verdana, Calibri, sans-serif; /*format de texte pour toute la page*/
+}
+
+
+nav{
+    width: 100%;
+    background-color: rgba(100, 148, 237, 0.619);
+}
+
+
+nav > ul{/*là c'est le ul, le menu principal i.e le premier niveau du menu*/
+    margin:0px;
+    padding:0px;
+}/*le sélécteur chevron sert à cibler que l'élément direct, ici ul du premier niveau du menu*/
+
+nav li{
+    list-style-type: none; 
+}
+
+nav > ul > li{ /*là on applique des trucs qu'au premier niveau de la liste*/
+    float: left; /* afficher les li de gauche à droite*/
+    position:relative;
+}
+
+
+nav > ul::after{/*dernier enfant de l'ul, ça c'est le clear fix, on fait ça à cause du float left de nav>ul>li */
+    content:"";
+    display:table;
+    clear:both;
+}
+
+#titre{
+    font-style: oblique;
+    /*display:inline-block;*/
+    float:left;
+    color: white;
+    margin-left : 18px;
+    /*padding-left : 1rem;*/
+}
+
+
+.submenu{
+    display : none;
+}
+
+nav input[type=checkbox]{
+    display : none;
+}
+
+nav label{
+    display:none;
+}
+
+nav a{
+    display:inline-block ;
+    text-decoration: none;
+}
+
+nav >ul>li>a{ /*c'est peut être ici qu'il faut mettre les modifs pour les images*/
+    padding: 20px 30px;
+    color: white;
+}
+
+nav>li> img{
+    width:3%; /*3% et 3% pour height */
+    height: 2%;
+    padding: 10px 500px 0px 15px;
+    float: left;
+}
+
+nav >ul>li:hover a{
+    padding: 23px 30px 20px 30px;
+    /*on réduit le padding haut quand on passe la souris sur les onglets
+    ce padding est de 15px (20-5) car on a 5px pour le border-top*/
+}
+
+nav li:hover .submenu{
+    display:inline-block;
+    position: absolute;
+    top:100%;
+    left:0px;/*s'affiche sous son onglet parent*/
+    padding:0px;
+    z-index: 1000;
+}
+
+.submenu li a{
+    padding:15px;
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    width: 140px;
+}
+
+.submenu li{
+    border-bottom:1px solid grey ;
+}
+
+.menu1:hover{
+    border-top:5px solid rgb(192, 249, 255);
+    background-color: rgba(192, 249, 255, 0.15);/*permet de mettre une couleur avec une opacité*/
+
+}
+
+.menu2:hover{
+    border-top:5px solid rgb(255, 192, 253);
+    background-color: rgba(255, 192, 253, 0.15);
+
+}
+
+.menu3:hover{
+    border-top:5px solid rgb(192, 255, 214);
+    background-color: rgba(192, 255, 214, 0.15);
+
+}
+
+.menu4:hover{
+    border-top:5px solid rgb(252, 255, 192);
+    background-color: rgba(252, 255, 192, 0.15);
+
+}
+
+.submenu li:hover{
+    font-weight: bold;
+    border-left: 5px solid rgba(12, 95, 250, 0.15);
+}
+
+nav input[type=checkbox]:checked ~ ul{
+    display: block;
+}
+
+@media screen and (max-width:480px){ /* media screen permet d'appliquer du style en fonction du résultat d'une requete, ici c'est max-width*/ 
+    .menu-mobile{
+        display: block;
+        color:white;
+        background-color: rgba(100, 149, 237, 0.97);
+        text-align: center;
+        padding:12px 0px;
+    }
+    nav ul{
+        display: none;
+    }
+
+    nav>ul>li img{
+        width:0%;
+        height:0%;
+    }
+    nav ul li, nav ul li a{
+        width:100%;
+        text-align: center;
+    }
+    nav ul li a, nav ul li:hover a{
+        padding:10px 0px;
+    }
+    nav li:hover .submenu{
+        display: block;
+        position: static;
+    }
+}
+
+footer{
+    background-color: rgb(100, 148, 237, 0.619);
+    width:100%;
+    height:100px;
+}
+#Information img{
+    width: 5%;
+    height : 5%;
+    float : right;
+}
+
+#footer-nav li{
+    list-style: none;
+    display: inline;
+    padding: 0px 20px 50px 0px;
+}
+
+#footer-nav li a{
+    text-decoration: none;
+    color:white
+}
+
+.footer1:hover{
+    font-weight: bold;
+}
+
+.section-form{
+    padding-top: 100px;
+    padding-left: 100px;
+   
+}
+
+.form{
+    border: 3px solid grey;
+    border-radius: 5px;
+    width: 50%;
+    height :50%;
+    padding: 40px 30px 40px 30px; /*marges intérieur*/
+    margin-left: 22%;
+}
+
+#h2-form{
+    text-align: center;
+}
+
+#field-nb-per{
+    background-color: rgba(100, 149, 237, 0.15);
+    border-radius: 5px;
+    width:70%;
+}
+
+#field-nb-per:hover{
+    background-color: rgba(100, 149, 237, 0.5);
+}
+
+.btn-form{
+    background-color: rgba(100, 149, 237, 0.466);
+    color:white;
+    border-color:white;
+    border-radius: 10px;
+    width: 100px;
+    height: 50px;
+
+}
+
+.btn-form:hover, .input-fruit:hover{
+    border-color: grey;
+}
+
+
+table, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding : 10px;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.tableau-form h3{
+    text-align: center;
+}
+
+.tb-c43{
+    border-top : none;
+    border-bottom: none;
+
+}
+
+#tb-c41{
+    border: 1px solid black;
+}
+
+
+thead th{
+    background-color: rgba(100, 148, 237, 0.245) ;
+    padding: 10px;
+    border : 1px solid black;
+    border-collapse: collapse;
+}
+
+
+/* LES CONTAINERS D'ENONCES DE RECETTES */
+
+.container{
+    /*padding-left:100px;
+    padding-right: 100px;*/
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;  /*centrer les éléments*/
+    align-items:center ;/*flex-start*/
+    
+}
+
+.subcontainer{
+    border: 3px solid rgba(255, 254, 254, 0.164);
+    border-radius: 20px;
+    color :black;
+    margin-left:10px;   /*permet de jouer sur l'espacement entre les items*/
+    margin-top:10px;
+    padding:3%; /*permet de jouer sur la taille des items, ce qui contient le texte, de 50px avant changement*/
+    background-color: rgba(255, 192, 253, 0.427);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    color:rgb(0, 0, 0);
+}
+#item1{
+    background-color: rgba(255, 192, 253, 0.542);
+}
+
+#item2{
+    background-color: rgba(252, 255, 192,0.542);
+}
+
+.subcontainer:hover{
+    border: 6px solid rgba(0, 0, 0, 0.164);
+    background-color: rgba(255, 98, 250, 0.427);
+}
+
+
+#item1:hover{
+    border: 6px solid rgba(0, 0, 0, 0.164);
+    background-color: rgba(255, 192, 253, 1);
+}
+
+#item2:hover{
+    border: 6px solid rgba(0, 0, 0, 0.164);
+    background-color: rgba(252, 255, 192,1);
+}
+
+#item6{
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: left;
+    color:rgb(0, 0, 0);
+}
+
+
+#item7{
+    background-color: rgba(251, 144, 102, 0);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: left;
+    color:rgb(0, 0, 0);
+}
+
+#item8{
+    background-color: rgba(251, 144, 102, 0);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: left;
+    color:rgb(0, 0, 0);
+}
+
+#item9{
+    background-color: rgba(255, 192, 253, 0.427);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: left;
+    padding-left : 20%;
+    padding-right : 20%;
+    color:rgb(0, 0, 0);
+}
+
+#item9 h3{
+    text-align: center;
+}
+
+
+.icons-menu p{
+    text-align: center;
+
+}
+
+.div_json h2, .div_json p{
+   text-align: center;
+}
+
+.div_json img{
+    width : 30%;
+    height : 30%;
+    margin-left: 35%;
+
+}
+
+#item_SU1,#item_SU2,#item_SU3,#item_SU4,#item_SU5,#item_SU6,
+#item_SU7,#item_SU8 {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: center;
+}
+
+#item_SA1,#item_SA2,#item_SA3,#item_SA4,#item_SA5,#item_SA6,
+#item_SA7, #item_SA8  {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 7px 7px 5px rgb(158, 157, 157);
+    text-align: center;
+}
+
+#JSON2 img, #JSON1 img{
+    visibility: hidden;
+}

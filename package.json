@@ -1,0 +1,19 @@
+{
+  "name": "mastercamp-mail",
+  "version": "1.0.0",
+  "description": "Remplissage de formulaire dont les données sont stockées dans la BDD mastercamp. Un admin peut accéder à la BDD, traiter les données du formulaire. Il peut aussi effectuer des requêtes sur la BDD comme supprimer des tuples, etc... En fait on créer un système de mails sans utiliser de protocoles de mails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elsa PAYA",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.5",
+    "nodemailer": "^6.9.3",
+    "nodemailer-express-handlebars": "^6.1.0"
+  }
+}

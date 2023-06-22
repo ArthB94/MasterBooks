@@ -1,0 +1,192 @@
+// http://localhost:3000/Page2.html
+
+//////////////////// RECUPERATION DES DONNEES DU FORMULAIRE ////////////////////////
+
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
+
+// Middleware pour analyser les données POST
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Servir les fichiers statiques depuis le répertoire "public"
+app.use(express.static(path.join(__dirname, './')));
+/*
+path.join(__dirname, './') est utilisé pour créer le chemin absolu 
+du répertoire actuel en utilisant la variable __dirname. 
+Cela garantit que le serveur Express servira les fichiers statiques 
+à partir du répertoire dans lequel index.js est exécuté.
+
+./ ==> répertoire actuel 
+
+*/
+
+var corps;
+
+// Gérer la soumission du formulaire
+app.post('/', (req, res) => {
+  const title = req.body.txtTitle;
+  const author = req.body.txtAuthor;
+  const edition = req.body.txtEdition;
+  corps = "title : " + title + ", author : " + author + ", edition : " + edition
+
+  // Faire ce que vous souhaitez avec les valeurs récupérées
+  console.log('Titre :', title);
+  console.log('Auteur :', author);
+  console.log('Édition :', edition);
+  console.log('Corps (du mail):', corps);
+
+  res.send('Formulaire soumis avec succès');
+
+  // Créer la requête SQL INSERT INTO avec des paramètres
+  const sql = 'INSERT INTO mail (titre, destinataire, corps, email_user) VALUES (?, ?, ?, ?)';
+
+  // Exécuter la requête avec les valeurs correspondantes
+  connection.query(sql, ['Book Addition request', 'elsa.paya@masterbook.com', corps, 'user@example.com'], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de l\'exécution de la requête :', err);
+      return;
+    }
+    console.log('Nouvelle entrée ajoutée à la table mail');
+  });
+
+});
+
+// Démarrer le serveur
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Serveur en écoute sur le port ${port}`);
+});
+
+
+
+
+////////////////// CONNEXION A LA BDD PAR L'ADMIN /////////////////////////
+
+// importer la bibliothèque de pilotes compatible avec MySQL pour Node.js qui est mysql2
+const mysql = require('mysql2');
+
+// Créer une connexion à la base de données (les informations sont celles de ma base de données locale)
+const connection = mysql.createConnection({
+    host: 'localhost', 
+    port: 3306,
+    user: 'root', // mon nom de user
+    password: 'password', // mon mdp de connexion à mes BDD MySQL Workbench
+    database: 'mastercamp' // nom de la BDD sur mon PC
+  });
+
+// Établir la connexion à la base de données : ceci est la fonction de rappel de connexion
+connection.connect((err) => {
+    if (err) {
+      console.error('Erreur de connexion à la base de données :', err);
+      return;
+    }
+    console.log('Connecté à la base de données MySQL.');
+    
+    // Exécution de requêtes SQL ici grâce à connexion.query()
+    /*connection.query("insert into admin value ('elsa.paya@masterbook.com');", (err, rows) => {
+        if (err) {
+          console.error('Erreur lors de l\'exécution de la requête :', err);
+          return;
+        }
+        // Traiter les résultats de la requête si pas d'erreur
+        console.log('Résultats de la requête :', rows);
+      });*/
+
+
+      // modifier la table mail de sorte à ce que la cles primaire id_mail s'auto incremente
+      /*connection.query("alter table mail modify id_mail int AUTO_INCREMENT;", (err, rows)=>{
+        if(err){
+          console.log("Erreur : vous ne pouvez pas modifier id_mail pour ajouter AUTO_INCREMENT", err);
+          return;
+        }
+        console.log("Résultat de la requête AUTO_INCREMENT", rows);
+      });*/
+
+      /* 
+      A chaque fois qu'un user submit un formulaire de demande d'ajoute de livre cela est stocké dans la BDD
+      de la sorte : 
+      id_mail : AUTOINCREMENT
+      titre : Book Addition request    <== Toujours le même titre
+      destinataire : Pas encore rempli mais c'est les admins(à voir avec le groupe)
+      corps : corps c'est la variable const corps = "title : " + title + ", author : " + author + ", edition : " + edition
+      email_user : l'email de l'utilisateur 
+      */
+
+      connection.query("insert into utilisateur values ('user@example.com', 'user1','mdpuser1')", (err, rows)=>{
+        if(err){
+          console.log("Erreur : On ne peut pas ajouter de tuple dans la table utilisateur", err);
+          return;
+        }
+        console.log("Tuple ajouté dans la table utilisateur", rows);
+      });
+
+
+
+});
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// http://localhost:3000/Page2.html
+
+
+const express = require('express')
+const nodemailer = require('nodemailer')
+const app = express()
+const port = 3000
+
+
+app.listen(port, () => {
+  console.log(`nodemailerProject and server are listening at http://localhost:${port}`)
+})
+
+// c'est à dire http://localhost:3000
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    type: 'OAuth2',
+    user: 'pascalelsa.paya@gmail.com', // mes données gmail
+    pass: 'evqtruh;12', // le mdp de mon gmail mastercamp2023Efrei
+    clientId: '51680705888-3up1604f2p1sisn83idm15pbcp5mj6fv.apps.googleusercontent.com', // données du OAuth
+    clientSecret: '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', // données du OAuth
+    refreshToken: "1//04iHozPnZmXZfCgYIARAAGAQSNwF-L9Ir4aDD8yYQtdfakG3V_m0Pm7i6ldr1eQnpmH-ZmGyCQhdRmU528dkx1cNahJNlJnYU0y8" // données du OAuth
+  }
+});
+
+
+  let mailOptions = {
+    from: 'pascalelsa.paya@gmail.com',
+    to: 'pascalelsa.paya@gmail.com',
+    subject: 'Test Nodemailer projet elsa',
+    text: 'Hi from your nodemailer project'
+  };
+
+
+  transporter.sendMail(mailOptions, function(err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Email sent successfully");
+    }
+  });
+

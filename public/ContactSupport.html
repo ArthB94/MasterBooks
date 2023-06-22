@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support</title>
+</head>
+<body>
+    <form action="/ContactSupport.html" class="help-form" method="post" @submit.prevent="formSubmit">
+        <div class="all-questions">
+            <div class="help-question">
+                <label for="fname" class="help-label">Your Name * </label>
+                <input type="text" id="fname" name="txtName" class="help-input" placeholder="..." v-model="name"><br>
+            </div>
+            <div class="help-question">
+                <label for="fname" class="help-label">Your Email * </label>
+                <input type="email" id="fname" name="email" class="help-input" placeholder="..." v-model="email"><br>
+            </div>
+            <div class="help-question">
+                <label for="fname" class="help-label">Summary * </label>
+                <input type="text" id="fname" name="txtSummary" class="help-input"
+                    placeholder="Give us a brief description of what's happening." v-model="summary"><br>
+            </div>
+            <div class="help-question">
+                <label for="fname" class="help-label">Add more details * </label>
+                <textarea name="txtDetails" id="" cols="30" rows="10" class="help-input"
+                    placeholder="If you have more specific info, add it here." v-model="details"></textarea><br>
+            </div>
+            <div class="help-question">
+                <label for="fname" class="help-label">Page Link </label>
+                <input type="text" id="fname" name="txtLink" class="help-input"
+                    placeholder="Paste the link to where the issue is happening." v-model="link"><br>
+            </div>
+            <div class="help-question">
+                <label for="file-upload" class="help-label">Upload Screenshot</label>
+                <div class="help-input">
+                    <button class="Create-planning-Btn" style="margin-right: 15px;" @click="$refs.fileupload.click()">Click here</button>
+                    <input type="file" id="file-upload" ref="fileupload" name="file-upload" class="help-input" placeholder="Upload a screenshot of the issue." @change="handleFileChange" style="display:none">
+                    {{ labelText }}
+                </div>
+                    
+                <br>
+            </div>
+            <button @click="()=>handleSend()" type="submit" class="submit-help-btn" id="UpdateBtn">
+                Send
+            </button>
+        </div>
+    </form>
+</body>
+</html>

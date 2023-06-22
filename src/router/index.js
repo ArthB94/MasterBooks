@@ -48,7 +48,7 @@ import Register from "@/views/Register.vue";
 import ForgotPwd from "@/views/ForgotPwd.vue";
 import ResetPwd from "@/views/ResetPwd.vue";
 import EntryForm from "@/views/RequestForm.vue";
-// import EntryForm1 from "@/views/EntryForm copy.vue";
+import BookInfoPage from "@/views/BookInfoPage.vue";
 import EntryForm2 from "@/views/AddBookPage.vue";
 import CatalogPage from "@/views/CatalogPage.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
@@ -98,11 +98,11 @@ const routes = [
     name: "EntryFormPage",
     component: EntryForm,
   },
-  // {
-  //   path: "/entry-form1-page",
-  //   name: "EntryFormPage1",
-  //   component: EntryForm1,
-  // },
+  {
+    path: "/book-info-page",
+    name: "BookInfoPage",
+    component: BookInfoPage,
+  },
   {
     path: "/entry-form2-page",
     name: "EntryFormPage2",

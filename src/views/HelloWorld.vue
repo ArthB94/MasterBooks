@@ -43,8 +43,8 @@ import DarkLightMode from '@/components/DarkLightMode.vue';
     <router-link to="/fgpassword-page">Forgot Pwd Page</router-link> |
     <router-link to="/reset-password-page">Reset Pwd Page</router-link> |
     <router-link to="/entry-form-page">Entry Form Page</router-link> |
-    <router-link to="/entry-form1-page">Entry Form Page 1</router-link> |
-    <router-link to="/entry-form2-page">Entry Form Page 2</router-link> |
+    <router-link to="/book-info-page">Book Info Page</router-link> |
+    <router-link to="/entry-form2-page">Add Page</router-link> |
     <router-link to="/catalog-page">Catalog Page</router-link> |
     <router-link to="/catalog-admin-page">Catalog Admin Page</router-link> |
     <router-link to="/help-page">Help Page</router-link> |

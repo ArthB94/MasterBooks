@@ -79,7 +79,31 @@
                 </div>
             </div>
             <div class="Comment-section-container">
+                <div class="FAQcontainer">
+                  <!-- <h3 class="comment-container-title">Feedback & Comments</h3> -->
+                  <div class="comments">
+                      <div class="comment flex items-start justify-start">
+                          <img class="comment-avatar" src="../assets/UserMe.png" alt="Admin img">
+                          <div class="flex-1">
+                              <h3 class="comment-author1">Admin</h3>
+                              <p class="comment-body">What did you think about this book ? Feel free to speak your mind !</p>
+                          </div>
+                      </div>
+                  </div>
+            <!--------------------------------------------------Comment input section--------------------------------------------------------------->
 
+                  <div class="comment comment-new flex items-start justify-start" >
+                      <img class="comment-avatar" src="../assets/UserWrite.png" alt="User Write img">
+                      <div class="flex-1">
+
+                          <form action="#" class="comment-form">
+                              <textarea placeholder="Username" class="comment-author"></textarea>
+                              <textarea placeholder="Add your comment" class="comment-input"></textarea>
+                              <input type="submit" class="comment-submit" value="Submit">
+                          </form>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
         <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
@@ -110,6 +134,7 @@
 <script>
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
+import UserAvatar from "../assets/User.png"
 export default {
     name: "BookInfoPage",
     components: {
@@ -128,6 +153,66 @@ export default {
         };
         window.addEventListener("scroll", myScrollFunc);
 
+
+        const submit = document.querySelector('.comment-submit');
+const commentList = document.querySelector('.comments');
+const commentAuthor = document.querySelector('.comment-author');
+const commentInput = document.querySelector('.comment-input');
+
+
+function template(data) {
+  commentList.insertAdjacentHTML("beforeend", `
+  <div class="comment flex items-start justify-start">
+      <img class="comment-avatar" :src="avatar" />
+      <div class="flex-1">
+        <h3 class="comment-author1">${data.author}</h3>
+        <p class="comment-body">${data.comment}</p>
+      </div>
+    </div>
+  </div>`);
+}
+
+function appendComment (event) {
+
+  const data = {
+    avatar: UserAvatar,
+    author: commentAuthor.value,
+    comment: commentInput.value,
+  };
+
+  event.preventDefault();
+
+  if (commentInput.value.length < 1) return;
+
+  // Insert new template into DOM
+  template(data);
+
+  // Reset Author text area value
+  commentAuthor.value = "";
+
+  // Reset text area value
+  commentInput.value = "";
+
+  // Save the list to localStorage
+  localStorage.setItem('commentListing', JSON.stringify(commentList.innerHTML));
+}
+
+
+submit.addEventListener('click', appendComment, false)
+
+// Check for saved items
+
+  const saved = JSON.parse(localStorage.getItem('commentListing'));
+
+
+// If there are any saved items, update the current list
+if (saved) {
+  commentList.innerHTML = saved;
+}
+
     },
+    methods:{
+        
+    }
 }
 </script>

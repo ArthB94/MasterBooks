@@ -23,10 +23,10 @@
         <a id="top"></a>
         <div class="catalog-page">
             <div class="filterblock-container">
-                <div class="filter-title-container">
+                <div class="filter-title-container1">
                     <p class="filter-main-Title">Filters</p>
                 </div>
-                <div class="filter-container">
+                <div class="filter-container1">
 
                     <div class="filters-list">
                         <ul>
@@ -190,7 +190,7 @@
                                 </select>
                             </div> -->
                 <div class="book-counter-container">
-                    <div class="book-catalog-container">
+                    <div class="book-catalog-container1">
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
                                 <div class="number-score">98%</div>
@@ -206,7 +206,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">81%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -219,7 +219,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">80%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -232,7 +232,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">68%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -245,7 +245,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">58%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -258,7 +258,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">35%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -271,7 +271,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">28%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">
@@ -284,7 +284,7 @@
                         </router-link>
                         <router-link to="/book-page" class="book-page-link2">
                             <div class="book-rec-score">
-                                <div class="number-score">98%</div>
+                                <div class="number-score">27%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div class="book1">

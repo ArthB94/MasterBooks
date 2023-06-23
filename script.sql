@@ -11,10 +11,10 @@ CREATE TABLE livre(
    titre VARCHAR(50),
    auteur VARCHAR(50),
    pages INT,
-   resume VARCHAR(500),
+   resume VARCHAR(1000),
    url VARCHAR(200),
-   date_parution DATE,
-   image_src VARCHAR(1000),
+   date_parution YEAR,
+   image_src VARCHAR(500),
    langue VARCHAR(50),
    PRIMARY KEY(reference)
 );

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>Les Crânes d’or</dc:title>
+    <dc:creator opf:file-as="Packard, Frank L." opf:role="aut">Frank L. Packard</dc:creator>
+    <dc:language>fr</dc:language>
+    <dc:subject>Romans</dc:subject>
+    <dc:subject>Aventures</dc:subject>
+    <dc:publisher>Ebooks libres et gratuits</dc:publisher>
+    <dc:description>Ronald Ward, hérite à la mort de son père de son exploitation sur l’île sauvage de la Malaisie : Talete. Un nuit, après avoir entendu un rire sardonique, il trouve un coffret à l’adresse de son père contenant un petit crâne d’or.Il est alors confronté à une série de crimes où, à chaque fois, le mort tient un crâne d’or et l’on entend ce rire démoniaque. Qui est l’instigateur de cet acharnement? et pourquoi?</dc:description>
+    <dc:date opf:event="creation">2023-05-27T19:35:37Z</dc:date>
+    <meta name="office:version" content="LibreOffice/7.5.1.2$Windows_X86_64 LibreOffice_project/fcbaee479e84c6cd81291587d2ee68cba099e129" />
+    <meta name="office:last-modification-date" content="2023-05-27T21:35:18.541000000" />
+    <meta name="office:creation-date" content="2023-05-27T21:23:00" />
+    <meta name="éditeur" content="Ebooks libres et gratuits" />
+    <meta name="amanuensis:generator" content="amanuensis" />
+    <meta name="amanuensis:version" content="green snake 22" />
+    <meta name="amanuensis:xhtml-creation-date" content="2023-05-27T21:35:36" />
+    <meta name="cover" content="img1" />
+    <dc:identifier id="BookId">urn:uuid:091B2D34-7727-1014-8866-8B195578C622</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="css1" href="style.css" media-type="text/css" />
+    <item id="img1" href="cover.jpg" media-type="image/jpeg" />
+    <item id="ch1" href="cover.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch2" href="book_0000.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch3" href="book_0001.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch4" href="book_0002.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch5" href="book_0003.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch6" href="book_0004.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch7" href="book_0005.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch8" href="book_0006.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch9" href="book_0007.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch10" href="book_0008.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch11" href="book_0009.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch12" href="book_0010.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch13" href="book_0011.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch14" href="book_0012.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch15" href="book_0013.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch16" href="book_0014.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch17" href="book_0015.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch18" href="book_0016.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch19" href="book_0017.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch20" href="book_0018.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch21" href="book_0019.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch22" href="book_0020.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch23" href="book_0021.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch24" href="book_0022.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch25" href="book_0023.xhtml" media-type="application/xhtml+xml" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="ch1" />
+    <itemref idref="ch2" />
+    <itemref idref="ch3" />
+    <itemref idref="ch4" />
+    <itemref idref="ch5" />
+    <itemref idref="ch6" />
+    <itemref idref="ch7" />
+    <itemref idref="ch8" />
+    <itemref idref="ch9" />
+    <itemref idref="ch10" />
+    <itemref idref="ch11" />
+    <itemref idref="ch12" />
+    <itemref idref="ch13" />
+    <itemref idref="ch14" />
+    <itemref idref="ch15" />
+    <itemref idref="ch16" />
+    <itemref idref="ch17" />
+    <itemref idref="ch18" />
+    <itemref idref="ch19" />
+    <itemref idref="ch20" />
+    <itemref idref="ch21" />
+    <itemref idref="ch22" />
+    <itemref idref="ch23" />
+    <itemref idref="ch24" />
+    <itemref idref="ch25" />
+  </spine>
+  <guide>
+    <reference href="cover.xhtml" type="cover" title="Couverture" />
+  </guide>
+</package>

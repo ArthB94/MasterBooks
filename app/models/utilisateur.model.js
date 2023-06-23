@@ -58,27 +58,6 @@ Utilisateur.create = (newUtilisateur, result) => {
 };
 
 
-Utilisateur.createUser = async (lastname, firstname, mail, password) => {
-  try {
-    const create = await sql("clients").insert({
-      lastname: lastname,
-      firstname: firstname,
-      password: password,
-      mail: mail,
-    });
-    respObj = {
-      status: "success",
-      data: create,
-    };
-    return respObj;
-  } catch (e) {
-    respObj = {
-      status: "failed",
-      data: "User already exists",
-    };
-    return respObj;
-  }
-};
 
 /*
 Utilisateur.login = (req, result) => {

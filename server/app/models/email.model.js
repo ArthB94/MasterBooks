@@ -41,6 +41,7 @@ Email.transporter.use(
 );
 
 Email.send = (email, result) => {
+    console.log(email);
     Email.transporter.sendMail(email, (err, data) => {
         if (err) {
             console.log("Error " + err);

@@ -8,6 +8,5 @@ module.exports = app => {
 
     router.post("/send", email.send);
 
-    // app.use('/static', express.static(path.resolve(__dirname, '../config/emails/assets')));
     app.use('/api/email', router);
 }

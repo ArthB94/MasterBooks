@@ -45,6 +45,17 @@ Livre.create = (newLivre, result) => {
   );
 };
 
+Livre.findById = (book_reference, callback) => {
+  sql.execute("SELECT * FROM Livre WHERE reference = ?", [book_reference], (err, rows) => {
+    if (err) {
+      callback(err, null);
+      return;
+    } else {
+      callback(null, rows[0])
+    }
+  })
+}
+
 // methode pour récupérer tous les livres de la base de données
 Livre.getAll = result => {
   sql.query("SELECT * FROM livre", (err, res) => {

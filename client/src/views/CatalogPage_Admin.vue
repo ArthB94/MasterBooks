@@ -1,7 +1,5 @@
 <template>
     <body>
-
-
         <header>
             <div class="headernav">
                 <div class="header-container">
@@ -27,10 +25,8 @@
                     <p class="filter-main-Title">Filters</p>
                 </div>
                 <div :class="[MyLibrary ? 'filter-container1' : 'filter-container']">
-
                     <div class="filters-list">
                         <ul>
-
                             <li class="filters-list-li">
                                 <div class="filter-title">
                                     Genre
@@ -82,10 +78,9 @@
             <div class="search-and-book-container">
                 <div class="search-container">
                     <div class="search-bar-container" id="first-searchy-bar">
-                        <form action="">
-                            <input type="text" placeholder="Search.." v-model="searchBar" name="search" id="search-bar" >
-                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></button>
-                        </form>
+                        <input type="text" placeholder="Search.." v-model="searchBar" name="search" id="search-bar" @keyup.enter="getFilteredBooks()" >
+                        <div  @click="getFilteredBooks()" ><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></div>
+
                     </div>
                     <button type="submit" @click="addBooks(getBooks())">Add Books</button>
                     <button type="submit" @click="getAllBooks">Get Books</button>
@@ -108,7 +103,7 @@
                     <div class="search-bar-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+                            <div  @click="getFilteredBooks()"><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></div>
                         </form>
                     </div>
                     <div class="lib-button-container" v-if="MyLibrary">
@@ -145,8 +140,6 @@
                             </div>
                         </router-link>
                     </div>
-
-
 
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -231,12 +224,12 @@ export default {
             nbBooksPerPage: this.getNbBooksPerPage(),
             booksNotVisible: this.getBooksNotVisible(),
             selectedPage: 0,
-            nbTotalBooks: 100,
+            nbTotalBooks: 10,
             searchBar: "",
             books: [],
 
             //filtres
-            genres:["Action","Horror","Romance","Sci-fi"],
+            genres:[],
             selectedGenres:[],
             languages:["English","French","Arabic","German"],
             selectedLanguages:[],
@@ -271,51 +264,51 @@ export default {
         // fonction de filtrage edes livres
         filteredBooks(){
             let books = this.books;
-            if (this.searchBar != "") {
-                books = books.filter(book => book.title.toLowerCase().includes(this.searchBar.toLowerCase()));
-            }
-            if(this.selectedGenres.length > 0){
-                books = books.filter(book => this.selectedGenres.includes(book.genre));
-            }
-            if(this.selectedLanguages.length > 0){
-                books = books.filter(book => this.selectedLanguages.includes(book.langue));
-            }
+            // if (this.searchBar != "") {
+            //     books = books.filter(book => book.titre.toLowerCase().includes(this.searchBar.toLowerCase()));
+            // }
+            // if(this.selectedGenres.length > 0){
+            //     books = books.filter(book => this.selectedGenres.includes(book.genre));
+            // }
+            // if(this.selectedLanguages.length > 0){
+            //     books = books.filter(book => this.selectedLanguages.includes(book.langue));
+            // }
             
-            if(this.selectedNumberOfPages.length > 0){
-                let books1 = [];
-                if(this.selectedNumberOfPages.includes("Under 100")){
-                    books1 = books1.concat(books.filter(book => book.pages < 100));
-                }
-                if(this.selectedNumberOfPages.includes("100 ~ 500")){
-                    books1 = books1.concat(books.filter(book => book.pages >= 100 && book.pages < 500));
-                }
-                if(this.selectedNumberOfPages.includes("500 ~ 1000")){
-                    books1 = books1.concat(books.filter(book => book.pages >= 500 && book.pages < 1000));
-                }
-                if(this.selectedNumberOfPages.includes("Over 1000")){
-                    books1 = books1.concat(books.filter(book => book.pages >= 1000));
-                }
-                books = books1;
-            }
-            if(this.selectedParutionYears.length > 0){
-                let books1 = [];
-                if(this.selectedParutionYears.includes("Before 1980")){
-                    books1 = books1.concat(books.filter(book => book.date_parution < 1980));
-                }
-                if(this.selectedParutionYears.includes("1980 ~ 2000")){
-                    books1 = books1.concat(books.filter(book => book.date_parution >= 1980 && book.date_parution < 2000));
-                }
-                if(this.selectedParutionYears.includes("2000 ~ 2010")){
-                    books1 = books1.concat(books.filter(book => book.date_parution >= 2000 && book.date_parution < 2010));
-                }
-                if(this.selectedParutionYears.includes("2010 ~ 2020")){
-                    books1 = books1.concat(books.filter(book => book.date_parution >= 2010 && book.date_parution < 2020));
-                }
-                if(this.selectedParutionYears.includes("After 2020")){
-                    books1 = books1.concat(books.filter(book => book.date_parution >= 2020));
-                }
-                books = books1;
-            }
+            // if(this.selectedNumberOfPages.length > 0){
+            //     let books1 = [];
+            //     if(this.selectedNumberOfPages.includes("Under 100")){
+            //         books1 = books1.concat(books.filter(book => book.pages < 100));
+            //     }
+            //     if(this.selectedNumberOfPages.includes("100 ~ 500")){
+            //         books1 = books1.concat(books.filter(book => book.pages >= 100 && book.pages < 500));
+            //     }
+            //     if(this.selectedNumberOfPages.includes("500 ~ 1000")){
+            //         books1 = books1.concat(books.filter(book => book.pages >= 500 && book.pages < 1000));
+            //     }
+            //     if(this.selectedNumberOfPages.includes("Over 1000")){
+            //         books1 = books1.concat(books.filter(book => book.pages >= 1000));
+            //     }
+            //     books = books1;
+            // }
+            // if(this.selectedParutionYears.length > 0){
+            //     let books1 = [];
+            //     if(this.selectedParutionYears.includes("Before 1980")){
+            //         books1 = books1.concat(books.filter(book => book.date_parution < 1980));
+            //     }
+            //     if(this.selectedParutionYears.includes("1980 ~ 2000")){
+            //         books1 = books1.concat(books.filter(book => book.date_parution >= 1980 && book.date_parution < 2000));
+            //     }
+            //     if(this.selectedParutionYears.includes("2000 ~ 2010")){
+            //         books1 = books1.concat(books.filter(book => book.date_parution >= 2000 && book.date_parution < 2010));
+            //     }
+            //     if(this.selectedParutionYears.includes("2010 ~ 2020")){
+            //         books1 = books1.concat(books.filter(book => book.date_parution >= 2010 && book.date_parution < 2020));
+            //     }
+            //     if(this.selectedParutionYears.includes("After 2020")){
+            //         books1 = books1.concat(books.filter(book => book.date_parution >= 2020));
+            //     }
+            //     books = books1;
+            // }
             return books;
         }
 
@@ -396,7 +389,13 @@ export default {
             let genres = this.genres;
             let languages = this.languages;
             for (var i = 0; i < this.nbTotalBooks; i++) {
-                let genre = genres[Math.floor(Math.random() * genres.length)];
+                let myGenres = [];
+                for (var j = 0; j < Math.floor(Math.random() * genres.length) + 1; j++) {
+                    let genre = genres[Math.floor(Math.random() * genres.length)];
+                    if ( myGenres.includes(genre) == false) {
+                        myGenres.push(genre);
+                    }
+                }
                 let language = languages[Math.floor(Math.random() * languages.length)];
                 let numberOfPages = Math.floor(Math.random() * 1500);
                 let parutionYear = Math.floor(Math.random() * 100) + 1970;
@@ -404,7 +403,7 @@ export default {
                     title: "Book " + (i+1),
                     autor: "Author " + (i+1) ,
                     image: "Book_example.jpg",
-                    genre: genre,
+                    genres: myGenres,
                     language: language,
                     parution_date: parutionYear,
                     numberOfPages: numberOfPages,
@@ -413,6 +412,7 @@ export default {
                 }
                 books.push(book);
             }
+            //console.log(books);
             return books;
         },
 
@@ -449,25 +449,159 @@ export default {
                 throw error;
             }
         },
-
-        /*
-        axios.get("http://localhost:8080/api/livre/all").then((response) => {
-            if (response.status === 200) {
-                this.books = response.data;
-                this.nbBooks = this.books.length;
-                this.nbPages = Math.ceil(this.nbBooks/this.nbBooksPerPage);
-                this.booksNotVisible = this.getBooksNotVisible();
-                console.log(this.books);
-            } else {
-                throw new Error(JSON.stringify(response.data));
+        async getAllGenres() {
+            try {
+                const response = await axios.get('http://localhost:8080/api/genre/all');
+                const data = response.data;
+                console.log("getAllGenres", data);
+                for (let i = 0; i < data.length; i++) {
+                    this.genres.push(data[i].genre);
+                }
+            } catch (error) {
+                console.error(error);
+                throw error;
             }
-        }).catch((error) => {
-            this.message = error.message;
-        });
-*/
-          
+        },
 
+        async getFilteredBooks() {
+            //Select * from livre join appartenir using(reference) join genre using(genre_id) where genre.genre = 'Action'
+            let filterQuerry = "Select * from livre ";
+            let and = false;
 
+            if (this.searchBar != "") {
+                filterQuerry += "where titre like '%" + this.searchBar + "%' or auteur like '%"+ this.searchBar + "%' ";
+                and = true;
+            }
+            if(this.selectedGenres.length > 0){
+                if(!and){
+                    filterQuerry += "where (";
+                    and = false
+                }
+                else{
+                    filterQuerry += "and ("
+                }
+
+                filterQuerry += "reference in  (select  reference from appartenir join genre using(genre_id) where genre.genre = '"+this.selectedGenres[0]+"') "
+                for (let i = 1; i < this.selectedGenres.length; i++) {
+                    filterQuerry += "and reference in (select reference from appartenir join genre using (genre_id) where genre.genre = '"+this.selectedGenres[i]+"') ";
+                }
+                filterQuerry += ") ";
+                and = true;
+
+            }
+            if(this.selectedLanguages.length > 0){
+                if(!and){
+                    filterQuerry += "where (";
+                    and = false
+                }
+                else{
+                    filterQuerry += "and ("
+                }
+                filterQuerry += "livre.langue = '" + this.selectedLanguages[0] + "' ";
+                filterQuerry += ") ";
+                
+            }
+            
+            if(this.selectedNumberOfPages.length > 0){
+                if(!and){
+                    filterQuerry += "where (";
+                    and = false
+                }
+                else{
+                    filterQuerry += "and ("
+                }
+                let or = false;
+                
+                if(this.selectedNumberOfPages.includes("Under 100")){
+
+                    filterQuerry += "livre.pages < 100 ";
+                    or = true;
+
+                }
+                if(this.selectedNumberOfPages.includes("100 ~ 500")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.pages >= 100 and livre.pages < 500 ";
+                    or = true;
+                }
+                if(this.selectedNumberOfPages.includes("500 ~ 1000")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.pages >= 500 and livre.pages < 1000 ";
+                    or = true;
+
+                }
+                if(this.selectedNumberOfPages.includes("Over 1000")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.pages >= 1000 ";
+                    or = true;
+
+                }
+                filterQuerry += ") "
+                or = false
+                and = true
+                
+            }
+            if(this.selectedParutionYears.length > 0){
+                let or = false
+                if(!and){
+                    filterQuerry += "where (";
+                    and = false
+                }
+                else{
+                    filterQuerry += "and ("
+                }
+                if(this.selectedParutionYears.includes("Before 1980")){
+                    filterQuerry += "livre.date_parution < 1980 ";
+                    or = true;
+                }
+                if(this.selectedParutionYears.includes("1980 ~ 2000")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.date_parution >= 1980 and livre.date_parution < 2000 ";
+                    or = true;
+                }
+                if(this.selectedParutionYears.includes("2000 ~ 2010")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.date_parution >= 2000 and livre.date_parution < 2010 ";
+                    or = true;
+                }
+                if(this.selectedParutionYears.includes("2010 ~ 2020")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.date_parution >= 2010 and livre.date_parution < 2020 ";
+                    or = true;
+                }
+                if(this.selectedParutionYears.includes("After 2020")){
+                    if(or){
+                        filterQuerry += "or ";
+                    }
+                    filterQuerry += "livre.date_parution >= 2020 ";
+                    or = true;
+                }
+                filterQuerry += ") "
+            }
+            console.log(filterQuerry);
+
+            
+            axios.post("http://localhost:8080/api/livre/filter", {querry:filterQuerry}).then((response) => {
+                    if (response.status === 200) {
+                        this.books = response.data;
+                        return response.data;
+                    } else {
+                        console.log(new Error(JSON.stringify(response.data)));
+                        throw new Error(JSON.stringify(response.data));
+                    }
+                })
+        },
     },
 
 
@@ -495,14 +629,11 @@ export default {
         // permet de faire des action dés que la page change de taille
         window.addEventListener('resize', this.handleWindowResize);
         
-
-        this.getAllBooks();
+        await this.getAllGenres();
+        await this.getAllBooks();
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     },
-    
-
-
 }
 </script>

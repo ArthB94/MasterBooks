@@ -2161,50 +2161,54 @@ color: aliceblue;
 box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
 }
 
-.search-container .search-bar-container button {
-float: right;
-width: 20%;
-background-color: #f291bb57;
-border: none;
-outline: none;
-padding: 10px 0px;
-border-radius: 35px;
-border: 1px solid rgba(0, 155, 252, 0.5);
-border-right: 1px solid rgba(0, 0, 0, 0.2);
-border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-border-top-left-radius: 0%;
-border-bottom-left-radius: 0%;
-font-size: 16px;
-letter-spacing: 1px;
-color: rgba(114, 114, 114, 0.858);
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-cursor: pointer;
+.search-container .search-bar-container div {
+  display: flex;
+  float: right;
+  width: 20%;
+  background-color: #f291bb57;
+  border: none;
+  outline: none;
+  padding: 11.5px 0px;
+  border-radius: 35px;
+  border: 1px solid rgba(0, 155, 252, 0.5);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: rgba(114, 114, 114, 0.858);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  justify-content: center;
 }
 
-.dark .search-container .search-bar-container button {
-float: right;
-width: 20%;
-background-color: rgba(255, 255, 255, 0.2);
-border: none;
-outline: none;
-padding: 10px 20px;
-border-radius: 35px;
-border-top-left-radius: 0%;
-border-bottom-left-radius: 0%;
-border: 1px solid rgba(255, 255, 255, 0.5);
-border-right: 1px solid rgba(255, 255, 255, 0.2);
-border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-font-size: 16px;
-letter-spacing: 1px;
-color: aliceblue;
-box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
-cursor: pointer;
+.dark .search-container .search-bar-container div {
+  display: flex;
+  float: right;
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  outline: none;
+  /* padding: 10px 20px; */
+  padding: 11.5px 0px;
+  border-radius: 35px;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: aliceblue;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  justify-content: center;
 }
 
-.dark .search-container .search-bar-container button:hover {
-background: #ccc;
+.dark .search-container .search-bar-container div:hover {
+  background: #ccc;
 }
-
 
 .search-container-fixe{
 position: -webkit-sticky; /* Safari */

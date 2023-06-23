@@ -5,10 +5,9 @@ module.exports = app =>{
     
     router.post("/add", livres.create);
 
+    router.post("/filter", livres.findByFilter);
 
     router.get("/all", livres.findAll);
-
-
 
     app.use('/api/livre', router);
 }

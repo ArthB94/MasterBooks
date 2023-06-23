@@ -1,40 +1,28 @@
-DROP TABLE `masterbooks`.`partager`;
-DROP TABLE `masterbooks`.`livre`;
-
 CREATE TABLE utilisateur(
    email_user VARCHAR(50),
    pseudo VARCHAR(50),
    mdp VARCHAR(60),
+   admin BOOLEAN,
    PRIMARY KEY(email_user)
 );
 
-CREATE TABLE Admin(
-   email_admin VARCHAR(50),
-   PRIMARY KEY(email_admin)
-);
-
-Create TABLE Livre(
+CREATE TABLE livre(
    reference INT AUTO_INCREMENT,
    titre VARCHAR(50),
    auteur VARCHAR(50),
    pages INT,
-   langue VARCHAR(50),
-   genre VARCHAR(100),
-   date_parution DATE,
-   resume VARCHAR(500),
-   image_src VARCHAR(50),
+   resume VARCHAR(1000),
    url VARCHAR(200),
+   date_parution YEAR,
+   image_src VARCHAR(500),
+   langue VARCHAR(50),
    PRIMARY KEY(reference)
 );
 
-CREATE TABLE mail(
-   id_mail INT,
-   titre VARCHAR(50),
-   destinataire VARCHAR(50),
-   corps VARCHAR(1000),
-   email_user VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_mail),
-   FOREIGN KEY(email_user) REFERENCES Utilisateur(email_user)
+CREATE TABLE Genre(
+   genre_id INT AUTO_INCREMENT,
+   genre VARCHAR(50),
+   PRIMARY KEY(genre_id)
 );
 
 CREATE TABLE lire(
@@ -58,7 +46,10 @@ CREATE TABLE critiquer(
 CREATE TABLE partager(
    email_user VARCHAR(50),
    reference INT,
+   token VARCHAR(100),
+   date_fin DATE,
    PRIMARY KEY(email_user, reference),
+   UNIQUE(token),
    FOREIGN KEY(email_user) REFERENCES Utilisateur(email_user),
    FOREIGN KEY(reference) REFERENCES Livre(reference)
 );
@@ -70,11 +61,19 @@ CREATE TABLE sauvegarder(
    FOREIGN KEY(email_user) REFERENCES Utilisateur(email_user),
    FOREIGN KEY(reference) REFERENCES Livre(reference)
 );
-
-CREATE TABLE echanger(
+CREATE TABLE être_recommandé(
    email_user VARCHAR(50),
-   email_admin VARCHAR(50),
-   PRIMARY KEY(email_user, email_admin),
+   email_user VARCHAR(50),
+   reference INT,
+   Pourcentage INT,
+   PRIMARY KEY(email_user, reference),
    FOREIGN KEY(email_user) REFERENCES Utilisateur(email_user),
-   FOREIGN KEY(email_admin) REFERENCES Admin(email_admin)
+   FOREIGN KEY(reference) REFERENCES Livre(reference)
+);
+CREATE TABLE appartenir(
+   reference INT,
+   genre_id INT,
+   PRIMARY KEY(reference, genre_id),
+   FOREIGN KEY(reference) REFERENCES Livre(reference),
+   FOREIGN KEY(genre_id) REFERENCES Genre(genre_id)
 );

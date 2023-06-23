@@ -40,6 +40,7 @@ app.post('/test', (req,res)=>{
 // 
 require("./app/routes/utilisateur.routes.js")(app);
 require("./app/routes/livre.routes.js")(app);
+require("./app/routes/genre.routes.js")(app);
 
 // notre port d'écoute
 const PORT = process.env.PORT || 8080;

@@ -6,13 +6,17 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/logo_book.png" class="VueLogo" />
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
+    height: 167px;
+    margin: 0px;
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
                     <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -30,11 +34,13 @@
                     <div class="all-questions">
                         <div class="help-question">
                             <label for="fname" class="help-label">Your Name * </label>
-                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..." v-model="name"><br>
+                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..."
+                                v-model="name"><br>
                         </div>
                         <div class="help-question">
                             <label for="fname" class="help-label">Your Email * </label>
-                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..." v-model="email"><br>
+                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..."
+                                v-model="email"><br>
                         </div>
                         <div class="help-question">
                             <label for="fname" class="help-label">Summary * </label>
@@ -62,19 +68,22 @@
                         <div class="help-question">
                             <label for="file-upload" class="help-label">Upload Screenshot</label>
                             <div class="help-input">
-                                <button class="Create-planning-Btn" style="margin-right: 15px;" @click="$refs.fileupload.click()">Click here</button>
-                                <input type="file" id="file-upload" ref="fileupload" name="file-upload" class="help-input" placeholder="Upload a screenshot of the issue." @change="handleFileChange" style="display:none">
+                                <button class="Create-planning-Btn" style="margin-right: 15px;"
+                                    @click="$refs.fileupload.click()">Click here</button>
+                                <input type="file" id="file-upload" ref="fileupload" name="file-upload" class="help-input"
+                                    placeholder="Upload a screenshot of the issue." @change="handleFileChange"
+                                    style="display:none">
                                 {{ labelText }}
                             </div>
-                                
+
                             <br>
                         </div>
-                        <button @click="()=>handleSend()" type="submit" class="submit-help-btn" id="UpdateBtn">
+                        <button @click="() => handleSend()" type="submit" class="submit-help-btn" id="UpdateBtn">
                             Send
                         </button>
                         <div class="help-question" style="height: 40px;">
-                            <p class="help-prompt" v-if="sent" style="color: green" > Help Request sent !</p>
-                            <p class="help-prompt" v-if="error" style="color: red" > Please fill every field with a * !</p>
+                            <p class="help-prompt" v-if="sent" style="color: green"> Help Request sent !</p>
+                            <p class="help-prompt" v-if="error" style="color: red"> Please fill every field with a * !</p>
                         </div>
                     </div>
                 </form>
@@ -82,11 +91,14 @@
 
             </div>
         </div>
-        <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe;" /></a>        <footer>
+        <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
+                icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe;" /></a>
+        <footer>
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -126,25 +138,24 @@ export default {
             labelText: "No file selected"
         };
     },
-    mounted(){
+    mounted() {
         var thisID = document.getElementById("TopBtn");
         var myScrollFunc = function () {
-        var y = window.scrollY;
-        if (y >= 300) {
-            thisID.className = "fa fa-angle-double-up show";
-        } else {
-            thisID.className = "fa fa-angle-double-up hide";
-        }
-    };
+            var y = window.scrollY;
+            if (y >= 300) {
+                thisID.className = "fa fa-angle-double-up show";
+            } else {
+                thisID.className = "fa fa-angle-double-up hide";
+            }
+        };
         window.addEventListener("scroll", myScrollFunc);
     },
     methods: {
-        handleSend(){
+        handleSend() {
             console.log(this.name, this.email, this.summary, this.details, this.link);
             const fdata = new FormData();
 
-            if(this.name == "" || this.email == "" || this.summary == "" || this.details == "")
-            {
+            if (this.name == "" || this.email == "" || this.summary == "" || this.details == "") {
                 this.sent = false;
                 this.error = true;
                 return "Fill every field with a * !";
@@ -157,10 +168,10 @@ export default {
             fdata.append("summary", this.summary);
             fdata.append("details", this.details);
 
-            if(this.link != "")
+            if (this.link != "")
                 fdata.append("link", this.link);
 
-            if(this.selectedFile)
+            if (this.selectedFile)
                 fdata.append("report_photo", this.selectedFile);
 
             const request = new XMLHttpRequest();
@@ -171,7 +182,7 @@ export default {
         },
         handleFileChange(event) {
             const file = event.target.files[0];
-            if(file){
+            if (file) {
                 this.selectedFile = file;
                 this.labelText = file.name;
             } else {

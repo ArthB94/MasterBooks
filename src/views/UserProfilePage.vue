@@ -5,15 +5,15 @@
         <div class="headernav">
           <div class="header-container">
             <div class="header-image">
-              <img alt="Vue logo" src="../assets/logo_book.png" class="VueLogo" />
-            </div>
+              <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
+                </div>
           </div>
-          <div class="Navbar">
-            <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
-            <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-            <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
-          </div>
-          <UserMenu></UserMenu>
+                <div class="Navbar">
+                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                </div>
+                <UserMenu></UserMenu>
           <div class="light">
             <DarkLightMode></DarkLightMode>
           </div>
@@ -56,7 +56,7 @@
       <div class="content-footer">
         <div class="top">
           <div class="logo-details">
-            <img src="../assets/logo_book.png" alt="LB logo" />
+            <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
             <p class="logo-name">
               BOOK MASTER <br />
               <small>est. 2023</small>

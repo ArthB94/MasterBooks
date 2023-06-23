@@ -6,13 +6,17 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/logo_book1.png" class="VueLogo" />
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
+    height: 167px;
+    margin: 0px;
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
                     <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -138,7 +142,7 @@
                     <div class="search-bar-container" id="first-searchy-bar">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+                            <div><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></div>
                         </form>
                     </div>
                     <div class="page-turner">
@@ -500,7 +504,8 @@
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -545,37 +550,37 @@ export default {
 
         var myScrollFunc = function () {
             var y = window.scrollY;
-            if (y >= 300 ) {
+            if (y >= 300) {
                 thisID.className = "fa fa-angle-double-up show";
             } else {
                 thisID.className = "fa fa-angle-double-up hide";
             }
         };
         window.addEventListener("scroll", myScrollFunc);
-        window.addEventListener("scroll", function() {
-        // Get the position of the target element
-        var elementPosition = element.getBoundingClientRect();
+        window.addEventListener("scroll", function () {
+            // Get the position of the target element
+            var elementPosition = element.getBoundingClientRect();
 
-        // Check if the top of the element is above the viewport
+            // Check if the top of the element is above the viewport
             if (elementPosition.top < 0) {
-            // Get the position of the element relative to the viewport
+                // Get the position of the element relative to the viewport
                 SearchClass.className = "search-container search-container-fixe show";
             } else {
                 SearchClass.className = "search-container-fixe hide";
             }
         })
-        
+
         // window.addEventListener("scroll", myScrollFunc1);
     },
     methods: {
         OpenDeleteTask(id) {
 
-this.DeleteTaskIndex = id;
-document.getElementById("myModalDeleteTask").style.display = "block";
-},
-CloseDeleteTask() {
-document.getElementById("myModalDeleteTask").style.display = "none";
-},
+            this.DeleteTaskIndex = id;
+            document.getElementById("myModalDeleteTask").style.display = "block";
+        },
+        CloseDeleteTask() {
+            document.getElementById("myModalDeleteTask").style.display = "none";
+        },
     }
 
 }

@@ -6,7 +6,7 @@
             <div class="headernav">
 
                 <div class="header-image">
-                    <img alt="Vue logo" style="opacity: 0.7;" src="../assets/logo_book.png" class="VueLogo" />
+                    <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
@@ -28,8 +28,10 @@
                             </p>
                             <form action="#" method="post">
                                 <div class="Form-question">
-                                    <label for="file-upload"><p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's
-                                            epub file*</i></p></label>
+                                    <label for="file-upload">
+                                        <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's
+                                                epub file*</i></p>
+                                    </label>
                                     <div class="AddBookInput">
                                         <button class="Create-planning-Btn" style="margin-right: 15px; margin-bottom: 8px"
                                             @click="$refs.fileupload.click()">Click here</button>
@@ -50,8 +52,10 @@
                                 </div>
 
                                 <div class="Form-question">
-                                    <label for="file-upload"><p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's
-                                            illustration*</i></p></label>
+                                    <label for="file-upload">
+                                        <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's
+                                                illustration*</i></p>
+                                    </label>
                                     <div class="AddBookInput">
                                         <button class="Create-planning-Btn" style="margin-right: 15px; margin-bottom: 8px"
                                             @click="$refs.fileupload.click()">Click here</button>
@@ -75,8 +79,9 @@
                                     <input v-model="email" type="text" name="txtEmail" placeholder="Cover picture">
                                 </div>
                                 <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's genre(s)*</i> </p>
-                                <div class="loginInputBox">
-                                    <div class="custom-select1">
+                                <div class="loginInputBox"
+                                    style="display: flex; align-items: center; justify-content: space-around;">
+                                    <div class="custom-select1" style="width: 90%;">
                                         <select>
                                             <option value="0">1</option>
                                             <option value="1">2</option>
@@ -84,6 +89,8 @@
                                             <option value="3">4</option>
                                         </select>
                                     </div>
+                                    <font-awesome-icon @click="() => AddPlus()" id="TaskPlus" icon="fa-solid fa-plus"
+                                        size="sm" />
                                 </div>
                                 <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Book's language*</i> </p>
                                 <div class="loginInputBox">
@@ -134,12 +141,14 @@
         <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
                 icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe;" /></a>
         <footer style="margin-top: 0%">
+
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
-                            TIME TO DO <br />
+                            BOOK MASTER <br />
                             <small>est. 2023</small>
                         </p>
                     </div>
@@ -152,6 +161,7 @@
                 </div>
             </div>
         </footer>
+
     </body>
 </template>
 

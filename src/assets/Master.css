@@ -1135,6 +1135,53 @@ body.dark {
 
 /*--------------------------------------------------------------------------------------------------*/
 
+.logo-nav-clean{
+  width: 177px;
+  height: 167px;
+  margin: 0px;
+  margin-left: 37px;
+  margin-right: 18px;
+}
+
+.logo-nav{
+  width: 177px;
+  height: 167px;
+  margin: 0px;
+  /* margin-bottom: 50px; */
+  margin-top: 26px;
+  margin-left: 37px;
+}
+
+
+
+.dark .logo-nav{
+  width: 177px;
+  height: 167px;
+  margin: 0px;
+  /* margin-bottom: 50px; */
+  margin-top: 21.8px;
+  margin-left: 37px;
+}
+
+@media (max-width:900px) {
+  .logo-nav{
+    margin-left: 0px;
+  }
+
+  .dark .logo-nav{
+    margin-left: 0px;
+  }
+}
+
+.logo-nav:before {
+  content: url(LogoJour1.png);
+}
+
+body.dark .logo-nav:before {
+  content: url(LogoNuit1.png);
+}
+
+
 .headernav {
     display: flex;
     flex-direction: row;
@@ -2182,13 +2229,14 @@ body.dark .task-container .checkmark:after {
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
 }
 
-.search-container .search-bar-container button {
+.search-container .search-bar-container div {
+  display: flex;
   float: right;
   width: 20%;
   background-color: #f291bb57;
   border: none;
   outline: none;
-  padding: 10px 0px;
+  padding: 11.5px 0px;
   border-radius: 35px;
   border: 1px solid rgba(0, 155, 252, 0.5);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
@@ -2200,15 +2248,18 @@ body.dark .task-container .checkmark:after {
   color: rgba(114, 114, 114, 0.858);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   cursor: pointer;
+  justify-content: center;
 }
 
-.dark .search-container .search-bar-container button {
+.dark .search-container .search-bar-container div {
+  display: flex;
   float: right;
   width: 20%;
   background-color: rgba(255, 255, 255, 0.2);
   border: none;
   outline: none;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding: 11.5px 0px;
   border-radius: 35px;
   border-top-left-radius: 0%;
   border-bottom-left-radius: 0%;
@@ -2220,9 +2271,10 @@ body.dark .task-container .checkmark:after {
   color: aliceblue;
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
   cursor: pointer;
+  justify-content: center;
 }
 
-.dark .search-container .search-bar-container button:hover {
+.dark .search-container .search-bar-container div:hover {
   background: #ccc;
 }
 
@@ -2286,13 +2338,14 @@ body.dark .task-container .checkmark:after {
 }
 
 .dark .custom-select select{
-  background-color: transparent;
+  background: none;
   border : none;
   /* width:inherit; */
   padding: 10px 10px;
   outline: none;
   color: aliceblue;
 }
+
 
 .custom-select select{
   
@@ -2351,6 +2404,26 @@ body.dark .task-container .checkmark:after {
   margin-left: 37px;
 }
 
+.book-descript{
+  display: none;
+  color:rgba(27, 26, 26, 0.859);
+  font-size: smaller;
+  text-align: center;
+}
+
+.dark .book-descript{
+  display: none;
+  color:rgba(255, 255, 255, 0.859);
+  font-size: smaller;
+  text-align: center;
+}
+
+.book-page-link:hover{
+  .book-descript{
+    display: flex;
+    
+  }
+}
   
 .book{
   display: flex;
@@ -2863,6 +2936,11 @@ body.dark .modal{
   max-width: 400px;
 }
 
+
+/* select{
+  background: black;
+  color: white;
+} */
 /* option {
   font-weight: normal;
   display: block;
@@ -3414,6 +3492,7 @@ section {
   background-image: linear-gradient(
     to bottom right,
     rgba(255, 0, 119, 0.6),
+    #c18cd6,
     rgba(0, 217, 255, 0.6)
   );
   border-radius: 4px;
@@ -3555,8 +3634,8 @@ footer {
   
   .logo-details img {
     margin-top: 0%;
-    height: 30%;
-    width: 30%;
+    height: 10%;
+    width: 26%;
     display: inline;
     margin-right: 15px;
     float: left;

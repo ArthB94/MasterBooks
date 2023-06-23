@@ -6,16 +6,17 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/LogoJour.png" class="VueLogo" style="    width: 177px;
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
     height: 167px;
     margin: 0px;
-    margin-bottom: 50px; margin-left: 37px;" />
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
                     <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -55,55 +56,85 @@
                         <input type="radio" id="star1" name="rate" value="1" />
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
-                    <div class="lib-button-container adapted-wishlist" style = "padding-left: 35px; padding-top: 40px; ">
+                    <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
                         <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div></div>
+                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                    </div>
                 </div>
                 <div class="save-share-info">
                     <div>
-                    <router-link to="/book-read-page" class="LogRegBtnLink"
-                        style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link></div>
-                        <div class="help-question">
-                            <label for="fname" class="help-label label-recs-book" style="text-align: center; ">Want to share this book with someone?</label>
-                            <input type="text" id="fname" name="fname" class="help-input label-recs-book" placeholder="Email" v-model="email"><br>
-                        </div>
-                        <!-- <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Number of pages*</i> </p>
+                        <router-link to="/book-read-page" class="LogRegBtnLink"
+                            style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link>
+                    </div>
+                    <div class="help-question">
+                        <label for="fname" class="help-label label-recs-book" style="text-align: center; ">Want to share
+                            this book with someone?</label>
+                        <input type="text" id="fname" name="fname" class="help-input label-recs-book" placeholder="Email"
+                            v-model="email"><br>
+                    </div>
+                    <!-- <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Number of pages*</i> </p>
                                 <div class="loginInputBox">
                                     <input v-model="email" type="text" name="txtEmail" placeholder="Number of pages">
                                 </div> -->
-                    <button to="/register-page" class="LogRegBtnLink"
+                    <button to="/register-page" @click="OpenDeleteTask()" class="LogRegBtnLink"
                         style="--shadow: #f291bb; --color: rgb(162, 85, 255,0.3); --background: #c18cd6; border-top: transparent; border-left:transparent; margin-top: 10px;">Share</button>
                     <p class="book-disclaimer-info">*Read/Share available for 30 days</p>
-                    
-                    
+
+
                 </div>
             </div>
             <div class="Comment-section-container">
                 <div class="FAQcontainer">
-                  <!-- <h3 class="comment-container-title">Feedback & Comments</h3> -->
-                  <div class="comments">
-                      <div class="comment flex items-start justify-start">
-                          <img class="comment-avatar" src="../assets/UserMe.png" alt="Admin img">
-                          <div class="flex-1">
-                              <h3 class="comment-author1">Admin</h3>
-                              <p class="comment-body">What did you think about this book ? Feel free to speak your mind !</p>
-                          </div>
-                      </div>
-                  </div>
-            <!--------------------------------------------------Comment input section--------------------------------------------------------------->
+                    <!-- <h3 class="comment-container-title">Feedback & Comments</h3> -->
+                    <div class="comments">
+                        <div class="comment flex items-start justify-start">
+                            <img class="comment-avatar" src="../assets/UserMe.png" alt="Admin img">
+                            <div class="flex-1">
+                                <h3 class="comment-author1">Admin</h3>
+                                <p class="comment-body">What did you think about this book ? Feel free to speak your mind !
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--------------------------------------------------Comment input section--------------------------------------------------------------->
 
-                  <div class="comment comment-new flex items-start justify-start" >
-                      <img class="comment-avatar" src="../assets/UserWrite.png" alt="User Write img">
-                      <div class="flex-1">
+                    <div class="comment comment-new flex items-start justify-start">
+                        <img class="comment-avatar" src="../assets/UserWrite.png" alt="User Write img">
+                        <div class="flex-1">
 
-                          <form action="#" class="comment-form">
-                              <textarea placeholder="Username" class="comment-author"></textarea>
-                              <textarea placeholder="Add your comment" class="comment-input"></textarea>
-                              <input type="submit" class="comment-submit" value="Submit">
-                          </form>
-                      </div>
-                  </div>
-              </div>
+                            <form action="#" class="comment-form">
+                                <textarea placeholder="Username" class="comment-author"></textarea>
+                                <textarea placeholder="Add your comment" class="comment-input"></textarea>
+                                <input type="submit" class="comment-submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="myModalDeleteTask" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" @click='CloseDeleteTask'>&times;</span>
+                    <h1 class="modal-Title">Share this Book ?</h1>
+                    <div class="modal-center">
+                        <p style="margin-top: 50px; margin-bottom: 10px;">Are you sure you want to share this Book with the
+                            following email address?</p>
+                        <div class="message"> {{ message }}</div>
+                        <div class="help-question">
+                            <input type="text" id="fname" name="fname" class="help-input" placeholder="Email"
+                                v-model="email"><br>
+                        </div>
+                        <div class="delete-list-button">
+                            <div class="AddTaskInputBox no">
+                                <input class="close" type="submit" value="Cancel" name="submit" @click='CloseDeleteTask' />
+                            </div>
+                            <div class="AddTaskInputBox no">
+                                <input style="margin-left: 0px;" type="submit" value="Share" name="submit"
+                                    @click='DeleteTask' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
@@ -112,7 +143,8 @@
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -155,13 +187,13 @@ export default {
 
 
         const submit = document.querySelector('.comment-submit');
-const commentList = document.querySelector('.comments');
-const commentAuthor = document.querySelector('.comment-author');
-const commentInput = document.querySelector('.comment-input');
+        const commentList = document.querySelector('.comments');
+        const commentAuthor = document.querySelector('.comment-author');
+        const commentInput = document.querySelector('.comment-input');
 
 
-function template(data) {
-  commentList.insertAdjacentHTML("beforeend", `
+        function template(data) {
+            commentList.insertAdjacentHTML("beforeend", `
   <div class="comment flex items-start justify-start">
       <img class="comment-avatar" :src="avatar" />
       <div class="flex-1">
@@ -170,49 +202,56 @@ function template(data) {
       </div>
     </div>
   </div>`);
-}
+        }
 
-function appendComment (event) {
+        function appendComment(event) {
 
-  const data = {
-    avatar: UserAvatar,
-    author: commentAuthor.value,
-    comment: commentInput.value,
-  };
+            const data = {
+                avatar: UserAvatar,
+                author: commentAuthor.value,
+                comment: commentInput.value,
+            };
 
-  event.preventDefault();
+            event.preventDefault();
 
-  if (commentInput.value.length < 1) return;
+            if (commentInput.value.length < 1) return;
 
-  // Insert new template into DOM
-  template(data);
+            // Insert new template into DOM
+            template(data);
 
-  // Reset Author text area value
-  commentAuthor.value = "";
+            // Reset Author text area value
+            commentAuthor.value = "";
 
-  // Reset text area value
-  commentInput.value = "";
+            // Reset text area value
+            commentInput.value = "";
 
-  // Save the list to localStorage
-  localStorage.setItem('commentListing', JSON.stringify(commentList.innerHTML));
-}
-
-
-submit.addEventListener('click', appendComment, false)
-
-// Check for saved items
-
-  const saved = JSON.parse(localStorage.getItem('commentListing'));
+            // Save the list to localStorage
+            localStorage.setItem('commentListing', JSON.stringify(commentList.innerHTML));
+        }
 
 
-// If there are any saved items, update the current list
-if (saved) {
-  commentList.innerHTML = saved;
-}
+        submit.addEventListener('click', appendComment, false)
+
+        // Check for saved items
+
+        const saved = JSON.parse(localStorage.getItem('commentListing'));
+
+
+        // If there are any saved items, update the current list
+        if (saved) {
+            commentList.innerHTML = saved;
+        }
 
     },
-    methods:{
-        
+    methods: {
+        OpenDeleteTask(id) {
+
+            this.DeleteTaskIndex = id;
+            document.getElementById("myModalDeleteTask").style.display = "block";
+        },
+        CloseDeleteTask() {
+            document.getElementById("myModalDeleteTask").style.display = "none";
+        },
     }
 }
 </script>

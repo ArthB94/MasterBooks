@@ -99,7 +99,7 @@ const routes = [
     component: EntryForm,
   },
   {
-    path: "/book-info-page",
+    path: "/book-page",
     name: "BookInfoPage",
     component: BookInfoPage,
   },

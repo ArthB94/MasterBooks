@@ -6,13 +6,17 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/logo_book1.png" class="VueLogo" />
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
+    height: 167px;
+    margin: 0px;
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
                     <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -138,7 +142,7 @@
                     <div class="search-bar-container" id="first-searchy-bar">
                         <form action="">
                             <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></button>
+                            <div><font-awesome-icon icon="fa-solid fa-magnifying-glass" /></div>
                         </form>
                     </div>
                     <div class="page-turner">
@@ -190,26 +194,26 @@
                                 </select>
                             </div> -->
                 <div class="book-counter-container">
-                <div class="book-catalog-container">
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                    <div class="book-catalog-container">
+                        <router-link to="/book-page" class="book-page-link">
+                            <div class="book">
+                                <div>
+                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                </div>
+                                <div class="book-title">Some girls do</div>
+                                <div class="book-specs">Jennifer Dugan, 2019</div>
                             </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                        </router-link>
+                        <router-link to="/book-page" class="book-page-link">
+                            <div class="book">
+                                <div>
+                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                </div>
+                                <div class="book-title">Some girls do</div>
+                                <div class="book-specs">Jennifer Dugan, 2019</div>
                             </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <!-- <router-link to="/book-page" class="book-page-link">
+                        </router-link>
+                        <!-- <router-link to="/book-page" class="book-page-link">
                         <div class="book">
                             <div>
                                 <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
@@ -371,25 +375,26 @@
                             <div class="book-specs">Jennifer Dugan, 2019</div>
                         </div>
                     </router-link> -->
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                        <router-link to="/book-page" class="book-page-link">
+                            <div class="book">
+                                <div>
+                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                </div>
+                                <div class="book-title">Some girls do</div>
+                                <div class="book-specs">Jennifer Dugan, 2019</div>
                             </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                    <router-link to="/book-page" class="book-page-link">
-                        <div class="book">
-                            <div>
-                                <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                        </router-link>
+                        <router-link to="/book-page" class="book-page-link">
+                            <div class="book">
+                                <div>
+                                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover">
+                                </div>
+                                <div class="book-title">Some girls do</div>
+                                <div class="book-specs">Jennifer Dugan, 2019</div>
                             </div>
-                            <div class="book-title">Some girls do</div>
-                            <div class="book-specs">Jennifer Dugan, 2019</div>
-                        </div>
-                    </router-link>
-                </div><div class="page-turner">
+                        </router-link>
+                    </div>
+                    <div class="page-turner">
                         <p class="page">Page</p>
                         <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
                             @click="ChangeWeek(-1)" />
@@ -409,7 +414,7 @@
 
 
             </div>
-            
+
         </div>
         <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
                 icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe;" /></a>
@@ -417,7 +422,8 @@
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -466,7 +472,7 @@ export default {
         window.addEventListener("scroll", myScrollFunc);
         window.addEventListener("scroll", myScrollFunc1);
     },
-   
-    
+
+
 }
 </script>

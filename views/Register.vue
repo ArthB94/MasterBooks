@@ -1,55 +1,4 @@
 <template>
-  <!-- <?php 
-  include 'dbConn.php';
-  session_start();
-  
-  if(isset($_POST['btnRegister'])){
-      $fname=$_POST['txtFName'];
-      $email=$_POST['txtEmail'];
-      $confirmationemail=$_POST['txtConfirmationEmail'];
-      if($email != $confirmationemail){
-          echo '<script type="text/javascript">
-          window.onload = function () { alert("The two emails are different : please enter the same email in both fields."); } 
-          </script>';
-      }
-      else{
-          $checkquery="SELECT * FROM tblusers WHERE email='$email'";
-          $checkresult=mysqli_query($connection,$checkquery);
-          $row = mysqli_num_rows($checkresult); 
-          if($row!=0){
-              echo '<script type="text/javascript">
-                  window.onload = function () { alert("You already have an account : please log in."); } 
-              </script>';
-              header("refresh:1;url=login.php");
-          }
-          else{
-              $password=md5($_POST['txtPassword']); /*32 character output*/
-  
-              $query = "INSERT INTO `tblusers`(`firstname`, `email`, `password`) VALUES ('$fname','$email','$password')";
-              if(mysqli_query($connection,$query)){
-                  $_SESSION['fullname'] = $fname;
-                  $_SESSION['email'] = $email;
-                  echo $email;
-                  $newquery="SELECT * FROM tblusers WHERE email='$email'";
-                  $newresult=mysqli_query($connection,$newquery);
-                  $newrow=mysqli_fetch_assoc($newresult);
-                  echo var_dump($newrow);
-                  $_SESSION['admin'] = $newrow['admin'];
-                  echo $_SESSION['admin'];
-                  $_SESSION['uid'] = $newrow['ID'];
-                  echo $_SESSION['uid'];
-                  echo 'Record succesfully added!';
-                  //redirect user to another page
-                  header("refresh:2,url=confirmRegistration.php");
-              }else{
-                  echo 'Error in inserting data, please try again.';
-              }
-          }
-      }
-  mysqli_close($connection);
-  }
-  
-  ?> -->
 
   <body>
     <section class="RegisterPage">
@@ -90,8 +39,15 @@
                   name="txtPassword"
                 />
               </div>
-              <div class="message" v-if="!matching">Email must be the same</div>
-              <div class="message">{{ message }}</div>
+              <p
+                  class="CharacterLimitMessage"
+                  style="color: red; text-align: center; font-weight: bold"
+                  v-if="!matching"
+                >Emails must be the same.</p>
+              <p
+                  class="CharacterLimitMessage"
+                  style="color: red; text-align: center; font-weight: bold"
+                >{{ message }}</p>
               <div class="loginInputBox">
                 <input
                   @click="() => register()"
@@ -160,7 +116,7 @@ export default {
             }
           })
           .then(() => {
-            this.$router.push("/entry-form1-page");
+            this.$router.push("/catalog-page");
           })
           .catch((error) => {
             console.error(error);

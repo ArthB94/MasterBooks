@@ -137,8 +137,20 @@
                                     <img :src="'http://localhost:8080/' + book.image_src" alt="book_pic" class="book-cover">
 
                                 </div>
-                                <div class="book-title">{{book.titre }}</div>
-                                <div class="book-specs">{{book.date_parution+" "+book.genre+" "+ book.pages+" p. "+book.langue}}</div>
+                                <div class="book-title">{{book.titre}}</div>
+                                <div class="book-specs">{{book.auteur+", "+book.date_parution}}</div>
+                                <div class="book-descript" v-if="!isAdmin">
+                                    <div class="dis-nb-page"> 
+                                        {{book.langue}}
+                                    </div>
+                                    <div class="dis-nb-page">
+                                        , {{book.pages}}p.
+                                    </div>
+                                    <div class="dis-nb-page">
+                                        <!-- {{book.genres[0].genre+" "+book.genres[1].genre}}  -->
+                                    </div>
+                                </div>
+                            
                             </div>
                         </router-link>
                     </div>

@@ -790,6 +790,9 @@ body.dark {
     background-color: rgba(255, 255, 255, 0.2) !important;
   }
   
+  .loginInputBox select > option{ 
+    color: #7a7474;;
+  }
   /*------------Messages and redirections at bottom of the box-------------*/
   
   .forgotPswd {
@@ -2413,7 +2416,7 @@ body.dark .task-container .checkmark:after {
 
 .dark .book-descript{
   display: none;
-  color:rgba(255, 255, 255, 0.859);
+  color:rgba(246, 237, 237, 0.859);
   font-size: smaller;
   text-align: center;
 }
@@ -2936,6 +2939,13 @@ body.dark .modal{
   max-width: 400px;
 }
 
+.custom-select select > option{ 
+  color: #7a7474;;
+}
+
+.custom-select1 select > option{ 
+  color: #7a7474;;
+}
 
 /* select{
   background: black;

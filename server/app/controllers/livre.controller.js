@@ -214,7 +214,7 @@ exports.findByFilter = (req, res) => {
                 message: err.message || "Some error occured while retrieving books"
             });
         else res.send(data);
-        console.log("data", data);
+        // console.log("data", data);
     });
 
 }

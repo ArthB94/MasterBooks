@@ -147,14 +147,40 @@ Livre.getAll = result => {
 
 //methode pour récupérer les livres par filtre
 Livre.getByFilter = (filterQuerry, result) => {
-  console.log("filterQuerry", filterQuerry);
-  sql.query(filterQuerry, (err, res) => {
+  console.log(filterQuerry);
+  sql.query(filterQuerry, (err, resLivres) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
-    result(null, res);
+    let mesLivres = [];
+    resLivres.forEach(livre => {
+      livre.genres = [];
+      genresQuery ="SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference =" + livre.reference;
+      sql.query("SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference = ?  ", [livre.reference], (err, resGenres) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+        resGenres.forEach(genre => {
+          livre.genres.push(genre);
+          // console.log("mon genre "+JSON.stringify(genre));
+        });
+        mesLivres.push(livre);
+        
+        // console.log("length "+mesLivres.length+ " "+resLivres.length);
+        // console.log("livre "+JSON.stringify(resLivres));
+        if (mesLivres.length == resLivres.length){
+          // console.log("mes livre "+JSON.stringify(mesLivres));
+          result(null, mesLivres);
+        }
+        
+      })
+    });
+    
+    
   });
 }
 

@@ -144,10 +144,10 @@
                                         {{book.langue}}
                                     </div>
                                     <div class="dis-nb-page">
-                                        , {{book.pages}}p.
+                                        , {{book.pages}}p
                                     </div>
                                     <div class="dis-nb-page">
-                                        <!-- {{book.genres[0].genre+" "+book.genres[1].genre}}  -->
+                                       . {{book.genres[0].genre+" "+book.genres[1].genre}} 
                                     </div>
                                 </div>
                             
@@ -226,7 +226,6 @@ export default {
         ListePage,
 
     },
-
 
 
 

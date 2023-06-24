@@ -637,6 +637,7 @@ export default {
         // permet de faire des action dés que la page change de taille
         window.addEventListener('resize', this.handleWindowResize);
         
+        //récupére les genres et les livres dans la db
         await this.getAllGenres();
         await this.getFilteredBooks();
     },

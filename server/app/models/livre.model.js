@@ -92,21 +92,21 @@ Livre.create = (newLivre, result) => {
                 result(err, null);
                 return;
               }
-        
-              if(res.length > 0){
+
+              if (res.length > 0) {
                 const reference = res[0].reference;
                 console.log(newLivre.genres);
                 const genres = newLivre.genres.filter(element => element !== null);
                 console.log(genres);
-                for(let i = 0; i < genres.length; i++){
+                for (let i = 0; i < genres.length; i++) {
                   genre = genres[i];
-                  sql.query("INSERT INTO appartenir (reference,genre_id) VALUES (?,?)",[reference,genre],(err,res)=>{
+                  sql.query("INSERT INTO appartenir (reference,genre_id) VALUES (?,?)", [reference, genre], (err, res) => {
                     if (err) {
                       console.log("error: ", err);
                       result(err, null);
                       return;
                     }
-                    else{
+                    else {
                       console.log("Genres entered in the database.");
                       console.log("Added book: ", {
                         titre: newLivre.titre,
@@ -155,32 +155,36 @@ Livre.getByFilter = (filterQuerry, result) => {
       return;
     }
     let mesLivres = [];
-    resLivres.forEach(livre => {
-      livre.genres = [];
-      genresQuery ="SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference =" + livre.reference;
-      sql.query("SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference = ?  ", [livre.reference], (err, resGenres) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-        resGenres.forEach(genre => {
-          livre.genres.push(genre);
-          // console.log("mon genre "+JSON.stringify(genre));
-        });
-        mesLivres.push(livre);
-        
-        // console.log("length "+mesLivres.length+ " "+resLivres.length);
-        // console.log("livre "+JSON.stringify(resLivres));
-        if (mesLivres.length == resLivres.length){
-          // console.log("mes livre "+JSON.stringify(mesLivres));
-          result(null, mesLivres);
-        }
-        
-      })
-    });
-    
-    
+    if (resLivres.length > 0) {
+      resLivres.forEach(livre => {
+        livre.genres = [];
+        genresQuery = "SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference =" + livre.reference;
+        sql.query("SELECT genre_id,genre FROM appartenir join genre using(genre_id)  WHERE reference = ?  ", [livre.reference], (err, resGenres) => {
+          if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+          }
+          resGenres.forEach(genre => {
+            livre.genres.push(genre);
+            // console.log("mon genre "+JSON.stringify(genre));
+          });
+          mesLivres.push(livre);
+
+          // console.log("length "+mesLivres.length+ " "+resLivres.length);
+          // console.log("livre "+JSON.stringify(resLivres));
+          //console.log("mes livre " + JSON.stringify(mesLivres));
+          if (mesLivres.length == resLivres.length) {
+            result(null, mesLivres);
+          }
+        })
+      });
+    }
+    else {
+      result(null, resLivres);
+    }
+
+
   });
 }
 

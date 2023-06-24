@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 
   const upload = multer({ storage : storage }); // Change 'uploads/' to the desired storage directory
 
-  router.post("/add", upload.single('file'), livres.create); // Include the upload middleware here
+  // router.post("/add", upload.single('file'), livres.create); // Include the upload middleware here
 
   router.post("/metadata", upload.single('file'), livres.createmetadata); // Include the upload middleware here
 

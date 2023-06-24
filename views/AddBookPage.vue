@@ -265,6 +265,13 @@
                   </p>
                   <p
                     class="CharacterLimitMessage"
+                    style="color: red; text-align: center; font-weight: bold"
+                    v-if="notComplete"
+                  >
+                    Please fill all the fields with a * !
+                  </p>
+                  <p
+                    class="CharacterLimitMessage"
                     style="text-align: center; font-weight: bold"
                     v-if="sent"
                   >
@@ -352,6 +359,7 @@ export default {
       labelTextCover: "No file selected",
       resumeExceedsLimit: false,
       bookAlreadyExists: false,
+      notComplete: false,
       genres: [],
       nbGenre: 1,
     };
@@ -399,6 +407,7 @@ export default {
       ) {
         this.sent = false;
         this.error = true;
+        this.notComplete = true;
         return "Fill every field with a * !";
       }
 
@@ -455,6 +464,7 @@ export default {
             this.labelTextCover = "No file selected";
             this.resumeExceedsLimit = false;
             this.bookAlreadyExists = false;
+            this.notComplete = false;
             this.genres = [];
             this.nbGenre = 1;
           } else if (data.message === "Book already exists") {

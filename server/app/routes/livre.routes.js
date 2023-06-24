@@ -29,10 +29,14 @@ module.exports = app =>{
 
     // ajoute un livre au format json à la base de données
     router.post('/store', livres.store);
+
+    //delete un livre de la base de données et supprime le fichier epub  et images associés
+    router.delete('/delete/:id', livres.delete);
     
     //retourne tous les genres de la base de données
     router.get('/getgenres', livres.getAllGenres);
 
+    
 
       app.use('/api/livre', router);
 }

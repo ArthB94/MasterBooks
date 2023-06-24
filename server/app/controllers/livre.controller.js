@@ -43,6 +43,61 @@ exports.store = (req, res) => {
         }
     });
 };
+//delete un livre de la base de données et supprime le fichier epub  et images associés
+exports.delete = (req, res) => {
+    //vérifie si le livre existe dans la base de données
+    Livre.findById(req.params.id, (err, data) => {
+        if (err) {
+            console.log("error :", err);
+            return res.status(500).send({
+                message: err.message || "Some error occurred while deleting the book.",
+            });
+        } else {
+            // delete le fichier epub
+
+            const filePath = path.join(__dirname, "../../" + data.url);
+            fsExtra.remove(filePath, (err) => {
+                if (err) {
+                    console.log("error :", err);
+                    return res.status(500).send({
+                        message: err.message || "Some error occurred while deleting the book.",
+                    });
+                } else {
+                    // delete le directory des images
+                    const imagesPath = path.join(__dirname, "../../" + data.image_src);
+                    console.log(path.dirname(imagesPath));
+                    fsExtra.remove(path.dirname(imagesPath), (err) => {
+                        if (err) {
+                            console.log("error :", err);
+                            return res.status(500).send({
+                                message: err.message || "Some error occurred while deleting the book.",
+
+                            });
+                        } else {
+                            // delete le livre de la base de données
+                            Livre.delete(req.params.id, (err, data) => {
+                                if (err) {
+                                    console.log("error :", err);
+                                    return res.status(500).send({
+                                        message: err.message || "Some error occurred while deleting the book.",
+                                    });
+                                } else {
+                                    res.json({
+                                        message: "Book deleted successfully",
+                                        titre: data.titre,
+                                        auteur: data.auteur,
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+};
+
+
 
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
@@ -218,18 +273,6 @@ exports.findByFilter = (req, res) => {
     });
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //retourne un livre à partir de son id

@@ -82,8 +82,6 @@
                         <div  @click="getFilteredBooks()" ><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></div>
 
                     </div>
-                    <!-- <button type="submit" @click="addBooks(getBooks())">Add Books</button>
-                    <button type="submit" @click="getAllBooks">Get Books</button> -->
                     <div class="lib-button-container" v-if="MyLibrary">
                         <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                         <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
@@ -135,10 +133,10 @@
                                 <div>
                                     <!-- <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover"> -->
                                     <img :src="'http://localhost:8080/' + book.image_src" alt="book_pic" class="book-cover">
-
                                 </div>
                                 <div class="book-title">{{book.titre}}</div>
                                 <div class="book-specs">{{book.auteur+", "+book.date_parution}}</div>
+
                                 <div class="book-descript" v-if="!isAdmin">
                                     <div class="dis-nb-page"> 
                                         {{book.langue}}
@@ -150,6 +148,10 @@
                                        . {{book.genres[0].genre+" "+book.genres[1].genre}} 
                                     </div>
                                 </div>
+                                <div class="book-specs" v-if="isAdmin">
+                                        id: {{book.reference}}
+                                </div>
+
                             
                             </div>
                         </router-link>
@@ -237,7 +239,7 @@ export default {
             nbBooksPerPage: this.getNbBooksPerPage(),
             booksNotVisible: this.getBooksNotVisible(),
             selectedPage: 0,
-            nbTotalBooks: 10,
+            nbTotalBooks: 100,
             searchBar: "",
             books: [],
 
@@ -348,7 +350,7 @@ export default {
 
         // Permet de supprimer le livre selectionné
         DeleteBook() {
-            
+            this.deleteBookAPI(this.deleteBook.reference)
             this.books.splice(this.books.indexOf(this.deleteBook),1);
             this.nbBooks = this.books.length;
             this.CloseDeleteBook()
@@ -397,37 +399,37 @@ export default {
             }
         },
         // permet de créer un tableau de la taille du nombre de livre (juste pour les tests)
-        getBooks() {
-            var books = [];
-            let genres = this.genres;
-            let languages = this.languages;
-            for (var i = 0; i < this.nbTotalBooks; i++) {
-                let myGenres = [];
-                for (var j = 0; j < Math.floor(Math.random() * genres.length) + 1; j++) {
-                    let genre = genres[Math.floor(Math.random() * genres.length)];
-                    if ( myGenres.includes(genre.genre_id) == false) {
-                        myGenres.push(genre.genre_id);
-                    }
-                }
-                let language = languages[Math.floor(Math.random() * languages.length)];
-                let numberOfPages = Math.floor(Math.random() * 1500);
-                let parutionYear = Math.floor(Math.random() * 100) + 1970;
-                let book = {
-                    titre: "Book " + (i+1),
-                    auteur: "Author " + (i+1) ,
-                    image_src: "Book_example.jpg",
-                    genres: myGenres,
-                    langue: language,
-                    date_parution: parutionYear,
-                    pages: numberOfPages,
-                    resume: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
-                    url: "https://www.imdb.com/title/tt1462769/?ref_=fn_al_tt_1",
-                }
-                books.push(book);
-            }
-            //console.log(books);
-            return books;
-        },
+        // getBooks() {
+        //     var books = [];
+        //     let genres = this.genres;
+        //     let languages = this.languages;
+        //     for (var i = 0; i < this.nbTotalBooks; i++) {
+        //         let myGenres = [];
+        //         for (var j = 0; j < Math.floor(Math.random() * genres.length) + 1; j++) {
+        //             let genre = genres[Math.floor(Math.random() * genres.length)];
+        //             if ( myGenres.includes(genre.genre_id) == false) {
+        //                 myGenres.push(genre.genre_id);
+        //             }
+        //         }
+        //         let language = languages[Math.floor(Math.random() * languages.length)];
+        //         let numberOfPages = Math.floor(Math.random() * 1500);
+        //         let parutionYear = Math.floor(Math.random() * 100) + 1970;
+        //         let book = {
+        //             titre: "Book " + (i+1),
+        //             auteur: "Author " + (i+1) ,
+        //             image_src: "Book_example.jpg",
+        //             genres: myGenres,
+        //             langue: language,
+        //             date_parution: parutionYear,
+        //             pages: numberOfPages,
+        //             resume: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
+        //             url: "https://www.imdb.com/title/tt1462769/?ref_=fn_al_tt_1",
+        //         }
+        //         books.push(book);
+        //     }
+        //     //console.log(books);
+        //     return books;
+        // },
 
 
         // -----------------------------------------------------------Communication avec l'API-----------------------------------------------------------
@@ -609,6 +611,18 @@ export default {
                         throw new Error(JSON.stringify(response.data));
                     }
                 })
+        },
+
+        async deleteBookAPI(id) {
+            await axios.delete("http://localhost:8080/api/livre/delete/" + id).then((response) => {
+                if (response.status === 200) {
+                    this.books = this.books.filter((book) => book.reference !== id);
+                    return response.data;
+                } else {
+                    console.log(new Error(JSON.stringify(response.data)));
+                    throw new Error(JSON.stringify(response.data));
+                }
+            })
         },
     },
 

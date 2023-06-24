@@ -24,6 +24,8 @@ exports.create = (req, res) => {
     })
 }
 
+
+
 exports.findAll = (req, res) => {
     Genre.getAll((err, data) => {
         if (err)

@@ -132,6 +132,55 @@ Livre.create = (newLivre, result) => {
   );
 };
 
+// methode pour supprimer un livre de la base de données
+Livre.delete = (reference, result) => {
+  sql.query("DELETE FROM appartenir WHERE reference = ?", reference, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    sql.query("DELETE FROM livre WHERE reference = ?", reference, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      result(null, res);
+    })
+  });
+};
+
+Livre.findById = (reference, result) => {
+  sql.query(`SELECT * FROM livre WHERE reference = ${reference}`, (err, resLivre) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    if (resLivre.length) {
+      sql.query(`SELECT genre_id FROM appartenir WHERE reference = ${reference}`, (err, resGenres) => {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+          return;
+        }
+        let genres = [];
+        if (resGenres.length > 0) {
+          resGenres.forEach(genre => {
+            genres.push(genre.genre_id);
+          });
+        }
+        resLivre[0].genres = genres;
+        result(null, resLivre[0]);
+      });
+    }
+    else {
+      result({ message: "Book not found" }, null);
+    }
+  });
+};
 
 // methode pour récupérer tous les livres de la base de données
 Livre.getAll = result => {

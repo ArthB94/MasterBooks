@@ -1,80 +1,27 @@
 
 // export default router
 import { createWebHistory, createRouter } from "vue-router";
+import AddBookPage from "@/views/AddBookPage.vue";
+import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
+import ForgotPwd from "@/views/ForgotPwd.vue";
 import HelloWorld from "@/views/HelloWorld.vue";
+import HelpPage from "@/views/HelpPage.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
-// import LoginFgPwd from "@/views/LoginFgPwd.vue";
 import Register from "@/views/Register.vue";
-import ForgotPwd from "@/views/ForgotPwd.vue";
-// import ResetPwd from "@/views/ResetPwd.vue";
-import EntryForm from "@/views/EntryForm.vue";
-// import EntryForm1 from "@/views/EntryForm copy.vue";
-import EntryForm2 from "@/views/EntryForm copy 2.vue";
-//import CatalogPage from "@/views/CatalogPage.vue";
-import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
-import HelpPage from "@/views/HelpPage.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
-//import CatalogLibraryPage from "@/views/CatalogPage_Mylib.vue";
-// import TodoList2Page from "@/views/TodolistPage2.vue";
-// import CalendarPage from "@/views/CalendarPage.vue";
 
 const routes = [
+
   {
-    path: "/",
-    name: "HelloWorld'",
-    component: HelloWorld,
-  },
-  {
-    path: "/landing-page",
-    name: "LandingPage",
-    component: LandingPage,
-  },
-  {
-    path: "/login-page",
-    name: "LoginPage",
-    component: Login,
-  },
-  // {
-  //   path: "/login-Fg-Pwd-page",
-  //   name: "LoginFgPwdPage",
-  //   component: LoginFgPwd,
-  // },
-  {
-    path: "/register-page",
-    name: "RegisterPage",
-    component: Register,
-  },
-  {
-    path: "/fgpassword-page",
-    name: "ForgotPwdPage",
-    component: ForgotPwd,
-  },
-  // {
-  //   path: "/reset-password-page",
-  //   name: "ResetPwdPage",
-  //   component: ResetPwd,
-  // },
-  {
-    path: "/entry-form-page",
-    name: "EntryFormPage",
-    component: EntryForm,
-  },
-  // {
-  //   path: "/entry-form1-page",
-  //   name: "EntryFormPage1",
-  //   component: EntryForm1,
-  // },
-  {
-    path: "/entry-form2-page",
-    name: "EntryFormPage2",
-    component: EntryForm2,
+    path: "/add-book-page",
+    name: "AddBookPage",
+    component: AddBookPage,
   },
   {
     path: "/catalog-page",
     name: "CatalogPage",
-    meta: { isAdmin: false,
-          MyLibrary: false },
+    meta: { isAdmin: false, MyLibrary: false },
     component: CatalogPageAdmin,
   },
   {
@@ -88,7 +35,16 @@ const routes = [
     name: "CatalogPageAdmin",
     meta: { isAdmin: true },
     component: CatalogPageAdmin,
-    
+  },
+  {
+    path: "/fgpassword-page",
+    name: "ForgotPwdPage",
+    component: ForgotPwd,
+  },
+  {
+    path: "/",
+    name: "HelloWorld'",
+    component: HelloWorld,
   },
   {
     path: "/help-page",
@@ -96,15 +52,25 @@ const routes = [
     component: HelpPage,
   },
   {
+    path: "/landing-page",
+    name: "LandingPage",
+    component: LandingPage,
+  },
+  {
+    path: "/login-page",
+    name: "LoginPage",
+    component: Login,
+  },
+  {
+    path: "/register-page",
+    name: "RegisterPage",
+    component: Register,
+  },
+  {
     path: "/profile-page",
     name: "ProfilePage",
     component: ProfilePage,
   },
-  // {
-  //   path: "/calendar-page",
-  //   name: "CalendarPage",
-  //   component: CalendarPage,
-  // },
 ];
 
 const router = createRouter({

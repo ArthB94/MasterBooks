@@ -32,8 +32,8 @@
                                     Genre
                                 </div>
                                 <div class="filters">
-                                    <label class="task-container" v-for = "genre in genres" :key = "genre" >{{ genre }}
-                                        <input type="checkbox" :value = genre  v-model="selectedGenres"/>
+                                    <label class="task-container" v-for = "genre in genres" :key = "genre" >{{ genre.genre }}
+                                        <input type="checkbox" :value = genre.genre_id  v-model="selectedGenres"/>
                                         <span class="checkmark"></span>
                                     </label>                             
                                 </div>
@@ -82,8 +82,8 @@
                         <div  @click="getFilteredBooks()" ><font-awesome-icon icon="fa-solid fa-magnifying-glass"  /></div>
 
                     </div>
-                    <button type="submit" @click="addBooks(getBooks())">Add Books</button>
-                    <button type="submit" @click="getAllBooks">Get Books</button>
+                    <!-- <button type="submit" @click="addBooks(getBooks())">Add Books</button>
+                    <button type="submit" @click="getAllBooks">Get Books</button> -->
                     <div class="lib-button-container" v-if="MyLibrary">
                         <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                         <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
@@ -133,7 +133,9 @@
                             </button>
                             <div class="book">
                                 <div>
-                                    <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover">
+                                    <!-- <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover"> -->
+                                    <img :src="'http://localhost:8080/' + book.image_src" alt="book_pic" class="book-cover">
+
                                 </div>
                                 <div class="book-title">{{book.titre }}</div>
                                 <div class="book-specs">{{book.date_parution+" "+book.genre+" "+ book.pages+" p. "+book.langue}}</div>
@@ -392,22 +394,22 @@ export default {
                 let myGenres = [];
                 for (var j = 0; j < Math.floor(Math.random() * genres.length) + 1; j++) {
                     let genre = genres[Math.floor(Math.random() * genres.length)];
-                    if ( myGenres.includes(genre) == false) {
-                        myGenres.push(genre);
+                    if ( myGenres.includes(genre.genre_id) == false) {
+                        myGenres.push(genre.genre_id);
                     }
                 }
                 let language = languages[Math.floor(Math.random() * languages.length)];
                 let numberOfPages = Math.floor(Math.random() * 1500);
                 let parutionYear = Math.floor(Math.random() * 100) + 1970;
                 let book = {
-                    title: "Book " + (i+1),
-                    autor: "Author " + (i+1) ,
-                    image: "Book_example.jpg",
+                    titre: "Book " + (i+1),
+                    auteur: "Author " + (i+1) ,
+                    image_src: "Book_example.jpg",
                     genres: myGenres,
-                    language: language,
-                    parution_date: parutionYear,
-                    numberOfPages: numberOfPages,
-                    summary: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
+                    langue: language,
+                    date_parution: parutionYear,
+                    pages: numberOfPages,
+                    resume: "Cindy and Jim Green can't wait to start a family but can only dream about what their child would be like. When young Timothy shows up on their doorstep one stormy night, Cindy and Jim—and their small town of Stanleyville—learn that sometimes the unexpected can bring some of life's greatest gifts.",
                     url: "https://www.imdb.com/title/tt1462769/?ref_=fn_al_tt_1",
                 }
                 books.push(book);
@@ -424,7 +426,7 @@ export default {
         addBooks(newBooks){
             console.log("newBooks",newBooks);
             newBooks.forEach(book => {
-                axios.post("http://localhost:8080/api/livre/add", book).then((response) => {
+                axios.post("http://localhost:8080/api/livre/store", book).then((response) => {
                     if (response.status === 200) {
                         return response.data;
                     } else {
@@ -438,25 +440,12 @@ export default {
         
         // Permet de récupérer les livres de l'API
         
-        async getAllBooks() {
-            try {
-                const response = await axios.get('http://localhost:8080/api/livre/all');
-                const data = response.data;
-                console.log("getAllBooks", data);
-                this.books = data;
-            } catch (error) {
-                console.error(error);
-                throw error;
-            }
-        },
         async getAllGenres() {
             try {
                 const response = await axios.get('http://localhost:8080/api/genre/all');
                 const data = response.data;
                 console.log("getAllGenres", data);
-                for (let i = 0; i < data.length; i++) {
-                    this.genres.push(data[i].genre);
-                }
+                this.genres = data;
             } catch (error) {
                 console.error(error);
                 throw error;
@@ -465,134 +454,142 @@ export default {
 
         async getFilteredBooks() {
             //Select * from livre join appartenir using(reference) join genre using(genre_id) where genre.genre = 'Action'
-            let filterQuerry = "Select * from livre ";
-            let and = false;
+            // let filterQuerry = "Select * from livre ";
+            // let and = false;
 
-            if (this.searchBar != "") {
-                filterQuerry += "where titre like '%" + this.searchBar + "%' or auteur like '%"+ this.searchBar + "%' ";
-                and = true;
-            }
-            if(this.selectedGenres.length > 0){
-                if(!and){
-                    filterQuerry += "where (";
-                    and = false
-                }
-                else{
-                    filterQuerry += "and ("
-                }
+            // if (this.searchBar != "") {
+            //     filterQuerry += "where titre like '%" + this.searchBar + "%' or auteur like '%"+ this.searchBar + "%' ";
+            //     and = true;
+            // }
+            // if(this.selectedGenres.length > 0){
+            //     if(!and){
+            //         filterQuerry += "where (";
+            //         and = false
+            //     }
+            //     else{
+            //         filterQuerry += "and ("
+            //     }
 
-                filterQuerry += "reference in  (select  reference from appartenir join genre using(genre_id) where genre.genre = '"+this.selectedGenres[0]+"') "
-                for (let i = 1; i < this.selectedGenres.length; i++) {
-                    filterQuerry += "and reference in (select reference from appartenir join genre using (genre_id) where genre.genre = '"+this.selectedGenres[i]+"') ";
-                }
-                filterQuerry += ") ";
-                and = true;
+            //     filterQuerry += "reference in  (select  reference from appartenir join genre using(genre_id) where genre.genre = '"+this.selectedGenres[0]+"') "
+            //     for (let i = 1; i < this.selectedGenres.length; i++) {
+            //         filterQuerry += "and reference in (select reference from appartenir join genre using (genre_id) where genre.genre = '"+this.selectedGenres[i]+"') ";
+            //     }
+            //     filterQuerry += ") ";
+            //     and = true;
 
-            }
-            if(this.selectedLanguages.length > 0){
-                if(!and){
-                    filterQuerry += "where (";
-                    and = false
-                }
-                else{
-                    filterQuerry += "and ("
-                }
-                filterQuerry += "livre.langue = '" + this.selectedLanguages[0] + "' ";
-                filterQuerry += ") ";
+            // }
+            // if(this.selectedLanguages.length > 0){
+            //     if(!and){
+            //         filterQuerry += "where (";
+            //         and = false
+            //     }
+            //     else{
+            //         filterQuerry += "and ("
+            //     }
+            //     filterQuerry += "livre.langue = '" + this.selectedLanguages[0] + "' ";
+            //     filterQuerry += ") ";
                 
-            }
+            // }
             
-            if(this.selectedNumberOfPages.length > 0){
-                if(!and){
-                    filterQuerry += "where (";
-                    and = false
-                }
-                else{
-                    filterQuerry += "and ("
-                }
-                let or = false;
+            // if(this.selectedNumberOfPages.length > 0){
+            //     if(!and){
+            //         filterQuerry += "where (";
+            //         and = false
+            //     }
+            //     else{
+            //         filterQuerry += "and ("
+            //     }
+            //     let or = false;
                 
-                if(this.selectedNumberOfPages.includes("Under 100")){
+            //     if(this.selectedNumberOfPages.includes("Under 100")){
 
-                    filterQuerry += "livre.pages < 100 ";
-                    or = true;
+            //         filterQuerry += "livre.pages < 100 ";
+            //         or = true;
 
-                }
-                if(this.selectedNumberOfPages.includes("100 ~ 500")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.pages >= 100 and livre.pages < 500 ";
-                    or = true;
-                }
-                if(this.selectedNumberOfPages.includes("500 ~ 1000")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.pages >= 500 and livre.pages < 1000 ";
-                    or = true;
+            //     }
+            //     if(this.selectedNumberOfPages.includes("100 ~ 500")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.pages >= 100 and livre.pages < 500 ";
+            //         or = true;
+            //     }
+            //     if(this.selectedNumberOfPages.includes("500 ~ 1000")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.pages >= 500 and livre.pages < 1000 ";
+            //         or = true;
 
-                }
-                if(this.selectedNumberOfPages.includes("Over 1000")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.pages >= 1000 ";
-                    or = true;
+            //     }
+            //     if(this.selectedNumberOfPages.includes("Over 1000")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.pages >= 1000 ";
+            //         or = true;
 
-                }
-                filterQuerry += ") "
-                or = false
-                and = true
+            //     }
+            //     filterQuerry += ") "
+            //     or = false
+            //     and = true
                 
+            // }
+            // if(this.selectedParutionYears.length > 0){
+            //     let or = false
+            //     if(!and){
+            //         filterQuerry += "where (";
+            //         and = false
+            //     }
+            //     else{
+            //         filterQuerry += "and ("
+            //     }
+            //     if(this.selectedParutionYears.includes("Before 1980")){
+            //         filterQuerry += "livre.date_parution < 1980 ";
+            //         or = true;
+            //     }
+            //     if(this.selectedParutionYears.includes("1980 ~ 2000")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.date_parution >= 1980 and livre.date_parution < 2000 ";
+            //         or = true;
+            //     }
+            //     if(this.selectedParutionYears.includes("2000 ~ 2010")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.date_parution >= 2000 and livre.date_parution < 2010 ";
+            //         or = true;
+            //     }
+            //     if(this.selectedParutionYears.includes("2010 ~ 2020")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.date_parution >= 2010 and livre.date_parution < 2020 ";
+            //         or = true;
+            //     }
+            //     if(this.selectedParutionYears.includes("After 2020")){
+            //         if(or){
+            //             filterQuerry += "or ";
+            //         }
+            //         filterQuerry += "livre.date_parution >= 2020 ";
+            //         or = true;
+            //     }
+            //     filterQuerry += ") "
+            // }
+            // console.log(filterQuerry);
+
+            const filters = {
+                texte: this.searchBar,
+                genres: this.selectedGenres,
+                langues: this.selectedLanguages,
+                pages: this.selectedNumberOfPages,
+                date_parution: this.selectedParutionYears,
             }
-            if(this.selectedParutionYears.length > 0){
-                let or = false
-                if(!and){
-                    filterQuerry += "where (";
-                    and = false
-                }
-                else{
-                    filterQuerry += "and ("
-                }
-                if(this.selectedParutionYears.includes("Before 1980")){
-                    filterQuerry += "livre.date_parution < 1980 ";
-                    or = true;
-                }
-                if(this.selectedParutionYears.includes("1980 ~ 2000")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.date_parution >= 1980 and livre.date_parution < 2000 ";
-                    or = true;
-                }
-                if(this.selectedParutionYears.includes("2000 ~ 2010")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.date_parution >= 2000 and livre.date_parution < 2010 ";
-                    or = true;
-                }
-                if(this.selectedParutionYears.includes("2010 ~ 2020")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.date_parution >= 2010 and livre.date_parution < 2020 ";
-                    or = true;
-                }
-                if(this.selectedParutionYears.includes("After 2020")){
-                    if(or){
-                        filterQuerry += "or ";
-                    }
-                    filterQuerry += "livre.date_parution >= 2020 ";
-                    or = true;
-                }
-                filterQuerry += ") "
-            }
-            console.log(filterQuerry);
 
             
-            axios.post("http://localhost:8080/api/livre/filter", {querry:filterQuerry}).then((response) => {
+            await axios.post("http://localhost:8080/api/livre/filter", filters).then((response) => {
                     if (response.status === 200) {
                         this.books = response.data;
                         return response.data;
@@ -630,7 +627,7 @@ export default {
         window.addEventListener('resize', this.handleWindowResize);
         
         await this.getAllGenres();
-        await this.getAllBooks();
+        await this.getFilteredBooks();
     },
     beforeUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);

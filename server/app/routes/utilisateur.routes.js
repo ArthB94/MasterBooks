@@ -9,6 +9,8 @@ module.exports = app =>{
     router.post("/arthur", utilisateurs.createUser);
 
     router.post('/login',utilisateurs.login);
+    
+    router.post('/isAdmin', utilisateurs.isAdmin);
 
     app.use('/api/auth', router);
 }

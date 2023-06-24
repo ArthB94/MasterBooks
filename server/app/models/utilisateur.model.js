@@ -58,65 +58,6 @@ Utilisateur.create = (newUtilisateur, result) => {
 };
 
 
-Utilisateur.createUser = async (lastname, firstname, mail, password) => {
-  try {
-    const create = await sql("clients").insert({
-      lastname: lastname,
-      firstname: firstname,
-      password: password,
-      mail: mail,
-    });
-    respObj = {
-      status: "success",
-      data: create,
-    };
-    return respObj;
-  } catch (e) {
-    respObj = {
-      status: "failed",
-      data: "User already exists",
-    };
-    return respObj;
-  }
-};
-
-/*
-Utilisateur.login = (req, result) => {
-  const email = req.body.email_user;
-  const mdp = req.body.mdp;
-
-  sql.query(
-    "SELECT * FROM utilisateur WHERE email_user = ?",
-    [email],
-    (err, rows) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-
-      if (rows.length === 0) {
-        const errorMessage = "Email not registered";
-        console.log(errorMessage);
-        result(errorMessage, null);
-        return;
-      }
-
-      const utilisateur = rows[0];
-
-      if (mdp !== utilisateur.mdp) {
-        const errorMessage = "Wrong password";
-        console.log(errorMessage);
-        result(errorMessage, null);
-        return;
-      }
-
-      result(null, utilisateur);
-    }
-  );
-};
-*/
-
 Utilisateur.login = (req, result) => {
   const email = req.body.email_user;
   const mdp = req.body.mdp;
@@ -159,5 +100,45 @@ Utilisateur.login = (req, result) => {
   );
 };
 
+Utilisateur.isAdmin = (req, result) => {
+  const email = req.body.email_user;
+
+  sql.query(
+    "select * from Admin where email_admin = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (rows.length === 0) {
+        // User is not in admin table
+        result(null, false);
+        return;
+      } else {
+        // User is in admin table
+        result(null, true);
+        return;
+      }
+    })
+}
+
+Utilisateur.get = (userInfo, result) => {
+  sql.query("SELECT * FROM utilisateur WHERE email_user = ?", [userInfo.email_user], (err, rows) => {
+    if (err) {
+      console.log("Error: ", err);
+      result(err, null);
+    } else {
+      if (rows.length === 0) {
+        result(null, null);
+      } else {
+        const user = rows[0];
+        result(null, {email_user: user.email_user, pseudo: user.pseudo});
+      }
+    }
+  });
+}
 
 module.exports = Utilisateur;

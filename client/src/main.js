@@ -24,5 +24,3 @@ import VScrollLock from 'v-scroll-lock'
 library.add(faGoogle, faLinkedinIn, faGithub, faUserLarge, faArrowUp, faMagnifyingGlass, faAngleLeft, faAngleRight, faPlus, faHeart, faHeartCirclePlus, faBookmark)
 
 createApp(App).use(router).use(VScrollLock).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
-
-//createApp(App).use(router).use(VScrollLock).mount('#app')

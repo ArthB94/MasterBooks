@@ -1,5 +1,5 @@
 <template>
- 
+
   <body>
     <section class="RegisterPage">
       <div class="loginBox">
@@ -39,8 +39,15 @@
                   name="txtPassword"
                 />
               </div>
-              <div class="message" v-if="!matching">Email must be the same</div>
-              <div class="message">{{ message }}</div>
+              <p
+                  class="CharacterLimitMessage"
+                  style="color: red; text-align: center; font-weight: bold"
+                  v-if="!matching"
+                >Emails must be the same.</p>
+              <p
+                  class="CharacterLimitMessage"
+                  style="color: red; text-align: center; font-weight: bold"
+                >{{ message }}</p>
               <div class="loginInputBox">
                 <input
                   @click="() => register()"
@@ -71,8 +78,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "RegisterPage",
   data() {
@@ -90,24 +95,31 @@ export default {
       this.matching = true;
       this.message = "";
       if (this.email === this.reemail) {
-        const userData = {
-          pseudo: this.name,
-          email_user: this.email,
-          mdp: this.password
-        };
-
-        axios
-          .post("http://localhost:8080/api/auth/register", userData)
+        fetch("http://localhost:8080/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pseudo: this.name,
+            email_user: this.email,
+            mdp: this.password,
+          }),
+        })
           .then((response) => {
-            if (response.status === 200) {
-              return response.data;
+            if (response.ok) {
+              return response.json();
             } else {
-              throw new Error(JSON.stringify(response.data));
+              return response.json().then((error) => {
+                throw new Error(JSON.stringify(error));
+              });
             }
           })
-          .then((parsed) => {localStorage.setItem('token',parsed.token)})
-          .then(()=>{this.$router.push('/entry-form1-page');})
+          .then(() => {
+            this.$router.push("/catalog-page");
+          })
           .catch((error) => {
+            console.error(error);
             let errorMessage;
             try {
               errorMessage = JSON.parse(error.message);
@@ -116,16 +128,16 @@ export default {
                 message: "An error occurred while processing your request.",
               };
             }
-            const keys = Object.keys(errorMessage);
-            if (keys.length > 0) {
-              const firstKey = keys[0];
-              if (Array.isArray(errorMessage[firstKey])) {
-                this.message = errorMessage[firstKey][0];
+
+            if (errorMessage.error) {
+              const keys = Object.keys(errorMessage.error);
+              if (keys.length > 0) {
+                this.message = errorMessage.error[keys[0]][0];
               } else {
-                this.message = errorMessage[firstKey];
+                this.message = errorMessage.error;
               }
             } else {
-              this.message = errorMessage;
+              this.message = errorMessage.message;
             }
           });
       } else {

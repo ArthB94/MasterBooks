@@ -63,7 +63,6 @@ CREATE TABLE sauvegarder(
 );
 CREATE TABLE être_recommandé(
    email_user VARCHAR(50),
-   email_user VARCHAR(50),
    reference INT,
    Pourcentage INT,
    PRIMARY KEY(email_user, reference),
@@ -77,3 +76,13 @@ CREATE TABLE appartenir(
    FOREIGN KEY(reference) REFERENCES Livre(reference),
    FOREIGN KEY(genre_id) REFERENCES Genre(genre_id)
 );
+
+
+
+INSERT INTO genre (genre) VALUES ('Fantasy');
+INSERT INTO genre (genre) VALUES ('Science Fiction');
+INSERT INTO genre (genre) VALUES ('Mystery');
+INSERT INTO genre (genre) VALUES ('Romance');
+INSERT INTO genre (genre) VALUES ('Thriller');
+INSERT INTO genre (genre) VALUES ('History');
+INSERT INTO genre (genre) VALUES ('Novels');

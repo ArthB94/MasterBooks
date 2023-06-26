@@ -271,6 +271,7 @@ export default {
             return this.$route.meta.MyLibrary
         },
         isAdmin() {
+            console.log("isAdmin",JSON.parse(localStorage.getItem("isAdmin")))
             return JSON.parse(localStorage.getItem("isAdmin"));
         },
         userData() {
@@ -650,10 +651,15 @@ export default {
 
 
 
-
+        redirection(isAdmin) {
+            if (isAdmin) {
+                this.$router.push("/catalog-admin-page");
+            } else {
+                this.$router.push("/catalog-page");
+            }
+        },
 
         async onMounted (){
-            
             var thisID = document.getElementById("TopBtn");
             var SearchClass = document.getElementById("search-container-fixe");
             var myScrollFunc = function () {
@@ -701,6 +707,7 @@ export default {
 
 
     async mounted  ()  {
+        this.redirection(this.isAdmin);
         await this.onMounted();
     },
 

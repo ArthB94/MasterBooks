@@ -111,18 +111,19 @@ Utilisateur.isAdmin = (req, result) => {
         result(err, null);
         return;
       }
-
-      if (rows.length === 0) {
-        // User is not in admin table
-        result(null, false);
-        return;
-      } else {
-        // User is in admin table
-        result(null, true);
-        return;
+      else {
+        console.log("rows",rows[0].admin);
+        if (rows[0].admin === 0) {
+          console.log("not admin",rows[0].admin);
+          result(null, false);
+        }
+        else  if (rows[0].admin === 1){
+          console.log("admin",rows[0].admin);
+          result(null, true);
+        }
       }
     })
-    
+
 
   // sql.query(
   //   "select * from Admin where email_admin = ?",

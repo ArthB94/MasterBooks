@@ -219,14 +219,14 @@ exports.findByFilter = (req, res) => {
             if (or) {
                 filterQuerry += "or ";
             }
-            filterQuerry += "livre.pages >= 100 and livre.pages < 500 ";
+            filterQuerry += "(livre.pages >= 100 and livre.pages < 500) ";
             or = true;
         }
         if (filters.pages.includes("500 ~ 1000")) {
             if (or) {
                 filterQuerry += "or ";
             }
-            filterQuerry += "livre.pages >= 500 and livre.pages < 1000 ";
+            filterQuerry += "(livre.pages >= 500 and livre.pages < 1000) ";
             or = true;
 
         }
@@ -262,21 +262,21 @@ exports.findByFilter = (req, res) => {
             if (or) {
                 filterQuerry += "or ";
             }
-            filterQuerry += "livre.date_parution >= 1980 and livre.date_parution < 2000 ";
+            filterQuerry += "(livre.date_parution >= 1980 and livre.date_parution < 2000) ";
             or = true;
         }
         if (filters.date_parution.includes("2000 ~ 2010")) {
             if (or) {
                 filterQuerry += "or ";
             }
-            filterQuerry += "livre.date_parution >= 2000 and livre.date_parution < 2010 ";
+            filterQuerry += "(livre.date_parution >= 2000 and livre.date_parution < 2010) ";
             or = true;
         }
         if (filters.date_parution.includes("2010 ~ 2020")) {
             if (or) {
                 filterQuerry += "or ";
             }
-            filterQuerry += "livre.date_parution >= 2010 and livre.date_parution < 2020 ";
+            filterQuerry += "(livre.date_parution >= 2010 and livre.date_parution < 2020) ";
             or = true;
         }
         if (filters.date_parution.includes("After 2020")) {

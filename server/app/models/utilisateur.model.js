@@ -102,9 +102,8 @@ Utilisateur.login = (req, result) => {
 
 Utilisateur.isAdmin = (req, result) => {
   const email = req.body.email_user;
-
   sql.query(
-    "select * from Admin where email_admin = ?",
+    "select admin from utilisateur where email_user = ?",
     [email],
     (err, rows) => {
       if (err) {
@@ -123,6 +122,28 @@ Utilisateur.isAdmin = (req, result) => {
         return;
       }
     })
+    
+
+  // sql.query(
+  //   "select * from Admin where email_admin = ?",
+  //   [email],
+  //   (err, rows) => {
+  //     if (err) {
+  //       console.log("error: ", err);
+  //       result(err, null);
+  //       return;
+  //     }
+
+  //     if (rows.length === 0) {
+  //       // User is not in admin table
+  //       result(null, false);
+  //       return;
+  //     } else {
+  //       // User is in admin table
+  //       result(null, true);
+  //       return;
+  //     }
+  //   })
 }
 
 Utilisateur.get = (userInfo, result) => {

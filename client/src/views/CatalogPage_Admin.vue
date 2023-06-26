@@ -271,10 +271,10 @@ export default {
             return this.$route.meta.MyLibrary
         },
         isAdmin() {
-            return this.$route.meta.isAdmin;
+            return JSON.parse(localStorage.getItem("isAdmin"));
         },
         userData() {
-            return this.$route.meta.userData
+            return JSON.parse(localStorage.getItem("userData"))
         },
         watchLiked() {
             if (this.MyLibrary && this.liked){
@@ -611,7 +611,6 @@ export default {
             //     filterQuerry += ") "
             // }
             // console.log(filterQuerry);
-
             const filters = {
                 utilisateur : this.userData,
                 texte: this.searchBar,

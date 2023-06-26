@@ -1,16 +1,8 @@
 <template>
-
   <body>
     <div class="LoginPage">
-      <!-- <div class="loginColor"></div>
-                            <div class="loginColor"></div>
-                            <div class="loginColor"></div> -->
+
       <div class="loginBox">
-        <!-- <div class="loginSquares" style="--i:0;"></div>
-                                <div class="loginSquares" style="--i:1;"></div>
-                                <div class="loginSquares" style="--i:2;"></div>
-                                <div class="loginSquares" style="--i:3;"></div>
-                                <div class="loginSquares" style="--i:4;"></div> -->
         <div class="loginContainer">
           <div class="loginForm">
             <h2>Welcome back</h2>
@@ -30,10 +22,7 @@
                   placeholder="Password"
                 />
               </div>
-              <p
-                    class="CharacterLimitMessage"
-                    style="color: red; text-align: center; font-weight: bold"
-                  >{{ message }}</p>
+              <div class="message" style="color: red">{{ message }}</div>
               <div class="loginInputBox">
                 <input @click="() => login()" type="submit" value="Login" />
               </div>
@@ -61,6 +50,7 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   name: "LoginPage",
@@ -72,33 +62,43 @@ export default {
     };
   },
   methods: {
-    // Fonction de login
     login() {
       this.message = "";
-      // Appel de l'API pour verifier les informations de l'utilisateur
-      fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email_user: this.email, mdp: this.password }),
-      })
+      const userData = {
+        email_user: this.email,
+        mdp: this.password,
+      };
+      axios
+        .post("http://localhost:8080/api/auth/login", userData)
         .then((response) => {
-          if (response.ok) {
-            return response.json();
+          if (response.status === 200) {
+            return response.data;
           } else {
-            return response.json().then((error) => {
-              throw new Error(JSON.stringify(error));
-            });
+            throw new Error(JSON.stringify(response.data));
           }
         })
-        .then((parsed) => {
-          console.log("parsed ",parsed.token);
-          localStorage.setItem("token", parsed.token);
-          console.log("token ",localStorage.getItem("token"));
-        })
         .then(() => {
-          this.$router.push("/catalog-page");
+          axios
+            .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
+            .then((response) => {
+              if(response.status === 200){
+                let admin = response.data.isAdmin;
+                
+                if(admin === true){
+                  localStorage.setItem("isAdmin", true)
+                  this.$router.push("/catalog-admin-page");
+                }
+                else{
+                  localStorage.setItem("isAdmin", false)
+                  this.$router.push("/catalog-page");
+                }
+                localStorage.setItem("userData", JSON.stringify(userData))
+              }
+              else{
+                throw new Error(JSON.stringify(response.data));
+              }
+            })
+            
         })
         .catch((error) => {
           let errorMessage;
@@ -131,20 +131,6 @@ export default {
     },
   },
 };
-
-//   data() {
-//     return {
-//       open: true,
-//     }
-//   },
-//   methods: {
-//     openModal() {
-//       this.open = true
-//     },
-//     closeModal() {
-//       this.open = false
-//     },
-//   },
 </script>
 
 <style></style>

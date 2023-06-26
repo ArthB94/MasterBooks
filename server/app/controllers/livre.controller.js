@@ -103,6 +103,8 @@ exports.delete = (req, res) => {
 exports.findByFilter = (req, res) => {
     console.log("filter Parameters", req.body);
     const utilisateur = req.body.utilisateur;
+    console.log("utilisateur ", utilisateur.email_user
+    );
     const filters ={
         texte: req.body.texte,
         genres: req.body.genres,
@@ -148,7 +150,7 @@ exports.findByFilter = (req, res) => {
             filterQuerry += "and ("
         }
 
-        filterQuerry += "reference in (select reference from sauvegarder where email_user = '" + utilisateur.email + "') "
+        filterQuerry += "reference in (select reference from sauvegarder where email_user = '" + utilisateur.email_user + "') "
         filterQuerry += ") ";
         if (filters.lus == true) {
             or = true;
@@ -170,7 +172,7 @@ exports.findByFilter = (req, res) => {
             filterQuerry += "and ("
         }
 
-        filterQuerry += "reference in (select reference from lire where email_user = '" + utilisateur.email + "') "
+        filterQuerry += "reference in (select reference from lire where email_user = '" + utilisateur.email_user + "') "
         filterQuerry += ") ";
         and = true;
 

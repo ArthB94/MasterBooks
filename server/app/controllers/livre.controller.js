@@ -101,10 +101,7 @@ exports.delete = (req, res) => {
 
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
-    console.log("filter Parameters", req.body);
     const utilisateur = req.body.utilisateur;
-    console.log("utilisateur ", utilisateur.email_user
-    );
     const filters ={
         texte: req.body.texte,
         genres: req.body.genres,
@@ -119,28 +116,13 @@ exports.findByFilter = (req, res) => {
     let and = false;
     let or = false;
 
+    //filtre barre de recherche
     if (filters.texte != "") {
-        filterQuerry += "where titre like '%" + filters.texte + "%' or auteur like '%" + filters.texte + "%' ";
+        filterQuerry += "where (titre like '%" + filters.texte + "%' or auteur like '%" + filters.texte + "%' )";
         and = true;
     }
-    if (filters.genres.length > 0) {
-        if (!and) {
-            filterQuerry += "where (";
-            and = false
-        }
-        else {
-            filterQuerry += "and ("
-        }
-        // select * from livre where reference in (select reference from appartenir where genre_id = 1);
 
-        filterQuerry += "reference in (select reference from appartenir where genre_id = '" + filters.genres[0] + "') "
-        for (let i = 1; i < filters.genres.length; i++) {
-            filterQuerry += "and reference in (select reference from appartenir where genre_id = '" + filters.genres[i] + "') ";
-        }
-        filterQuerry += ") ";
-        and = true;
-
-    }
+    //filtre aimés
     if (filters.aimés == true) {
         if (!and) {
             filterQuerry += "where (";
@@ -151,16 +133,20 @@ exports.findByFilter = (req, res) => {
         }
 
         filterQuerry += "reference in (select reference from sauvegarder where email_user = '" + utilisateur.email_user + "') "
-        filterQuerry += ") ";
         if (filters.lus == true) {
             or = true;
+        }
+        else {
+            filterQuerry += ") ";
         }
         and = true;
 
     }
+
+    //filtre lus
     if (filters.lus == true) {
         if (or) {
-            filterQuerry += "or ("
+            filterQuerry += "or "
             or = false;
 
         }
@@ -174,9 +160,31 @@ exports.findByFilter = (req, res) => {
 
         filterQuerry += "reference in (select reference from lire where email_user = '" + utilisateur.email_user + "') "
         filterQuerry += ") ";
+
         and = true;
 
     }
+
+    //filtre genres
+    if (filters.genres.length > 0) {
+        if (!and) {
+            filterQuerry += "where (";
+            and = false
+        }
+        else {
+            filterQuerry += "and ("
+        }
+
+        filterQuerry += "reference in (select reference from appartenir where genre_id = '" + filters.genres[0] + "') "
+        for (let i = 1; i < filters.genres.length; i++) {
+            filterQuerry += "and reference in (select reference from appartenir where genre_id = '" + filters.genres[i] + "') ";
+        }
+        filterQuerry += ") ";
+        and = true;
+
+    }
+
+    //filtre langues
     if (filters.langues.length > 0) {
         if (!and) {
             filterQuerry += "where (";
@@ -190,6 +198,7 @@ exports.findByFilter = (req, res) => {
 
     }
 
+    //filtre pages
     if (filters.pages.length > 0) {
         if (!and) {
             filterQuerry += "where (";
@@ -235,7 +244,7 @@ exports.findByFilter = (req, res) => {
 
     }
     
-   
+    //filtre date de parution
     if (filters.date_parution.length > 0) {
         
         if (!and) {

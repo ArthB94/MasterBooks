@@ -268,7 +268,12 @@ export default {
             return Math.ceil(this.nbBooks / this.nbBooksPerPage);
         },
         MyLibrary() {
-            return this.$route.meta.MyLibrary
+            if (this.$route.path == "/catalog-library-page") {
+                return true;
+            } else {
+                return false;
+            }
+
         },
         isAdmin() {
             console.log("isAdmin",JSON.parse(localStorage.getItem("isAdmin")))

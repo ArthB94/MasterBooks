@@ -121,6 +121,11 @@ Utilisateur.isAdmin = (req, result) => {
           console.log("admin",rows[0].admin);
           result(null, true);
         }
+        else {
+          console.log("error database admin: ", err);
+          result(err, null);
+          return;
+        }
       }
     })
 

@@ -21,19 +21,16 @@ const routes = [
   {
     path: "/catalog-page",
     name: "CatalogPage",
-    meta: { isAdmin: false, MyLibrary: false, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {
     path: "/catalog-library-page",
     name: "CatalogLibraryPage",
-    meta: { isAdmin: false, MyLibrary: true, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {
     path: "/catalog-admin-page",
     name: "CatalogPageAdmin",
-    meta: { isAdmin: true, MyLibrary: false, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {

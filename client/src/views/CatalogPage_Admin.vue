@@ -8,9 +8,9 @@
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
-                    <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/catalog-admin-page" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-page" class="to-page-nav" exact>Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav" @click="onMounted()">My Library</router-link>
+                    <router-link to="/catalog-admin-page" class="to-page-nav" exact>Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -83,8 +83,8 @@
 
                     </div>
                     <div class="lib-button-container" v-if="MyLibrary">
-                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                        <div @click="liked = true; read = false ;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                        <div @click="read = true; liked = false;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-bookmark"  /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -105,8 +105,8 @@
                         </form>
                     </div>
                     <div class="lib-button-container" v-if="MyLibrary">
-                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                        <div @click="liked = true; read = false ;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                        <div @click="read = true; liked = false;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -144,9 +144,10 @@
                                     <div class="dis-nb-page">
                                         , {{book.pages}}p
                                     </div>
-                                    <div class="dis-nb-page">
-                                       . {{book.genres[0].genre+" "+book.genres[1].genre}} 
-                                    </div>
+                                        . {{ book.genres[0].genre }}
+                                        <span v-if="book.genres.length > 1">
+                                            , {{ book.genres[1].genre }}
+                                        </span>
                                 </div>
                                 <div class="book-specs" v-if="isAdmin">
                                         id: {{book.reference}}
@@ -242,6 +243,8 @@ export default {
             nbTotalBooks: 100,
             searchBar: "",
             books: [],
+            liked:false,
+            read:false,
 
             //filtres
             genres:[],
@@ -271,9 +274,25 @@ export default {
             return this.$route.meta.isAdmin;
         },
         userData() {
-            return this.$store.state.userData;
+            return this.$route.meta.userData
         },
-
+        watchLiked() {
+            if (this.MyLibrary && this.liked){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        watchRead() {
+            if (this.MyLibrary && this.read){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        
 
 
         // fonction de filtrage edes livres
@@ -594,11 +613,16 @@ export default {
             // console.log(filterQuerry);
 
             const filters = {
+                utilisateur : this.userData,
                 texte: this.searchBar,
                 genres: this.selectedGenres,
                 langues: this.selectedLanguages,
                 pages: this.selectedNumberOfPages,
                 date_parution: this.selectedParutionYears,
+                liked: this.watchLiked,
+                read: this.watchRead,
+
+                
             }
 
             
@@ -624,37 +648,63 @@ export default {
                 }
             })
         },
+
+
+
+
+
+        async onMounted (){
+            
+            var thisID = document.getElementById("TopBtn");
+            var SearchClass = document.getElementById("search-container-fixe");
+            var myScrollFunc = function () {
+                var y = window.scrollY;
+                if (y >= 300) {
+                    thisID.className = "fa fa-angle-double-up show";
+                } else {
+                    thisID.className = "fa fa-angle-double-up hide";
+                }
+            };
+            var myScrollFunc1 = function () {
+                var z = window.scrollY;
+                if (z >= 315) {
+                    SearchClass.className = "search-container search-container-fixe show";
+                } else {
+                    SearchClass.className = "search-container-fixe hide";
+                }
+            };
+            window.addEventListener("scroll", myScrollFunc);
+            window.addEventListener("scroll", myScrollFunc1);
+            // permet de faire des action dés que la page change de taille
+            window.addEventListener('resize', this.handleWindowResize);
+            
+            console.log(this.MyLibrary)
+            if (this.MyLibrary){
+                this.liked = true;
+                this.read = true;
+            }
+            //récupére les genres et les livres dans la db
+            await this.getAllGenres();
+            await this.getFilteredBooks();
+    
+            
+        },
+
+    },
+
+    watch: {
+        $route(to) {
+            if (to.path === '/catalog-admin-page' || to.path === '/catalog-page' || to.path === '/catalog-library-page') {
+                this.onMounted(); // Appeler la méthode mounted() manuellement
+            }
+        }
     },
 
 
     async mounted  ()  {
-        var thisID = document.getElementById("TopBtn");
-        var SearchClass = document.getElementById("search-container-fixe");
-        var myScrollFunc = function () {
-            var y = window.scrollY;
-            if (y >= 300) {
-                thisID.className = "fa fa-angle-double-up show";
-            } else {
-                thisID.className = "fa fa-angle-double-up hide";
-            }
-        };
-        var myScrollFunc1 = function () {
-            var z = window.scrollY;
-            if (z >= 315) {
-                SearchClass.className = "search-container search-container-fixe show";
-            } else {
-                SearchClass.className = "search-container-fixe hide";
-            }
-        };
-        window.addEventListener("scroll", myScrollFunc);
-        window.addEventListener("scroll", myScrollFunc1);
-        // permet de faire des action dés que la page change de taille
-        window.addEventListener('resize', this.handleWindowResize);
-        
-        //récupére les genres et les livres dans la db
-        await this.getAllGenres();
-        await this.getFilteredBooks();
+        await this.onMounted();
     },
+
     beforeUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     },

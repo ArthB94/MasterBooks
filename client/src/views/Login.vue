@@ -72,8 +72,10 @@ export default {
     };
   },
   methods: {
+    // Fonction de login
     login() {
       this.message = "";
+      // Appel de l'API pour verifier les informations de l'utilisateur
       fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
         headers: {
@@ -91,7 +93,9 @@ export default {
           }
         })
         .then((parsed) => {
+          console.log("parsed ",parsed.token);
           localStorage.setItem("token", parsed.token);
+          console.log("token ",localStorage.getItem("token"));
         })
         .then(() => {
           this.$router.push("/catalog-page");

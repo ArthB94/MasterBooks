@@ -10,7 +10,7 @@ import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
-
+// var userData = {email :"arthur.billebaut@efrei.net"}
 const routes = [
 
   {
@@ -21,19 +21,19 @@ const routes = [
   {
     path: "/catalog-page",
     name: "CatalogPage",
-    meta: { isAdmin: false, MyLibrary: false },
+    meta: { isAdmin: false, MyLibrary: false, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {
     path: "/catalog-library-page",
     name: "CatalogLibraryPage",
-    meta: { MyLibrary: true },
+    meta: { isAdmin: false, MyLibrary: true, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {
     path: "/catalog-admin-page",
     name: "CatalogPageAdmin",
-    meta: { isAdmin: true },
+    meta: { isAdmin: true, MyLibrary: false, userData: {email :"arthur.billebaut@efrei.net"}},
     component: CatalogPageAdmin,
   },
   {

@@ -109,10 +109,13 @@ exports.findByFilter = (req, res) => {
         langues: req.body.langues,
         pages: req.body.pages,
         date_parution: req.body.date_parution,
+        aimés: req.body.liked,
+        lus: req.body.read,
     }
 
     let filterQuerry = "Select * from livre ";
     let and = false;
+    let or = false;
 
     if (filters.texte != "") {
         filterQuerry += "where titre like '%" + filters.texte + "%' or auteur like '%" + filters.texte + "%' ";
@@ -132,6 +135,42 @@ exports.findByFilter = (req, res) => {
         for (let i = 1; i < filters.genres.length; i++) {
             filterQuerry += "and reference in (select reference from appartenir where genre_id = '" + filters.genres[i] + "') ";
         }
+        filterQuerry += ") ";
+        and = true;
+
+    }
+    if (filters.aimés == true) {
+        if (!and) {
+            filterQuerry += "where (";
+            and = false
+        }
+        else {
+            filterQuerry += "and ("
+        }
+
+        filterQuerry += "reference in (select reference from sauvegarder where email_user = '" + utilisateur.email + "') "
+        filterQuerry += ") ";
+        if (filters.lus == true) {
+            or = true;
+        }
+        and = true;
+
+    }
+    if (filters.lus == true) {
+        if (or) {
+            filterQuerry += "or ("
+            or = false;
+
+        }
+        else if (!and) {
+            filterQuerry += "where (";
+            and = false
+        }
+        else {
+            filterQuerry += "and ("
+        }
+
+        filterQuerry += "reference in (select reference from lire where email_user = '" + utilisateur.email + "') "
         filterQuerry += ") ";
         and = true;
 
@@ -193,33 +232,8 @@ exports.findByFilter = (req, res) => {
         and = true
 
     }
-
-
-    let or = false;
     
-    
-    
-    // for (let i = 0; i < filters.date_parution.length; i++) {
-    //     if (!and) {
-    //         filterQuerry += "where (";
-    //         and = false
-    //     }
-    //     else {
-    //         filterQuerry += "and ("
-    //     }
-    //     if (i == 0) {
-    //         filterQuerry += "livre.date_parution <"+ filters.date_parution[i] + " ";
-    //         or = true;
-    //     }else if (i == filters.date_parution.length - 1) {
-    //         filterQuerry += "livre.date_parution >="+ filters.date_parution[i] + " ";
-    //         or = false;
-    //     }
-    //     filterQuerry += "livre.date_parution >="+ filters.date_parution[i-1] + "and livre.date_parution <"+ filters.date_parution[i] + " ";
-    //     or = true;
-        
-
-
-
+   
     if (filters.date_parution.length > 0) {
         
         if (!and) {

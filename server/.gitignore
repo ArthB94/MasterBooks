@@ -1,3 +1,5 @@
 node_modules
 public/covers
 public/uploads/*
+!public/uploads/.gitkeep
+

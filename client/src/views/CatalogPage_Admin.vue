@@ -4,13 +4,17 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/logo_book1.png" class="VueLogo" />
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
+    height: 167px;
+    margin: 0px;
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/catalog-page" class="to-page-nav" exact>Book catalog</router-link>
-                    <router-link to="/catalog-library-page" class="to-page-nav" @click="onMounted()">My Library</router-link>
-                    <router-link to="/catalog-admin-page" class="to-page-nav" exact>Recommendations</router-link>
+                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav" @click="onMounted">My Library</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -124,12 +128,16 @@
                 <div class="book-counter-container">
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
-                    <div class="book-catalog-container"  >
-                        <router-link to="/"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : 'book-page-link']">
+                    <div :class="[recomandations ?'book-catalog-container1' :'book-catalog-container']"  >
+                        <router-link to="/"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
-                            <div class="book">
+                            <div class="book-rec-score" v-if="recomandations">
+                                <div class="number-score">{{ book.recomandation = '99%' }}</div>
+                                <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
+                            </div>
+                            <div  :class="[recomandations ? 'book1' : 'book']" >
                                 <div>
                                     <!-- <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover"> -->
                                     <img :src="'http://localhost:8080/' + book.image_src" alt="book_pic" class="book-cover">
@@ -198,7 +206,8 @@
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -275,9 +284,23 @@ export default {
             }
 
         },
+        recomandations() {
+            if (this.$route.path == "/catalog-recs-page") {
+                return true;
+            } else {
+                return false;
+            }
+        },
         isAdmin() {
             console.log("isAdmin",JSON.parse(localStorage.getItem("isAdmin")))
-            return JSON.parse(localStorage.getItem("isAdmin"));
+            if( JSON.parse(localStorage.getItem("isAdmin"))){
+                if (this.$route.path == "/catalog-admin-page") {
+                    return true;
+                } 
+            }
+            return false;
+            
+            
         },
         userData() {
             return JSON.parse(localStorage.getItem("userData"))

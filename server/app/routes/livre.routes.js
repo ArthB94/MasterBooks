@@ -11,7 +11,7 @@ module.exports = app =>{
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
         // Specify the directory where you want to store the uploaded files
-        cb(null, "./uploads");
+        cb(null, "./public/uploads");
         },
         filename: function (req, file, cb) {
         // Define the filename for the uploaded file

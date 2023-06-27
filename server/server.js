@@ -23,7 +23,7 @@ app.use(express.json());
 
 // permet de parser les requêtes de type application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('./'));
+app.use(express.static('./public'));
 
 // simple route
 app.get("/", (req, res) => {

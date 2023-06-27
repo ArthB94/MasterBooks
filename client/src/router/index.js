@@ -29,6 +29,11 @@ const routes = [
     component: CatalogPageAdmin,
   },
   {
+    path: "/catalog-recs-page",
+    name: "CatalogPageRecs",
+    component: CatalogPageAdmin,
+  },
+  {
     path: "/catalog-admin-page",
     name: "CatalogPageAdmin",
     component: CatalogPageAdmin,

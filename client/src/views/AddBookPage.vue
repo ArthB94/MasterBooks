@@ -516,13 +516,13 @@ export default {
             this.pages = data.pages;
             this.resume = data.resume;
             this.url = data.url;
-            this.handleResumeInput();
             // Check if cover image exists
             if (data.image_src) {
               this.image_src = data.image_src;
               this.selectedFileCover = null;
               this.labelTextCover = "Cover already stored";
             }
+            this.handleResumeInput();
           })
           .catch((error) => {
             console.error("Error:", error);

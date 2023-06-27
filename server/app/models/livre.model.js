@@ -140,15 +140,41 @@ Livre.delete = (reference, result) => {
       result(null, err);
       return;
     }
-
-    sql.query("DELETE FROM livre WHERE reference = ?", reference, (err, res) => {
+    sql.query("DELETE FROM lire WHERE reference = ?", reference, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
         return;
       }
-      result(null, res);
-    })
+      else{
+        sql.query("DELETE FROM sauvegarder WHERE reference = ?", reference, (err, res) => {
+          if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+          }
+          else{
+            sql.query("DELETE FROM être_recommandé WHERE reference = ?", reference, (err, res) => {
+              if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+              }
+              else{
+                sql.query("DELETE FROM livre WHERE reference = ?", reference, (err, res) => {
+                  if (err) {
+                    console.log("error: ", err);
+                    result(null, err);
+                    return;
+                  }
+                  result(null, res);
+                });
+              }
+            });
+          }
+        });
+      }
+    });
   });
 };
 

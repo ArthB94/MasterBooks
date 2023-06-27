@@ -15,5 +15,7 @@ module.exports = app =>{
 
     router.get('/extract_mail' , utilisateurs.extract_email);
 
+    router.post('/change_password', utilisateurs.change_password);
+
     app.use('/api/auth', router);
 }

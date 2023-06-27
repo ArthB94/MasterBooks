@@ -57,6 +57,8 @@ exports.login = (req, res) => {
       }
     else {
       const token = jwt.sign({ email: req.body.email_user }, "mastercampmdp");
+      console.log(token);
+      console.log("Login successful !");
       res.json({ token: token });
     }
   });
@@ -219,3 +221,28 @@ exports.reset_password = (req, res) => {
     }
   });
 };
+
+
+exports.change_password = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty !",
+    });
+  }
+
+  Utilisateur.change_password(req, (err,data) => {
+    if (err)
+      if (err === "Wrong password") {
+        return res.status(409).json({ message: err });
+      } else {
+        res.status(500).send({
+          message: err.message || "Some error ",
+        });
+      }
+    else {
+      res.json({
+        message: "Password updated successfully"
+      });
+    }
+  })
+}

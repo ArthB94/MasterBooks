@@ -20,6 +20,7 @@ exports.createmetadata = (req, res) => {
   const destination = "./public/uploads";
 
   const filePath = `${destination}/${fileName}`;
+  const filePathdb = `./uploads/${fileName}`;
 
   const epub = new EPub(filePath);
 
@@ -142,7 +143,7 @@ exports.createmetadata = (req, res) => {
           fsExtra.removeSync(opfDir);
           console.log("OPF directory deleted:", opfDir);
 
-          coverPath = `./public/covers/${epubName}/${coverHref}`;
+          coverPath = `./covers/${epubName}/${coverHref}`;
           console.log("cover path:", coverPath);
 
           // Use the coverPath variable here or call a function that depends on it
@@ -167,7 +168,7 @@ exports.createmetadata = (req, res) => {
       date_parution: toDate(epub.metadata.date).getFullYear(),
       langue: epub.metadata.language,
       resume: epub.metadata.description,
-      url: filePath,
+      url: filePathdb,
       image_src: coverPath, // Use the coverPath variable here
     });
   });

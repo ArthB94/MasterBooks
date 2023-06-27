@@ -17,7 +17,7 @@ exports.createmetadata = (req, res) => {
   }
 
   const fileName = req.file.originalname;
-  const destination = "./uploads";
+  const destination = "./public/uploads";
 
   const filePath = `${destination}/${fileName}`;
 
@@ -90,7 +90,7 @@ exports.createmetadata = (req, res) => {
         console.log("Cover href:", coverHref);
 
         // Create the covers directory if it doesn't exist
-        const coversDir = path.join(__dirname, "../../covers");
+        const coversDir = path.join(__dirname, "../../public/covers");
         if (!fs.existsSync(coversDir)) {
           fs.mkdirSync(coversDir);
           console.log("Created covers directory.");
@@ -142,7 +142,7 @@ exports.createmetadata = (req, res) => {
           fsExtra.removeSync(opfDir);
           console.log("OPF directory deleted:", opfDir);
 
-          coverPath = `./covers/${epubName}/${coverHref}`;
+          coverPath = `./public/covers/${epubName}/${coverHref}`;
           console.log("cover path:", coverPath);
 
           // Use the coverPath variable here or call a function that depends on it

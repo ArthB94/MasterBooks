@@ -1,7 +1,6 @@
 <template>
   <body>
     <div class="LoginPage">
-
       <div class="loginBox">
         <div class="loginContainer">
           <div class="loginForm">
@@ -22,7 +21,10 @@
                   placeholder="Password"
                 />
               </div>
-              <div class="message" style="color: red">{{ message }}</div>
+              <p
+                    class="CharacterLimitMessage"
+                    style="color: red; text-align: center; font-weight: bold"
+                  >{{ message }}</p>
               <div class="loginInputBox">
                 <input @click="() => login()" type="submit" value="Login" />
               </div>
@@ -51,8 +53,8 @@
 
 <script>
 import axios from "axios";
-
 export default {
+  
   name: "LoginPage",
   data() {
     return {
@@ -64,42 +66,49 @@ export default {
   methods: {
     login() {
       this.message = "";
-      const userData = {
-        email_user: this.email,
-        mdp: this.password,
-      };
-      axios
-        .post("http://localhost:8080/api/auth/login", userData)
+      fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email_user: this.email, mdp: this.password }),
+      })
         .then((response) => {
-          if (response.status === 200) {
-            return response.data;
+          if (response.ok) {
+            return response.json();
           } else {
-            throw new Error(JSON.stringify(response.data));
+            return response.json().then((error) => {
+              throw new Error(JSON.stringify(error));
+            });
           }
         })
+        .then((data) => {
+          const token = data.token;
+          localStorage.setItem("token", token);
+        })
         .then(() => {
-          axios
-            .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
-            .then((response) => {
-              if(response.status === 200){
-                let admin = response.data.isAdmin;
-                
-                if(admin === true){
-                  localStorage.setItem("isAdmin", true)
-                  this.$router.push("/catalog-admin-page");
+            axios
+              .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
+              .then((response) => {
+                if(response.status === 200){
+                  let admin = response.data.isAdmin;
+                  
+                  if(admin === true){
+                    this.$router.push("/catalog-admin-page");
+                    localStorage.setItem("isAdmin", true);
+
+                  }
+                  else{
+                    this.$router.push("/catalog-page");
+                    localStorage.setItem("isAdmin", false);
+                  }
                 }
                 else{
-                  localStorage.setItem("isAdmin", false)
-                  this.$router.push("/catalog-page");
+                  throw new Error(JSON.stringify(response.data));
                 }
-                localStorage.setItem("userData", JSON.stringify(userData))
-              }
-              else{
-                throw new Error(JSON.stringify(response.data));
-              }
-            })
-            
-        })
+              })
+              
+          })
         .catch((error) => {
           let errorMessage;
           try {

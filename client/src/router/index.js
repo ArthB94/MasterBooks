@@ -9,6 +9,7 @@ import HelpPage from "@/views/HelpPage.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+import ResetPwd from "@/views/ResetPassword.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
 // var userData = {email :"arthur.billebaut@efrei.net"}
 const routes = [
@@ -67,6 +68,11 @@ const routes = [
     path: "/register-page",
     name: "RegisterPage",
     component: Register,
+  },
+  {
+    path: "/reset-password-page",
+    name: "ResetPwdPage",
+    component: ResetPwd,
   },
   {
     path: "/profile-page",

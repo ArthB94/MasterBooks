@@ -30,7 +30,6 @@
             </section>
         </body>
     </template>
-    
     <script>
     export default {
         name: 'ForgotPwdPage',
@@ -42,7 +41,7 @@
         },
         methods:{
           send(){
-            fetch("api/api/auth/recovery", 
+            fetch("http://localhost:8080/api/auth/recovery", 
             {method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

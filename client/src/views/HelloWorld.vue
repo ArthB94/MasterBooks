@@ -13,6 +13,7 @@ import DarkLightMode from '@/components/DarkLightMode.vue';
     <router-link to="/landing-page">Landing Page</router-link> |
     <router-link to="/login-page">Login Page</router-link> |
     <router-link to="/register-page">Register Page</router-link> |
+    <router-link to="/reset-password-page">Reset Password</router-link> |
     <router-link to="/profile-page">Profile Page</router-link> |
 
   </div>

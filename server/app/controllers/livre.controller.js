@@ -55,7 +55,8 @@ exports.delete = (req, res) => {
         } else {
             // delete le fichier epub
 
-            const filePath = path.join(__dirname, "../../" + data.url);
+            console.log("livre trouvé");
+            const filePath = path.join(__dirname, "../../public/" + data.url);
             fsExtra.remove(filePath, (err) => {
                 if (err) {
                     console.log("error :", err);
@@ -64,7 +65,9 @@ exports.delete = (req, res) => {
                     });
                 } else {
                     // delete le directory des images
-                    const imagesPath = path.join(__dirname, "../../" + data.image_src);
+                    
+                    const imagesPath = path.join(__dirname, "../../public/" + data.image_src);
+                    console.log("fichier epub supprimé");
                     console.log(path.dirname(imagesPath));
                     fsExtra.remove(path.dirname(imagesPath), (err) => {
                         if (err) {
@@ -74,6 +77,7 @@ exports.delete = (req, res) => {
 
                             });
                         } else {
+                            console.log("directory images supprimé");
                             // delete le livre de la base de données
                             Livre.delete(req.params.id, (err, data) => {
                                 if (err) {
@@ -82,6 +86,7 @@ exports.delete = (req, res) => {
                                         message: err.message || "Some error occurred while deleting the book.",
                                     });
                                 } else {
+                                    console.log("livre db supprimé");
                                     res.json({
                                         message: "Book deleted successfully",
                                         titre: data.titre,

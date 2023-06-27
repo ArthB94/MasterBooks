@@ -12,9 +12,9 @@
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
-                    <router-link to="/catalog-library-page" class="to-page-nav" @click="onMounted">My Library</router-link>
-                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-page" class="to-page-nav" >Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav" @click="this.getFilteredBooks()" >My Library</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav" >Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -299,8 +299,6 @@ export default {
                 } 
             }
             return false;
-            
-            
         },
         userData() {
             return JSON.parse(localStorage.getItem("userData"))
@@ -315,6 +313,14 @@ export default {
         },
         watchRead() {
             if (this.MyLibrary && this.read){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        watchRecos() {
+            if (this.watchRecos){
                 return true;
             }
             else{
@@ -640,6 +646,7 @@ export default {
             //     filterQuerry += ") "
             // }
             // console.log(filterQuerry);
+            
             const filters = {
                 utilisateur : this.userData,
                 texte: this.searchBar,
@@ -649,9 +656,9 @@ export default {
                 date_parution: this.selectedParutionYears,
                 liked: this.watchLiked,
                 read: this.watchRead,
-
-                
+                recomandation: this.watchRecos,  
             }
+            console.log(filters);
 
             
             await axios.post("http://localhost:8080/api/livre/filter", filters).then((response) => {
@@ -727,8 +734,12 @@ export default {
 
     watch: {
         $route(to) {
-            if (to.path === '/catalog-admin-page' || to.path === '/catalog-page' || to.path === '/catalog-library-page') {
-                this.onMounted(); // Appeler la méthode mounted() manuellement
+            if (to.path === '/catalog-admin-page' || to.path === '/catalog-page' || to.path === '/catalog-library-page' || to.path === '/catalog-recs-page') {
+                if (this.MyLibrary){
+                    this.liked = true;
+                    this.read = true;
+                }
+                this.getFilteredBooks(); // Appeler la méthode mounted() manuellement
             }
         }
     },

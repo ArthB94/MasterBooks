@@ -4,10 +4,6 @@
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
-    height: 167px;
-    margin: 0px;
-    margin-bottom: 50px; margin-left: 37px;" /> -->
                         <div class="logo-nav"></div>
                     </div>
                 </div>
@@ -687,6 +683,11 @@ export default {
         },
 
         async onMounted (){
+            if (this.userData === null) {
+                // L'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+                this.$router.push("/login-page");
+                return;
+            }
             var thisID = document.getElementById("TopBtn");
             var SearchClass = document.getElementById("search-container-fixe");
             var myScrollFunc = function () {

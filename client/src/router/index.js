@@ -11,7 +11,7 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import ResetPwd from "@/views/ResetPassword.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
-// var userData = {email :"arthur.billebaut@efrei.net"}
+
 const routes = [
 
   {
@@ -84,6 +84,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+// Permet de vérifier si l'utilisateur est connecté, si il ne l'est pas, il est redirigé vers la page de connexion
+router.beforeEach((to, from, next) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
+
+  if (!userData && to.path !== '/login-page' && to.path !== '/register-page') {
+    next('/login-page'); // Redirige vers la page de connexion
+  } else {
+    next(); // Continue la navigation normalement
+  }
 });
 
 

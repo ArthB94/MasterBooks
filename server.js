@@ -45,6 +45,7 @@ app.post('/test', (req,res)=>{
 
 require("./app/routes/utilisateur.routes.js")(app);
 require("./app/routes/livre.routes.js")(app);
+require("./app/routes/email.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

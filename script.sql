@@ -76,3 +76,22 @@ CREATE TABLE appartenir(
    FOREIGN KEY(reference) REFERENCES Livre(reference),
    FOREIGN KEY(genre_id) REFERENCES Genre(genre_id)
 );
+
+create table shareTokens(
+    token     varchar(145) not null comment 'Le token',
+    from_user varchar(50)  not null comment 'L''utilisateur qui a partagé le livre',
+    book      int          not null comment 'Le livre partagé',
+    expires   date         not null comment 'La date d''expiration du token',
+    constraint shareTokens_pk
+        primary key (token),
+    constraint shareTokens_Livre_reference_fk
+        foreign key (book) references Livre (reference),
+    constraint shareTokens_utilisateur_email_user_fk
+        foreign key (from_user) references utilisateur (email_user)
+);
+
+CREATE TABLE reset_tokens (
+  token VARCHAR(200) NOT NULL PRIMARY KEY,
+  email_user VARCHAR(50) NOT NULL,
+  expires TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 HOUR)
+);

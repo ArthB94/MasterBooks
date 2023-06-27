@@ -8,7 +8,6 @@ const Utilisateur = function (utilisateur) {
   this.mdp = utilisateur.mdp;
 };
 
-
 Utilisateur.create = (newUtilisateur, result) => {
   sql.query(
     "SELECT * FROM utilisateur WHERE email_user = ?",
@@ -56,8 +55,6 @@ Utilisateur.create = (newUtilisateur, result) => {
     }
   );
 };
-
-
 
 /*
 Utilisateur.login = (req, result) => {
@@ -138,5 +135,30 @@ Utilisateur.login = (req, result) => {
   );
 };
 
+Utilisateur.exists = (req, result) => {
+  const email = req.body.email;
+
+  sql.query(
+    "SELECT * FROM utilisateur WHERE email_user = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+      
+      if (rows.length === 0) {
+        const errorMessage = "User not registered";
+        console.log(errorMessage);
+        result(errorMessage, null);
+        return;
+      }
+
+      result(null, {message:"User found."});
+      return;
+    }
+  );
+};
 
 module.exports = Utilisateur;

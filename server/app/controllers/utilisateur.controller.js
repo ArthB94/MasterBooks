@@ -61,7 +61,7 @@ exports.login = (req, res) => {
       const token = jwt.sign({ email: req.body.email_user }, "mastercampmdp");
       console.log(token);
       console.log("Login successful !");
-      res.json({ token: token });
+      res.json({ token: token , email_user: req.body.email_user, pseudo: data.pseudo});
     }
   });
 };

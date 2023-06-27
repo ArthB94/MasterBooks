@@ -66,47 +66,44 @@ export default {
   methods: {
     login() {
       this.message = "";
-      fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email_user: this.email, mdp: this.password }),
-      })
+      const userData = {
+        email_user: this.email,
+        mdp: this.password,
+      };
+      axios
+        .post("http://localhost:8080/api/auth/login", userData)
         .then((response) => {
-          if (response.ok) {
-            return response.json();
+          if (response.status === 200) {
+            localStorage.setItem("userData", JSON.stringify(response.data));
+            return response.data;
           } else {
-            return response.json().then((error) => {
-              throw new Error(JSON.stringify(error));
-            });
+            throw new Error(JSON.stringify(response.data));
           }
-        })
-        .then((data) => {
+        }).then((data) => {
           const token = data.token;
           localStorage.setItem("token", token);
         })
         .then(() => {
-            axios
-              .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
-              .then((response) => {
-                if(response.status === 200){
-                  let admin = response.data.isAdmin;
-                  
-                  if(admin === true){
-                    this.$router.push("/catalog-admin-page");
-                    localStorage.setItem("isAdmin", true);
-
-                  }
-                  else{
-                    this.$router.push("/catalog-page");
-                    localStorage.setItem("isAdmin", false);
-                  }
+          axios
+            .post("http://localhost:8080/api/auth/isAdmin", {email_user: this.email})
+            .then((response_admin) => {
+              if(response_admin.status === 200){
+                let admin = response_admin.data.isAdmin;
+                
+                if(admin === true){
+                  localStorage.setItem("isAdmin", true)
+                  this.$router.push("/catalog-admin-page");
                 }
                 else{
-                  throw new Error(JSON.stringify(response.data));
+                  localStorage.setItem("isAdmin", false)
+                  this.$router.push("/catalog-page");
                 }
-              })
+                //localStorage.setItem("userData", JSON.stringify(response_data.userData))
+              }
+              else{
+                throw new Error(JSON.stringify(response_admin.data));
+              }
+            })
               
           })
         .catch((error) => {

@@ -511,6 +511,7 @@ export default {
         },
 
         async getFilteredBooks() {
+            console.log("user data",JSON.parse(localStorage.getItem("userData")));
             //Select * from livre join appartenir using(reference) join genre using(genre_id) where genre.genre = 'Action'
             // let filterQuerry = "Select * from livre ";
             // let and = false;
@@ -675,11 +676,13 @@ export default {
             })
         },
 
-        redirection(isAdmin) {
-            if (isAdmin) {
-                this.$router.push("/catalog-admin-page");
-            } else {
-                this.$router.push("/catalog-page");
+        redirection() {
+            if(this.$route.path === '/catalog-admin-page'){
+                if (this.isAdmin) {
+                    this.$router.push("/catalog-admin-page");
+                } else {
+                    this.$router.push("/catalog-page");
+                }      
             }
         },
 
@@ -735,7 +738,7 @@ export default {
 
 
     async mounted  ()  {
-        this.redirection(this.isAdmin);
+        this.redirection()
         await this.onMounted();
     },
 

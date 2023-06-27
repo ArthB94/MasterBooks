@@ -8,9 +8,9 @@
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/calendar-page" class="to-page-nav">Book catalog</router-link>
-                    <router-link to="/todo-list2-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/create-calendar-page" class="to-page-nav">Recommendations</router-link>
+                  <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+                  <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+                  <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -43,7 +43,7 @@
                   </div>
                  
               </div> 
-              <div class="Navbar" style="margin-top: 50px;">
+              <div class="Navbar" style="margin-top: 50px;" v-show="isAdmin">
                     <button class="to-page-nav" style="border-top:none; border-left:none;" @click="$refs.fileupload.click()">Add Book</button>
                     <router-link to="/todo-list2-page" class="to-page-nav">Delete Book</router-link>
                 </div>
@@ -92,7 +92,8 @@ data() {
     sent: false,
     error: false,
     selectedFile: null,
-    labelText: "No file selected"
+    labelText: "No file selected",
+    isAdmin: false
   };
   
 },
@@ -105,7 +106,7 @@ updateInformation() {
   const token = localStorage.getItem('token');
   console.log(token);
   
-  fetch("api/api/auth/profile", {
+  fetch("http://localhost:8080/api/auth/profile", {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -141,41 +142,26 @@ handleFileChange(event) {
         }
 },
 mounted() {
-  const token = localStorage.getItem('token');
-  console.log(token);
-  fetch('api/api/user', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token,
-    },
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return response.json().then((error) => {
-          throw new Error(JSON.stringify(error));
-        });
-      }
-    })
-    .then((data) => {
-      this.txtFName = data.name;
-      this.txtEmail = data.email;
-      this.placeholderFName = data.name;
-      this.placeholderEmail = data.email;
-    })
-    .catch((error) => {
-      let errorMessage;
-      try {
-        errorMessage = JSON.parse(error.message);
-      } catch {
-        errorMessage = {
-          message: 'An error occurred while processing your request.',
-        };
-      }
-      this.message = errorMessage.message;
-    });
+  // Récupérer les informations de l'utilisateur
+  var userData = JSON.parse(localStorage.getItem("userData"));
+  if (userData === null) {
+    // L'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+    this.$router.push("/login-page");
+    return;
+  }
+
+  // L'utilisateur est connecté, on a ses infos.
+
+  // Remplir les champs avec les données
+  this.txtFName = userData.pseudo;
+  this.txtEmail = userData.email_user;
+  this.placeholderFName = userData.pseudo;
+  this.placeholderEmail = userData.email_user;
+
+  // Vérifier si l'utilisateur est admin
+  if (userData.admin !== null) {
+    this.isAdmin = true
+  } 
 },
 };
 </script>

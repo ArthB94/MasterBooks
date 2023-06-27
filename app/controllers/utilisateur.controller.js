@@ -148,21 +148,19 @@ exports.forgot_password = (req, res) => {
 exports.verif_token = (req,res) => {
   const token = req.query.token;
   console.log(token);
-  const decoded = verifyResetToken(token);
+  const decoded = this.verifyResetToken(token);
   console.log("here");
   if (!decoded) {
     // Token verification failed, handle accordingly (e.g., show error page)
     console.log("failed");
-    // return res.status(400).json({ error: 'Invalid or expired reset token' });
     const redirectLink = `https://localhost:8081/reset-password`;
     res.redirect(redirectLink);
   }
-  // Token is valid, render the password reset page
   console.log(decoded);
   res.json({ email : decoded.email });
 }
 
-const verifyResetToken = (token) => {
+exports.verifyResetToken = (token) => {
   try {
     const secretKey = 'mastercampmdp';
     const decoded = jwt.verify(token, secretKey);

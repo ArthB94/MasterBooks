@@ -148,8 +148,8 @@ exports.forgot_password = (req, res) => {
 
 exports.verif_token = (req,res) => {
   const token = req.query.token;
-  console.log("mytoken",token);
-  const decoded = verifyResetToken(token);
+  console.log("mytoken ",token);
+  const decoded = this.verifyResetToken(token);
   console.log("here");
   if (!decoded) {
     // Token verification failed, handle accordingly (e.g., show error page)
@@ -163,7 +163,7 @@ exports.verif_token = (req,res) => {
   res.json({ email : decoded.email });
 }
 
-const verifyResetToken = (token) => {
+exports.verifyResetToken = (token) => {
   try {
     const secretKey = 'mastercampmdp';
     const decoded = jwt.verify(token, secretKey);

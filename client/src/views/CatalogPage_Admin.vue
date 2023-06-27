@@ -134,7 +134,7 @@
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
                             <div class="book-rec-score" v-if="recomandations">
-                                <div class="number-score">{{ book.recomandation = '99%' }}</div>
+                                <div class="number-score">{{ book.Pourcentage}}%</div>
                                 <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
                             </div>
                             <div  :class="[recomandations ? 'book1' : 'book']" >
@@ -303,6 +303,9 @@ export default {
         userData() {
             return JSON.parse(localStorage.getItem("userData"))
         },
+        token() {
+            return localStorage.getItem("token")
+        },
         watchLiked() {
             if (this.MyLibrary && this.liked){
                 return true;
@@ -320,16 +323,13 @@ export default {
             }
         },
         watchRecos() {
-            if (this.watchRecos){
+            if (this.recomandations){
                 return true;
             }
             else{
                 return false;
             }
         },
-        
-
-
         // fonction de filtrage edes livres
         filteredBooks(){
             let books = this.books;
@@ -380,12 +380,6 @@ export default {
             // }
             return books;
         }
-
-
-
-
-
-
     },
     // Definit les méthodes utilisées dans la page
     methods: {
@@ -410,8 +404,6 @@ export default {
             this.CloseDeleteBook()
             console.log("deleted index = "+this.deleteBook);
         },
-
-
         // incremente ou décremente la page selectionnée
         ChangePage (value) {
             this.selectedPage += parseInt(value);
@@ -488,7 +480,6 @@ export default {
 
         // -----------------------------------------------------------Communication avec l'API-----------------------------------------------------------
         
-
         // Permet d'ajouter des livres à l'API
         addBooks(newBooks){
             console.log("newBooks",newBooks);
@@ -648,7 +639,7 @@ export default {
             // console.log(filterQuerry);
             
             const filters = {
-                utilisateur : this.userData,
+                token : this.token,
                 texte: this.searchBar,
                 genres: this.selectedGenres,
                 langues: this.selectedLanguages,
@@ -656,7 +647,7 @@ export default {
                 date_parution: this.selectedParutionYears,
                 liked: this.watchLiked,
                 read: this.watchRead,
-                recomandation: this.watchRecos,  
+                recomanded: this.watchRecos,  
             }
             console.log(filters);
 
@@ -683,8 +674,6 @@ export default {
                 }
             })
         },
-
-
 
         redirection(isAdmin) {
             if (isAdmin) {

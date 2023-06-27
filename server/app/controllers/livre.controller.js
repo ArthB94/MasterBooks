@@ -6,6 +6,7 @@ const AdmZip = require("adm-zip");
 const xml2js = require("xml2js");
 const fsExtra = require("fs-extra");
 const sql = require("../models/db.js");
+const { verifyResetToken } = require('./utilisateur.controller');
 
 // Prend un livre en paramètre et le sauvegarde dans la base de données
 exports.store = (req, res) => {
@@ -106,7 +107,11 @@ exports.delete = (req, res) => {
 
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
-    const utilisateur = req.body.utilisateur;
+    const token = req.body.token;
+    console.log("token ",token);
+    const email = verifyResetToken(token).email;  
+    console.log("email ",email);    
+    const utilisateur = {email_user: email};
     const filters ={
         texte: req.body.texte,
         genres: req.body.genres,
@@ -115,15 +120,28 @@ exports.findByFilter = (req, res) => {
         date_parution: req.body.date_parution,
         aimés: req.body.liked,
         lus: req.body.read,
+        recommandés: req.body.recomanded,
     }
 
     let filterQuerry = "Select * from livre ";
     let and = false;
     let or = false;
 
+    if(filters.recommandés){
+        filterQuerry += "join être_recommandé using(reference) where (email_user = '" + utilisateur.email_user + "') ";
+        and = true;
+    }
+
     //filtre barre de recherche
     if (filters.texte != "") {
-        filterQuerry += "where (titre like '%" + filters.texte + "%' or auteur like '%" + filters.texte + "%' )";
+        if (!and) {
+            filterQuerry += "where (";
+            and = false
+        }
+        else {
+            filterQuerry += "and ("
+        }
+        filterQuerry += "titre like '%" + filters.texte + "%' or auteur like '%" + filters.texte + "%' )";
         and = true;
     }
 
@@ -292,7 +310,9 @@ exports.findByFilter = (req, res) => {
             or = true;
         }
         filterQuerry += ") "
+
     }
+    console.log(filters);
     Livre.getByFilter(filterQuerry, (err, data) => {
         if (err)
             res.status(500).send({

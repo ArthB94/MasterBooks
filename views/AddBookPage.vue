@@ -467,6 +467,9 @@ export default {
             this.notComplete = false;
             this.genres = [];
             this.nbGenre = 1;
+            setTimeout(() => {
+                this.$router.push("/add-book-page");
+              }, 1000);
           } else if (data.message === "Book already exists") {
             this.bookAlreadyExists = true;
           }

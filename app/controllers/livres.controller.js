@@ -169,7 +169,7 @@ exports.createmetadata = (req, res) => {
       langue: epub.metadata.language,
       resume: epub.metadata.description,
       url: filePathdb,
-      image_src: coverPath, // Use the coverPath variable here
+      image_src: coverPath
     });
   });
   epub.parse();

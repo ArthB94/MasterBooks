@@ -1,7 +1,6 @@
 <template>
   <body>
     <a id="top"></a>
-    <!-- <?php if($_SESSION['admin']==1){?> -->
     <div class="FormPage2" style="overflow-y: hidden">
       <div class="headernav">
         <div class="header-image">
@@ -163,12 +162,6 @@
                   "
                 >
                   <div class="custom-select1" style="width: 90%">
-                    <!-- <select>
-                      <option value="0">1</option>
-                      <option value="1">2</option>
-                      <option value="2">3</option>
-                      <option value="3">4</option>
-                    </select>-->
                     <select
                       v-model="selectedGenres[i]"
                     >
@@ -230,32 +223,8 @@
                   ></textarea
                   ><br />
                 </div>
-
-                <!-- <p class="Form-question">Would you rather have schedules in the morning or the afternoon ?
-                                </p>
-                                <div class="Switch-container">
-                                    <p class="Switch-label">Morning</p>
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                    <p class="Switch-label">Afternoon</p>
-                                </div> -->
-                <!-- <div class="loginInputBox">
-                                    <input type="text" name="txtCategory" value="<?php echo $row['category']?>" />
-                                </div>
-                                <div class="loginInputBox">
-                                    <input type="text" name="txtLevel" value="<?php echo $row['level']?>" />
-                                </div> -->
                 <br /><br />
                 <div class="loginInputBox FormInputBox">
-                  <!-- <p
-                    class="CharacterLimitMessage"
-                    style="color: red"
-                    v-if="bookAlreadyExists"
-                  >
-                    Book already stored in the database.
-                  </p> -->
                   <p
                     class="CharacterLimitMessage"
                     style="color: red; text-align: center; font-weight: bold"
@@ -380,7 +349,7 @@ export default {
   },
   methods: {
     fetchGenres() {
-      fetch("http://localhost:8080/api/livre/getgenres")
+      fetch("http://129.151.226.75:8080/api/livre/getgenres")
         .then((response) => response.json())
         .then((data) => {
           this.genres = data;
@@ -429,7 +398,7 @@ export default {
 
       const jsonData = JSON.stringify(data);
 
-      fetch("http://localhost:8080/api/livre/store", {
+      fetch("http://129.151.226.75:8080/api/livre/store", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -495,7 +464,7 @@ export default {
         const formData = new FormData();
         formData.append("file", file);
         console.log("here");
-        fetch("http://localhost:8080/api/livre/metadata", {
+        fetch("http://129.151.226.75:8080/api/livre/metadata", {
           method: "POST",
           body: formData,
         })

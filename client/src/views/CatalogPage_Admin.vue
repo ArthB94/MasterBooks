@@ -136,7 +136,7 @@
                             <div  :class="[recomandations ? 'book1' : 'book']" >
                                 <div>
                                     <!-- <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover"> -->
-                                    <img :src="'http://localhost:8080/' + book.image_src" alt="book_pic" class="book-cover">
+                                    <img :src="'http://129.151.226.75:8080/' + book.image_src" alt="book_pic" class="book-cover">
                                 </div>
                                 <div class="book-title">{{book.titre}}</div>
                                 <div class="book-specs">{{book.auteur+", "+book.date_parution}}</div>
@@ -480,7 +480,7 @@ export default {
         addBooks(newBooks){
             console.log("newBooks",newBooks);
             newBooks.forEach(book => {
-                axios.post("http://localhost:8080/api/livre/store", book).then((response) => {
+                axios.post("http://129.151.226.75:8080/api/livre/store", book).then((response) => {
                     if (response.status === 200) {
                         return response.data;
                     } else {
@@ -496,7 +496,7 @@ export default {
         
         async getAllGenres() {
             try {
-                const response = await axios.get('http://localhost:8080/api/genre/all');
+                const response = await axios.get('http://129.151.226.75:8080/api/genre/all');
                 const data = response.data;
                 console.log("getAllGenres", data);
                 this.genres = data;
@@ -649,7 +649,7 @@ export default {
             console.log(filters);
 
             
-            await axios.post("http://localhost:8080/api/livre/filter", filters).then((response) => {
+            await axios.post("http://129.151.226.75:8080/api/livre/filter", filters).then((response) => {
                     if (response.status === 200) {
                         this.books = response.data;
                         return response.data;
@@ -661,7 +661,7 @@ export default {
         },
 
         async deleteBookAPI(id) {
-            await axios.delete("http://localhost:8080/api/livre/delete/" + id).then((response) => {
+            await axios.delete("http://129.151.226.75:8080/api/livre/delete/" + id).then((response) => {
                 if (response.status === 200) {
                     this.books = this.books.filter((book) => book.reference !== id);
                     return response.data;

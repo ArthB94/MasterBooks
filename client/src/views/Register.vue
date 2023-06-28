@@ -95,7 +95,7 @@ export default {
       this.matching = true;
       this.message = "";
       if (this.email === this.reemail) {
-        fetch("http://localhost:8080/api/auth/register", {
+        fetch("http://129.151.226.75:8080/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -41,7 +41,7 @@
         },
         methods:{
           send(){
-            fetch("http://localhost:8080/api/auth/recovery", 
+            fetch("http://129.151.226.75:8080/api/auth/recovery", 
             {method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

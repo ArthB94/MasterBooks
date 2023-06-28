@@ -82,7 +82,7 @@ export default {
     if (!this.token) {
       this.goodToken = false;
     }
-    const route = `http://localhost:8080/api/auth/verif_token?token=${this.token}`;
+    const route = `http://129.151.226.75:8080/api/auth/verif_token?token=${this.token}`;
     fetch(route, {
       method: "GET",
     })
@@ -109,7 +109,7 @@ export default {
         };
         const jsonData = JSON.stringify(data);
 
-        fetch("http://localhost:8080/api/auth/reset_password", {
+        fetch("http://129.151.226.75:8080/api/auth/reset_password", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -101,12 +101,12 @@ components: {
         DarkLightMode,
         UserMenu
     },
-methods: {
+methods: { 
 updateInformation() {
   const token = localStorage.getItem('token');
   console.log(token);
   
-  fetch("http://localhost:8080/api/auth/profile", {
+  fetch("http://129.151.226.75:8080/api/auth/profile", {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

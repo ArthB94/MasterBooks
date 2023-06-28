@@ -1,6 +1,7 @@
 module.exports = {
     HOST: "localhost",
-    USER: "mastercamp",
-    PASSWORD: "mastercamp",
+    USER: "root",
+    PASSWORD: "6210",
     DB: "masterbooks",
+    
   };

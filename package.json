@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "install": "cd server && npm install && cd ../client && npm install",
+        "install": "cd server && npm install && cd ../client && npm install && npm install -g nodemon",
         "start": "concurrently \"cd server && nodemon server.js\" \"cd client && npm run serve\"",
         "serve": "cd server && nodemon server.js",
         "cli": "cd client && npm run serve"

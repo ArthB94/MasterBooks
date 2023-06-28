@@ -75,6 +75,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             localStorage.setItem("userData", JSON.stringify(response.data));
+            console.log("responseData",localStorage.getItem("userData"));
             return response.data;
           } else {
             throw new Error(JSON.stringify(response.data));

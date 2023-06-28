@@ -2,4 +2,5 @@ node_modules
 public/covers
 public/uploads/*
 !public/uploads/.gitkeep
+app/config/db.config.js
 

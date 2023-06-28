@@ -8,6 +8,7 @@ import DarkLightMode from '@/components/DarkLightMode.vue';
     <router-link to="/catalog-page">Catalog Page</router-link>|
     <router-link to="/catalog-library-page">Catalog Library Page</router-link>|
     <router-link to="/catalog-admin-page">Catalog Admin Page</router-link>|
+    <router-link to="/epub-reader-page">EPUB reader</router-link>|
     <router-link to="/fgpassword-page">FGPassword Page</router-link>|
     <router-link to="/help-page">Help Page</router-link> |
     <router-link to="/landing-page">Landing Page</router-link> |

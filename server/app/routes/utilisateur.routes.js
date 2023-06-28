@@ -20,5 +20,7 @@ module.exports = app =>{
     
     router.post('/isAdmin', utilisateurs.isAdmin);
 
+    router.post('/updateProfile', utilisateurs.updateProfile);
+
     app.use('/api/auth', router);
 }

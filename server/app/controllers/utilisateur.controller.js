@@ -247,6 +247,53 @@ exports.change_password = (req, res) => {
     }
   })
 }
+
+exports.updateProfile = (req, res) => {
+  if (req.body.email_user_old === undefined || (req.body.email_user === undefined && req.body.pseudo === undefined)) {
+    res.status(400).json({ message: "Body cannot be empty!" });
+    return;
+  }
+
+  // Pas d'erreur, on modifie les données
+  var email_user = req.body.email_user;
+  var email_user_query = "";
+  var pseudo = req.body.pseudo;
+  var pseudo_query = "";
+  var email_user_old = req.body.email_user_old;
+  var query_args = []
+  var args = []
+
+  if (email_user !== undefined && email_user.trim() != "") {
+    email_user_query = "email_user = ?";
+    query_args.push(email_user_query);
+    args.push(email_user);
+  }
+  if (pseudo !== undefined && pseudo.trim() != "") {
+    pseudo_query = "pseudo = ?";
+    query_args.push(pseudo_query);
+    args.push(pseudo);
+  }
+
+  args.push(email_user_old);
+
+  var query = "UPDATE utilisateur SET " + query_args.join(', ') + " WHERE email_user = ?";
+  console.log(query);
+  console.log(args);
+
+  db.execute(query, args, (err, result) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    newUserData = {}
+    if (query_args.includes(email_user_query)) newUserData['email_user'] = email_user
+    if (query_args.includes(pseudo)) newUserData['pseudo'] = pseudo
+
+    res.status(200).json({ message: "Updated user!", userData: newUserData });
+  })
+};
+
 exports.isAdmin = (req, res) => {
   if (!req.body) {
     res.status(400).send({

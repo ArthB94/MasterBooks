@@ -9,7 +9,7 @@
                 </div>
                 <div class="Navbar">
                     <router-link to="/catalog-page" class="to-page-nav" >Book catalog</router-link>
-                    <router-link to="/catalog-library-page" class="to-page-nav" @click="this.getFilteredBooks()" >My Library</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav" @click="console.log(this.$route.path);this.$route.path === '/catalog-library-page' ? resetMylibrary() : null">My Library</router-link>
                     <router-link to="/catalog-recs-page" class="to-page-nav" >Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
@@ -375,7 +375,8 @@ export default {
             //     books = books1;
             // }
             return books;
-        }
+        },
+
     },
     // Definit les méthodes utilisées dans la page
     methods: {
@@ -507,134 +508,7 @@ export default {
         },
 
         async getFilteredBooks() {
-            console.log("user data",JSON.parse(localStorage.getItem("userData")));
-            //Select * from livre join appartenir using(reference) join genre using(genre_id) where genre.genre = 'Action'
-            // let filterQuerry = "Select * from livre ";
-            // let and = false;
-
-            // if (this.searchBar != "") {
-            //     filterQuerry += "where titre like '%" + this.searchBar + "%' or auteur like '%"+ this.searchBar + "%' ";
-            //     and = true;
-            // }
-            // if(this.selectedGenres.length > 0){
-            //     if(!and){
-            //         filterQuerry += "where (";
-            //         and = false
-            //     }
-            //     else{
-            //         filterQuerry += "and ("
-            //     }
-
-            //     filterQuerry += "reference in  (select  reference from appartenir join genre using(genre_id) where genre.genre = '"+this.selectedGenres[0]+"') "
-            //     for (let i = 1; i < this.selectedGenres.length; i++) {
-            //         filterQuerry += "and reference in (select reference from appartenir join genre using (genre_id) where genre.genre = '"+this.selectedGenres[i]+"') ";
-            //     }
-            //     filterQuerry += ") ";
-            //     and = true;
-
-            // }
-            // if(this.selectedLanguages.length > 0){
-            //     if(!and){
-            //         filterQuerry += "where (";
-            //         and = false
-            //     }
-            //     else{
-            //         filterQuerry += "and ("
-            //     }
-            //     filterQuerry += "livre.langue = '" + this.selectedLanguages[0] + "' ";
-            //     filterQuerry += ") ";
-                
-            // }
-            
-            // if(this.selectedNumberOfPages.length > 0){
-            //     if(!and){
-            //         filterQuerry += "where (";
-            //         and = false
-            //     }
-            //     else{
-            //         filterQuerry += "and ("
-            //     }
-            //     let or = false;
-                
-            //     if(this.selectedNumberOfPages.includes("Under 100")){
-
-            //         filterQuerry += "livre.pages < 100 ";
-            //         or = true;
-
-            //     }
-            //     if(this.selectedNumberOfPages.includes("100 ~ 500")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.pages >= 100 and livre.pages < 500 ";
-            //         or = true;
-            //     }
-            //     if(this.selectedNumberOfPages.includes("500 ~ 1000")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.pages >= 500 and livre.pages < 1000 ";
-            //         or = true;
-
-            //     }
-            //     if(this.selectedNumberOfPages.includes("Over 1000")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.pages >= 1000 ";
-            //         or = true;
-
-            //     }
-            //     filterQuerry += ") "
-            //     or = false
-            //     and = true
-                
-            // }
-            // if(this.selectedParutionYears.length > 0){
-            //     let or = false
-            //     if(!and){
-            //         filterQuerry += "where (";
-            //         and = false
-            //     }
-            //     else{
-            //         filterQuerry += "and ("
-            //     }
-            //     if(this.selectedParutionYears.includes("Before 1980")){
-            //         filterQuerry += "livre.date_parution < 1980 ";
-            //         or = true;
-            //     }
-            //     if(this.selectedParutionYears.includes("1980 ~ 2000")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.date_parution >= 1980 and livre.date_parution < 2000 ";
-            //         or = true;
-            //     }
-            //     if(this.selectedParutionYears.includes("2000 ~ 2010")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.date_parution >= 2000 and livre.date_parution < 2010 ";
-            //         or = true;
-            //     }
-            //     if(this.selectedParutionYears.includes("2010 ~ 2020")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.date_parution >= 2010 and livre.date_parution < 2020 ";
-            //         or = true;
-            //     }
-            //     if(this.selectedParutionYears.includes("After 2020")){
-            //         if(or){
-            //             filterQuerry += "or ";
-            //         }
-            //         filterQuerry += "livre.date_parution >= 2020 ";
-            //         or = true;
-            //     }
-            //     filterQuerry += ") "
-            // }
-            // console.log(filterQuerry);
-            
+            console.log("user data",JSON.parse(localStorage.getItem("userData")));           
             const filters = {
                 token : this.token,
                 texte: this.searchBar,
@@ -681,13 +555,17 @@ export default {
                 }      
             }
         },
+        resetMylibrary(){
+            if (this.MyLibrary){
+                this.liked = true;
+                this.read = true;
+            }
+            this.getFilteredBooks()
+
+        },
 
         async onMounted (){
-            if (this.userData === null) {
-                // L'utilisateur n'est pas connecté, on le redirige vers la page de connexion
-                this.$router.push("/login-page");
-                return;
-            }
+
             var thisID = document.getElementById("TopBtn");
             var SearchClass = document.getElementById("search-container-fixe");
             var myScrollFunc = function () {

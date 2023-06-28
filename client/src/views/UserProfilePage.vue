@@ -8,9 +8,9 @@
           </div>
         </div>
         <div class="Navbar">
-          <router-link to="/calendar-page" class="to-page-nav">Book catalog</router-link>
-          <router-link to="/todo-list2-page" class="to-page-nav">My Library</router-link>
-          <router-link to="/create-calendar-page" class="to-page-nav">Recommendations</router-link>
+          <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+          <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+          <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
         </div>
         <UserMenu></UserMenu>
         <div class="light">

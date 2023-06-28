@@ -3,7 +3,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import AddBookPage from "@/views/AddBookPage.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
-import EpubReaderPage from "@/views/EpubReader.vue";
+import EpubReaderPage from "@/views/EpubReader1.vue";
 import ForgotPwd from "@/views/ForgotPwd.vue";
 import HelloWorld from "@/views/HelloWorld.vue";
 import HelpPage from "@/views/HelpPage.vue";

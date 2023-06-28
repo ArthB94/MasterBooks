@@ -12,6 +12,20 @@
             "database": "masterbooks",
             "username": "root",
             "password": "6210"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "129.151.226.75",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Server Maserbooks",
+            "database": "masterbooks",
+            "username": "mastercamp",
+            "askForPassword": true
         }
     ]
 }

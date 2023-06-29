@@ -7,17 +7,17 @@ npm install
 
 ### Compiles and hot-reloads for development
 
-#####server:
+##### server:
 ```
 npm run serve
 ```
 
-#####client:
+##### client:
 ```
 npm run cli
 ```
 
-#####both:
+##### both:
 ```
 npm start
 ```

@@ -125,7 +125,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div :class="[recomandations ?'book-catalog-container1' :'book-catalog-container']"  >
-                        <router-link to="/"  v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]">
+                        <router-link v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]"  :to="/book-page/+book.reference">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
@@ -535,7 +535,11 @@ export default {
         },
 
         async deleteBookAPI(id) {
-            await axios.delete("http://129.151.226.75:8080/api/livre/delete/" + id).then((response) => {
+            await axios.delete("http://129.151.226.75:8080/api/livre/delete/" + id ,{  
+                params: {
+                    token:this.token
+                }
+            }).then((response) => {
                 if (response.status === 200) {
                     this.books = this.books.filter((book) => book.reference !== id);
                     return response.data;

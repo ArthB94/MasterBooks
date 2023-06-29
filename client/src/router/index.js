@@ -2,6 +2,7 @@
 // export default router
 import { createWebHistory, createRouter } from "vue-router";
 import AddBookPage from "@/views/AddBookPage.vue";
+import BookInfoPage from "@/views/BookInfoPage.vue";
 import CatalogPageAdmin from "@/views/CatalogPage_Admin.vue";
 import EpubReaderPage from "@/views/EpubReader1.vue";
 import ForgotPwd from "@/views/ForgotPwd.vue";
@@ -19,6 +20,11 @@ const routes = [
     path: "/add-book-page",
     name: "AddBookPage",
     component: AddBookPage,
+  },
+  {
+    path: "/book-page",
+    name: "BookInfoPage",
+    component: BookInfoPage,
   },
   {
     path: "/catalog-page",

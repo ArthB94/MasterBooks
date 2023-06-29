@@ -16,8 +16,8 @@
                     <li @click="this.$router.push('/help-page')">
                         <router-link to="/help-page" class="to-page-user-nav">Help</router-link>
                     </li>
-                    <li @click="this.$router.push('/legal-mentions-page')">
-                        <router-link to="/legal-mentions-page" class="to-page-user-nav">Legal Mentions</router-link>
+                    <li @click="disconnectUser">
+                        <router-link to="/login-page" class="to-page-user-nav">Disconnect</router-link>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,16 @@ export default {
         profile.onclick = function () {
             menu.classList.toggle('active')
         }
+    },
+    methods: {
+        disconnectUser() {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.removeItem('userData');
+            }
+            this.$router.push('/login-page');
+        }
     }
+
 }
 </script>
   

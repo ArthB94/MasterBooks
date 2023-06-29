@@ -116,7 +116,7 @@ export default {
             }
           })
           .then(() => {
-            this.$router.push("/catalog-page");
+            this.$router.push("/login-page");
           })
           .catch((error) => {
             console.error(error);

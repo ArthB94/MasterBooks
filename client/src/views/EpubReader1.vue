@@ -1,27 +1,39 @@
 <template>
-  <div class="container">
-    <input type="file" @change="handleFileUpload" accept=".epub" />
+  <div class="epub-page-container">
+    <!-- <input type="file" @change="handleFileUpload" accept=".epub"/> -->
+    <div class="back-to-book-link">
+      <router-link to="/book-page" class="to-book-nav" ><font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"/><p>Library</p></router-link>
+    
     <div class="table-of-contents-toggle">
-      <button @click="toggleTableOfContents">
+      <!-- <button @click="toggleTableOfContents">
         {{ showTableOfContents ? 'Hide Table of Contents' : 'Show Table of Contents' }}
-      </button>
-    </div>
+      </button> -->
+      <font-awesome-icon icon="fa-solid fa-bars" @click="toggleTableOfContents" style="color:#7a7474; font-size:20px;"/>
+    </div></div>
+  <div class="epub-container">
+    
     <div class="reader-wrapper">
+      <div v-if="showNavigation" class="navigation-buttons">
+      <font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"
+        @click="previousPage" />
+      
+    </div>
       <div ref="readerContainer" class="reader-container">
       </div>
-    </div>
-    <div v-if="showNavigation" class="navigation-buttons">
-      <button @click="previousPage">Previous Page</button>
-      <button @click="nextPage">Next Page</button>
-    </div>
-    <div v-if="showTableOfContents" class="table-of-contents">
+    
+    <div v-if="showNavigation" class="navigation-buttons">    
+      <font-awesome-icon icon="fa-solid fa-angle-right" class="arrow-left-calendar"
+      @click="nextPage" />
+    </div></div>
+  
+  <div v-if="showTableOfContents" class="table-of-contents">
       <h3>Table of Contents</h3>
       <ul>
         <li v-for="item in tableOfContents" :key="item.id">
           <a href="#" @click="navigateToChapter(item.id)">{{ item.label }}</a>
         </li>
       </ul>
-    </div>
+    </div></div>
   </div>
 </template>
 
@@ -31,12 +43,30 @@ import Epub from 'epubjs'
 export default {
   data() {
     return {
+      file : `http://129.151.226.75:8080/uploads/_OceanofPDF.com_Circe_-_Madeline_Miller.epub`,
       epub: null,
       rendition: null,
       showTableOfContents: false,
       tableOfContents: [],
       showNavigation: false,
     }
+  },
+  mounted() {
+    console.log(this.file)
+    this.epub = Epub(this.file)
+    this.epub.loaded.navigation.then((toc) => {
+        this.tableOfContents = toc.toc.map((item) => ({
+          id: item.href,
+          label: item.label,
+        }));
+        this.showTableOfContents = true
+      })
+      this.rendition = this.epub.renderTo(this.$refs.readerContainer, {
+        width: '100%',
+        height: '100%',
+      })
+      this.rendition.display()
+      this.showNavigation = true
   },
   methods: {
     handleFileUpload(event) {
@@ -77,51 +107,4 @@ export default {
 </script>
 
 <style scoped>
-.container {
-display: flex;
-align-items: flex-start; /* Adjust alignment to top */
-justify-content: center; /* Adjust alignment horizontally */
-}
-
-.reader-wrapper {
-position: relative;
-width: 80%;
-height: calc(100vh - 120px);
-}
-
-.reader-container {
-width: 100%;
-height: 100%;
-}
-
-.table-of-contents {
-width: 20%;
-height: calc(100vh - 120px);
-overflow: auto;
-padding: 10px;
-box-sizing: border-box;
-}
-
-.navigation-buttons {
-margin-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-display: flex;
-justify-content: center;
-}
-
-
-.navigation-buttons button {
-margin: 0 5px; 
-}
-
-.table-of-contents-toggle {
-margin-top: 10px;
-display: flex;
-justify-content: center;
-}
-
-.table-of-contents-toggle button {
-cursor: pointer;
-}
 </style>

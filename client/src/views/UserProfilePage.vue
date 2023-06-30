@@ -169,7 +169,7 @@ export default {
     this.placeholderEmail = userData.email_user;
 
     // Vérifier si l'utilisateur est admin
-    if (userData.admin !== null) {
+    if (localStorage.getItem("isAdmin") == "true") {
       this.isAdmin = true
     }
   },

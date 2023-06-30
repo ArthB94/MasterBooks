@@ -5,6 +5,7 @@ import DarkLightMode from '@/components/DarkLightMode.vue';
 
   <div id="nav">
     <router-link to="/add-book-page">AddBook Page</router-link> |
+    <router-link to="/book-page">Book page</router-link>|
     <router-link to="/catalog-page">Catalog Page</router-link>|
     <router-link to="/catalog-library-page">Catalog Library Page</router-link>|
     <router-link to="/catalog-admin-page">Catalog Admin Page</router-link>|

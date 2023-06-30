@@ -1,0 +1,7 @@
+node_modules
+app/config/db.config.js
+public/covers
+public/uploads/*
+!public/uploads/.gitkeep
+
+

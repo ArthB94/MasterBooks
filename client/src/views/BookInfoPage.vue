@@ -57,7 +57,7 @@
                 </div>
                 <div class="save-share-info">
                     <div>
-                        <router-link to="/book-read-page" class="LogRegBtnLink"
+                        <router-link :to="{ path: 'book-read-page', query: { url: bookReadUrl }}" class="LogRegBtnLink"
                             style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link>
                     </div>
                     <div class="help-question">
@@ -179,6 +179,7 @@ export default {
             bookSummary: null,
             bookReadUrl: null,
             bookRating: null,
+
             // TODO: Ajouter les commentaires
             // TODO: Mettre si le livre appartient à une liste
         };

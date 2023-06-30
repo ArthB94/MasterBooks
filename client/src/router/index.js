@@ -47,7 +47,7 @@ const routes = [
     component: CatalogPageAdmin,
   },
   {
-    path: "/epub-reader-page",
+    path: "/book-read-page",
     name: "EpubReaderPage",
     component: EpubReaderPage,
   },

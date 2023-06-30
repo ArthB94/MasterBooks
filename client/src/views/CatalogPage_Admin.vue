@@ -254,7 +254,7 @@ export default {
             //filtres
             genres:[],
             selectedGenres:[],
-            languages:["English","French","Arabic","German"],
+            languages:["English","French","Spanish","German","Others"],
             selectedLanguages:[],
             numberOfPages:["Under 100","100 ~ 500","500 ~ 1000","Over 1000"],
             selectedNumberOfPages:[],

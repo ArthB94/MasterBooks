@@ -192,9 +192,9 @@ export default {
         // L'URL est de la forme https://masterbooks.com/book?ref=1
         
         var bookId = this.$route.query.ref;
-        // if (bookId === undefined) {
-        //     this.$router.push('catalog-page');
-        // }
+        if (bookId === undefined) {
+            this.$router.push('catalog-page');
+        }
 
         // Récupérer le livre depuis l'API
         axios
@@ -219,7 +219,7 @@ export default {
             })
             .catch((err) => {
                 console.error(err);
-                // this.$router.push('catalog-page');
+                this.$router.push('catalog-page');
             }
         );
         

@@ -92,6 +92,10 @@ const routes = [
     name: "ProfilePage",
     component: ProfilePage,
   },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/landing-page'
+  }
 ];
 
 const router = createRouter({

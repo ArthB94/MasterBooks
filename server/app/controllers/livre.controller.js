@@ -539,6 +539,74 @@ exports.getAllGenres = (req, res) => {
     });
 }
 
+exports.getComments = (req,res)=>{
+    if (!req.body.reference){
+        res.status(500).json({error: "no reference"});
+        return
+    }
+    sql.query("SELECT * FROM critiquer WHERE reference = ?",[req.body.reference],
+    (err,result) => {
+        if (err){
+            console.log("error: ",err);
+            res.status(500).json({error: "An error occured while getting comments."});
+            return;
+        }
+        console.log('comments fetched from the database')
+        res.json(result);
+    })
+}
+
+// prend en paramtre "userData" "reference" "note" et "comment"
+exports.addComment = (req,res)=>{
+    console.log(JSON.stringify(req.body))
+    if (req.body.userData){
+        const userData = req.body.userData
+        if (userData.token){
+            const token = userData.token
+            console.log(JSON.stringify(verifyResetToken(token)))
+            if (verifyResetToken(token) !=null){
+                var email_user = verifyResetToken(token).email
+            }else{
+                res.status(500).json({error: "Token corrupted"});
+                return
+            }
+        }
+        else{
+            res.status(500).json({error: "No Token in userData."});
+            return;
+        }
+    }
+    else {
+        res.status(500).json({error: "No userData."});
+        return;
+    }
+    if(req.body.reference){
+        var reference = req.body.reference
+    }
+    else{
+        res.status(500).json({error: "No reference."})
+        return
+    }
+    if(req.body.note){
+        var note = req.body.note;
+    }else{
+        res.status(500).json({error: "No note."})
+        return
+    }
+    let comment = req.body.comment
+
+    sql.query("INSERT INTO critiquer VALUES(?,?,?,?)",[email_user,reference,note,comment],
+    (err,result) => {
+        if (err){
+            console.log("error: ",err);
+            res.status(500).json({error: "An error occured while getting comments."});
+            return;
+        }
+        console.log('comments fetched from the database')
+        res.json(result);
+    })
+
+}
 
 // Convert a string to a Date object
 function toDate(value) {

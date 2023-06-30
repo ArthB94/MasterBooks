@@ -8,7 +8,7 @@
             <form @submit.prevent action="" method="post">
               <div class="loginInputBox">
                 <input
-                  v-model="email"
+                  v-model="email_user"
                   type="text"
                   name="txtEmail"
                   placeholder="Email"
@@ -58,7 +58,7 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      email: "",
+      email_user: "",
       password: "",
       message: "",
     };
@@ -67,7 +67,7 @@ export default {
     login() {
       this.message = "";
       const userData = {
-        email_user: this.email,
+        email_user: this.email_user,
         mdp: this.password,
       };
       axios
@@ -86,10 +86,12 @@ export default {
         })
         .then(() => {
           axios
-            .post("http://129.151.226.75:8080/api/auth/isAdmin", {email_user: this.email})
+            .post("http://129.151.226.75:8080/api/auth/isAdmin", {email_user: this.email_user})
             .then((response_admin) => {
               if(response_admin.status === 200){
                 let admin = response_admin.data.isAdmin;
+                let userData = JSON.parse(localStorage.getItem("userData"))
+                userData.admin = admin
                 
                 if(admin === true){
                   localStorage.setItem("isAdmin", true)
@@ -99,7 +101,7 @@ export default {
                   localStorage.setItem("isAdmin", false)
                   this.$router.push("/catalog-page");
                 }
-                //localStorage.setItem("userData", JSON.stringify(response_data.userData))
+                localStorage.setItem("userData", JSON.stringify(userData))
               }
               else{
                 throw new Error(JSON.stringify(response_admin.data));

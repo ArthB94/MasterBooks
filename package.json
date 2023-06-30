@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "install": "cd server && npm install && cd ../client && npm install && npm install -g nodemon",
-        "start": "concurrently \"cd server && nodemon server.js\" \"cd client && npm run serve\"",
+        "start": "concurrently \"cd server && nodemon server.js --ignore public\" \"cd client && npm run serve\"",
         "serve": "cd server && nodemon server.js",
         "cli": "cd client && npm run serve"
 

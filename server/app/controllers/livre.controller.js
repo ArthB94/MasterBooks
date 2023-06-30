@@ -548,3 +548,15 @@ function toDate(value) {
         return new Date(value); // Convert the value to a Date object
     }
 }
+
+exports.getInfo = (req, res) => {
+    console.log("bookId: " + JSON.stringify(req.body.ref));
+    Livre.findById(req.body.ref, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+            return;
+        }
+        console.log(result);
+        res.status(200).json(result);
+    });
+};

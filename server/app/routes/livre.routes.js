@@ -36,7 +36,8 @@ module.exports = app =>{
     //retourne tous les genres de la base de données
     router.get('/getgenres', livres.getAllGenres);
 
-    
+    // Retourne les informations d'un livre
+    router.post('/getInfo', livres.getInfo);
 
-      app.use('/api/livre', router);
+    app.use('/api/livre', router);
 }

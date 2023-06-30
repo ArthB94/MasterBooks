@@ -124,10 +124,24 @@ exports.delete = (req, res) => {
 
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
+    if (!req.body.token){
+        console.log("No authentification Token in body.")
+        res.status(500).json({error: "No authentification Token in body."});
+        return;
+    }
     const token = req.body.token;
-    console.log("token ",token);
+    if (!verifyResetToken(token)){
+        console.log("Token invalide:",token)
+        res.status(500).json({error: "Token invalide"});
+        return;
+    }
     const email = verifyResetToken(token).email;  
-    console.log("email ",email);    
+    if(!email){
+        console.log("No email in token")
+        res.status(500).json({error: "No email in token"});
+        return;
+    }
+   
     const utilisateur = {email_user: email};
     const filters ={
         texte: req.body.texte,
@@ -344,6 +358,10 @@ exports.findByFilter = (req, res) => {
 
 //retourne un livre à partir de son id
 exports.findByID = (req, res) => {
+    if (!req.params.reference){
+        res.status(500).send("Error 'reference' not found in params");
+        return
+    }
     Livre.getById(req.params.reference, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -616,3 +634,15 @@ function toDate(value) {
         return new Date(value); // Convert the value to a Date object
     }
 }
+
+exports.getInfo = (req, res) => {
+    console.log("bookId: " + JSON.stringify(req.body.ref));
+    Livre.findById(req.body.ref, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+            return;
+        }
+        console.log(result);
+        res.status(200).json(result);
+    });
+};

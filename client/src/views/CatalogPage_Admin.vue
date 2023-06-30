@@ -125,7 +125,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div :class="[recomandations ?'book-catalog-container1' :'book-catalog-container']"  >
-                        <router-link v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]"  :to="/book-page/+book.reference">
+                        <router-link v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]"  :to="{ path: 'book-page', query: { ref: book.reference }}">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>

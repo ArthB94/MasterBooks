@@ -40,6 +40,9 @@ module.exports = app =>{
 
     router.post('/addComment',livres.addComment)
 
+    // Retourne les informations d'un livre
+    router.post('/getInfo', livres.getInfo);
+
     
 
       app.use('/api/livre', router);

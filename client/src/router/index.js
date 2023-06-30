@@ -23,8 +23,8 @@ const routes = [
   },
   {
     path: "/book-page",
-    name: "BookInfoPage",
-    component: BookInfoPage,
+    name: "BookInfoPag",
+    component: BookInfoPage
   },
   {
     path: "/catalog-page",

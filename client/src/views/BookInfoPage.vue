@@ -1,7 +1,5 @@
 <template>
     <body>
-
-
         <header>
             <div class="headernav">
                 <div class="header-container">
@@ -29,20 +27,16 @@
         <div class="Book-page-container">
             <div class="Book-info-container">
                 <div class="Book-image-container">
-                    <img src="..\assets\Book_example.jpg" alt="book_pic" class="book-cover-info">
+                    <img v-bind:src="'http://129.151.226.75:8080/' + this.bookCover" alt="book_pic" class="book-cover-info">
                 </div>
                 <div class="Book-info-specs-container">
-                    <div class="book-title-info">
-                        Some Girls Do
-                    </div>
-                    <div class="book-author-info">
-                        Jennifer Dugan
-                    </div>
+                    <div class="book-title-info" v-html="bookTitle"></div>
+                    <div class="book-author-info" v-html="bookAuthor"></div>
                     <div class="date-and-language-info">
-                        English - 2023
+                        <span v-html="bookLanguage"></span> - <span v-html="bookYear"></span>
                     </div>
                     <div class="book-genres-info">
-                        Romance, Action
+                        {{ this.bookGenres.join(', ') }}
                     </div>
                     <div class="rate">
                         <input type="radio" id="star5" name="rate" value="5" />
@@ -167,11 +161,86 @@
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
 import UserAvatar from "../assets/User.png"
+import axios from "axios";
 export default {
     name: "BookInfoPage",
+    data() {
+        return {
+            bookRef: null,
+            isAdmin: false,
+            userData: null,
+            bookTitle: null,
+            bookAuthor: null,
+            bookLanguage: null,
+            bookYear: null,
+            bookGenresId: [],
+            bookGenres: [],
+            bookCover: null,
+            bookSummary: null,
+            bookReadUrl: null,
+            bookRating: null,
+            // TODO: Ajouter les commentaires
+            // TODO: Mettre si le livre appartient à une liste
+        };
+    },
     components: {
         DarkLightMode,
         UserMenu
+    },
+    created() {
+        // On récupère l'identifiant du livre
+        // L'URL est de la forme https://masterbooks.com/book?ref=1
+        
+        var bookId = this.$route.query.ref;
+        // if (bookId === undefined) {
+        //     this.$router.push('catalog-page');
+        // }
+
+        // Récupérer le livre depuis l'API
+        axios
+            .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: bookId })
+            //.post("http://localhost:8080/api/livre/getInfo", { ref: bookId })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.data;
+                }
+                console.log("An error occurred.");
+                throw new Error(JSON.stringify(response.data));
+            }).then((data) => {
+                console.log(data);
+                this.bookTitle = data.titre;
+                this.bookAuthor = data.auteur;
+                this.bookLanguage = data.langue;
+                this.bookYear = data.date_parution;
+                this.bookGenresId = data.genres;
+                this.bookCover = data.image_src;
+                this.bookSummary = data.resume;
+                this.bookReadUrl = data.url;
+            })
+            .catch((err) => {
+                console.error(err);
+                // this.$router.push('catalog-page');
+            }
+        );
+        
+        // On récupère le nom des genres
+        axios
+        .get("http://129.151.226.75:8080/api/livre/getgenres")
+        .then((response) => {
+            if (response.status === 200) {
+                console.log(response.data);
+
+                response.data.forEach(element => {
+                    if (this.bookGenresId.includes(element.genre_id)) {
+                        this.bookGenres.push(element.genre);
+                        console.log("added genre " + element.genre);
+                    }
+                });
+                console.log(this.bookGenres);
+            } else {
+                console.log("error getgenres");
+            }
+        });
     },
     mounted() {
         var thisID = document.getElementById("TopBtn");

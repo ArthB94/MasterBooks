@@ -39,5 +39,18 @@ module.exports = app =>{
     // Retourne les informations d'un livre
     router.post('/getInfo', livres.getInfo);
 
+    // Retourne si un livre est dans la liste personnelle d'un utilisateur
+    router.post('/isInPersonalList', livres.isInPersonalList);
+
+    // Ajoute un livre à la liste personnelle d'un utilisateur
+    router.post('/toggleFromPersonalList', livres.toggleFromPersonalList);
+
+    // Retourne si un livre a été lu par un utilisateur
+    router.post('/hasBeenRead', livres.hadBeenRead);
+
+    // Ajoute un livre comment ayant été lu par un utilisateur
+    router.post('/toggleRead', livres.toggleRead);
+
+
     app.use('/api/livre', router);
 }

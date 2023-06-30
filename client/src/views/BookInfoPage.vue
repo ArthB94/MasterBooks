@@ -53,8 +53,8 @@
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
-                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                        <div><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" /></div>
+                        <div><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" /></div>
                     </div>
                 </div>
                 <div class="save-share-info">
@@ -181,8 +181,12 @@ export default {
             bookSummary: null,
             bookReadUrl: null,
             bookRating: null,
+            bookInPersonalList: false,
+            isInPersonalList: false,
+            isInPersonalListClass: "fa-regular",
+            hasBeenRead: false,
+            hasBeenReadClass: "fa-regular",
             // TODO: Ajouter les commentaires
-            // TODO: Mettre si le livre appartient à une liste
         };
     },
     components: {
@@ -197,9 +201,13 @@ export default {
             this.$router.push('catalog-page');
         }
 
+        var userData = JSON.parse(localStorage.getItem("userData"));
+        var email_user = userData.email_user;
+
+
         // Récupérer le livre depuis l'API
         axios
-            // .get("http://129.151.226.75:8080/api/livre/getInfo", { ref: bookId })
+            // .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: bookId })
             .post("http://localhost:8080/api/livre/getInfo", { ref: bookId })
             .then((response) => {
                 if (response.status === 200) {
@@ -242,6 +250,51 @@ export default {
                 console.log("error getgenres");
             }
         });
+
+        
+        // On veut savoir si le livre est dans l'une des listes de l'utilisateur 
+        // Liste personnelle à lire plus tard
+        axios
+        // .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: bookId, email_user: email_user })
+        .post("http://localhost:8080/api/livre/isInPersonalList", { ref: bookId, email_user: email_user })
+        .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                console.log(response.data);
+                if (response.data.isInPersonalList === false) 
+                {
+                    this.isInPersonalList = false;
+                    this.isInPersonalListClass = "fa-regular";
+                }
+                else
+                {                    
+                    this.isInPersonalList = true;
+                    this.isInPersonalListClass = "fa-solid";
+                }
+            }
+        });
+
+        // Liste des livres déjà lus
+        axios
+        // .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: bookId, email_user: email_user })
+        .post("http://localhost:8080/api/livre/hasBeenRead", { ref: bookId, email_user: email_user })
+        .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                console.log(response.data);
+                if (response.data.hasBeenRead === false) 
+                {
+                    this.hasBeenRead = false;
+                    this.hasBeenReadClass = "fa-regular";
+                }
+                else
+                {                    
+                    this.hasBeenRead = true;
+                    this.hasBeenReadClass = "fa-solid";
+                }
+            }
+        });
+        
     },
     mounted() {
         var thisID = document.getElementById("TopBtn");

@@ -638,7 +638,7 @@ exports.hadBeenRead = (req, res) => {
 
     sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
         if (error) {
-            res.status(500).json({ message: err });
+            res.status(500).json({ message: error });
             return;
         }
 
@@ -670,6 +670,7 @@ exports.toggleRead = (req, res) => {
         if (result.length >= 1)
             sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
                 if (error) {
+                    console.log(error);
                     res.status(500).json({ message: error });
                     return;
                 }
@@ -679,6 +680,7 @@ exports.toggleRead = (req, res) => {
         else
             sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
                 if (error) {
+                    console.log(error);
                     res.status(500).json({ message: error });
                     return;
                 }

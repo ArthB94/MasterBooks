@@ -1,5 +1,8 @@
 const Livre = require("../models/livre.model.js");
 const EPub = require("epub");
+const Utilisateur = require("../models/utilisateur.model.js");
+const ShareToken = require("../models/shareToken.model.js");
+const Email = require("../models/email.model.js");
 const fs = require("fs");
 const path = require("path");
 const AdmZip = require("adm-zip");
@@ -52,12 +55,12 @@ exports.delete = (req, res) => {
     let token = req.query.token
     email = verifyResetToken(token).email
     //construit les parametres de ma requette pour isAdmin
-    function resIsAdmin(result) {return result};
-    let reqIsAdmin = {body:{email_user:email}}
-    isAdmin(reqIsAdmin,resIsAdmin)
+    function resIsAdmin(result) { return result };
+    let reqIsAdmin = { body: { email_user: email } }
+    isAdmin(reqIsAdmin, resIsAdmin)
 
-    if (resIsAdmin){
-            //vérifie si le livre existe dans la base de données
+    if (resIsAdmin) {
+        //vérifie si le livre existe dans la base de données
         Livre.findById(req.params.id, (err, data) => {
             if (err) {
                 console.log("error :", err);
@@ -66,7 +69,7 @@ exports.delete = (req, res) => {
                 });
             } else {
                 // delete le fichier epub
-    
+
                 console.log("livre trouvé");
                 const filePath = path.join(__dirname, "../../public/" + data.url);
                 fsExtra.remove(filePath, (err) => {
@@ -77,7 +80,7 @@ exports.delete = (req, res) => {
                         });
                     } else {
                         // delete le directory des images
-                        
+
                         const imagesPath = path.join(__dirname, "../../public/" + data.image_src);
                         console.log("fichier epub supprimé");
                         console.log(path.dirname(imagesPath));
@@ -86,7 +89,7 @@ exports.delete = (req, res) => {
                                 console.log("error :", err);
                                 return res.status(500).send({
                                     message: err.message || "Some error occurred while deleting the book.",
-    
+
                                 });
                             } else {
                                 console.log("directory images supprimé");
@@ -112,12 +115,35 @@ exports.delete = (req, res) => {
                 });
             }
         });
-    }else {
+    } else {
         return res.status(500).send({
             message: "You are not admin",
         });
     }
-    
+
+    // Create a Book
+    const livre = new Livre({
+        titre: req.title,
+        auteur: req.autor,
+        genre: req.genre,
+        date_parution: req.parution_date,
+        nb_pages: req.nb_pages,
+        langue: req.language,
+        resume: req.summary,
+        image_src: req.image,
+        url: req.url,
+    });
+
+    console.log(livre);
+    // Save the Book in the database
+    Livre.create(livre, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || "Some error occured while creating the Book"
+            });
+        else res.send(data);
+    });
+
 };
 
 
@@ -125,11 +151,11 @@ exports.delete = (req, res) => {
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
     const token = req.body.token;
-    console.log("token ",token);
-    const email = verifyResetToken(token).email;  
-    console.log("email ",email);    
-    const utilisateur = {email_user: email};
-    const filters ={
+    console.log("token ", token);
+    const email = verifyResetToken(token).email;
+    console.log("email ", email);
+    const utilisateur = { email_user: email };
+    const filters = {
         texte: req.body.texte,
         genres: req.body.genres,
         langues: req.body.langues,
@@ -144,7 +170,7 @@ exports.findByFilter = (req, res) => {
     let and = false;
     let or = false;
 
-    if(filters.recommandés){
+    if (filters.recommandés) {
         filterQuerry += "join être_recommandé using(reference) where (email_user = '" + utilisateur.email_user + "') ";
         and = true;
     }
@@ -283,10 +309,10 @@ exports.findByFilter = (req, res) => {
         and = true
 
     }
-    
+
     //filtre date de parution
     if (filters.date_parution.length > 0) {
-        
+
         if (!and) {
             filterQuerry += "where (";
             and = false
@@ -364,167 +390,167 @@ exports.findByID = (req, res) => {
 exports.createmetadata = (req, res) => {
     // Validate request
     if (!req.file) {
-      return res.status(400).send("No file uploaded.");
+        return res.status(400).send("No file uploaded.");
     }
-  
+
     const fileName = req.file.originalname;
     const destination = "./public/uploads";
-  
+
     const filePath = `${destination}/${fileName}`;
     const filePathdb = `./uploads/${fileName}`;
-  
+
     const epub = new EPub(filePath);
-  
+
     epub.on("error", (err) => {
-      console.error("Error parsing EPub file:", err);
-      // Remove the uploaded file if there is an error parsing the EPub file
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-      return res.status(500).send("Error parsing EPub file.");
+        console.error("Error parsing EPub file:", err);
+        // Remove the uploaded file if there is an error parsing the EPub file
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error(err);
+            }
+        });
+        return res.status(500).send("Error parsing EPub file.");
     });
-  
+
     const zip = new AdmZip(filePath);
-  
+
     // Extract the OPF file
     const opfEntry = zip
-      .getEntries()
-      .find((entry) => entry.entryName.endsWith(".opf"));
+        .getEntries()
+        .find((entry) => entry.entryName.endsWith(".opf"));
     if (!opfEntry) {
-      console.log("OPF file not found in the EPUB.");
-      return;
+        console.log("OPF file not found in the EPUB.");
+        return;
     }
-  
+
     const opfData = zip.readAsText(opfEntry);
     console.log("OPF file extracted successfully!");
     let epubName;
     let coverFilePath;
     let coverPath;
-  
+
     // Parse the OPF data
     const parser = new xml2js.Parser();
     parser.parseString(opfData, (parseErr, result) => {
-      if (parseErr) {
-        console.error("Error parsing OPF file:", parseErr);
-        return;
-      }
-  
-      // Extract the content of the <meta> element with name="cover"
-      const metaElements = result.package.metadata[0].meta;
-      let coverContent;
-  
-      for (const meta of metaElements) {
-        if (meta.$.name === "cover") {
-          coverContent = meta.$.content;
-          break;
+        if (parseErr) {
+            console.error("Error parsing OPF file:", parseErr);
+            return;
         }
-      }
-  
-      if (coverContent) {
-        console.log("Cover content:", coverContent);
-  
-        // Find the href of the item with matching id
-        const manifestElements = result.package.manifest[0].item;
-  
-        let coverHref;
-        for (const item of manifestElements) {
-          if (item.$.id === coverContent) {
-            coverHref = item.$.href; // Prepend the OPF directory path to the coverHref
-            break;
-          }
-        }
-  
-        coverHref = coverHref.split("/")[coverHref.split("/").length - 1];
-  
-        if (coverHref) {
-          console.log("Cover href:", coverHref);
-  
-          // Create the covers directory if it doesn't exist
-          const coversDir = path.join(__dirname, "../../public/covers");
-          if (!fs.existsSync(coversDir)) {
-            fs.mkdirSync(coversDir);
-            console.log("Created covers directory.");
-          } else {
-            console.log("Directory already existing !");
-          }
-          console.log("here");
-  
-          // const coverEntry = zip.getEntry(coverHref);
-  
-          // Retrieve all entries from the ZIP archive
-          const entries = zip.getEntries();
-  
-          // Search for the entry by filename
-          let coverEntry = null;
-          for (const entry of entries) {
-            if (
-              entry.entryName.endsWith(`/${coverHref}`) ||
-              entry.entryName.endsWith(`${coverHref}`)
-            ) {
-              coverEntry = entry;
-              break;
+
+        // Extract the content of the <meta> element with name="cover"
+        const metaElements = result.package.metadata[0].meta;
+        let coverContent;
+
+        for (const meta of metaElements) {
+            if (meta.$.name === "cover") {
+                coverContent = meta.$.content;
+                break;
             }
-          }
-  
-          if (coverEntry) {
-            console.log("Entry found:", coverEntry.entryName);
-            // Perform operations with the entry
-          } else {
-            console.log("Entry not found.");
-          }
-  
-          // Extract the cover image and save it to the covers directory
-          //const coverEntry = zip.getEntry(coverHref);
-          //const coverEntry = zip.getEntry(`OEBPS/${coverHref}`);
-          if (coverEntry) {
-            // Extract the EPUB name without the extension
-            epubName = path.parse(fileName).name;
-            const coverFileName = `${epubName}`; // Rename the cover image
-            coverFilePath = path.join(coversDir, coverFileName);
-            zip.extractEntryTo(coverEntry, coverFilePath, false, true);
-            console.log(
-              "Cover image extracted and saved successfully:",
-              coverFilePath
-            );
-  
-            // Delete the opf directory and its contents
-            const opfDir = path.join(__dirname, "opf");
-            fsExtra.removeSync(opfDir);
-            console.log("OPF directory deleted:", opfDir);
-  
-            coverPath = `./covers/${epubName}/${coverHref}`;
-            console.log("cover path:", coverPath);
-  
-            // Use the coverPath variable here or call a function that depends on it
-            // ...
-            console.log("test");
-          } else {
-            console.log("Cover item not found in EPUB.");
-          }
-        } else {
-          console.log("Cover item not found in manifest.");
         }
-      } else {
-        console.log("Cover meta element not found.");
-      }
+
+        if (coverContent) {
+            console.log("Cover content:", coverContent);
+
+            // Find the href of the item with matching id
+            const manifestElements = result.package.manifest[0].item;
+
+            let coverHref;
+            for (const item of manifestElements) {
+                if (item.$.id === coverContent) {
+                    coverHref = item.$.href; // Prepend the OPF directory path to the coverHref
+                    break;
+                }
+            }
+
+            coverHref = coverHref.split("/")[coverHref.split("/").length - 1];
+
+            if (coverHref) {
+                console.log("Cover href:", coverHref);
+
+                // Create the covers directory if it doesn't exist
+                const coversDir = path.join(__dirname, "../../public/covers");
+                if (!fs.existsSync(coversDir)) {
+                    fs.mkdirSync(coversDir);
+                    console.log("Created covers directory.");
+                } else {
+                    console.log("Directory already existing !");
+                }
+                console.log("here");
+
+                // const coverEntry = zip.getEntry(coverHref);
+
+                // Retrieve all entries from the ZIP archive
+                const entries = zip.getEntries();
+
+                // Search for the entry by filename
+                let coverEntry = null;
+                for (const entry of entries) {
+                    if (
+                        entry.entryName.endsWith(`/${coverHref}`) ||
+                        entry.entryName.endsWith(`${coverHref}`)
+                    ) {
+                        coverEntry = entry;
+                        break;
+                    }
+                }
+
+                if (coverEntry) {
+                    console.log("Entry found:", coverEntry.entryName);
+                    // Perform operations with the entry
+                } else {
+                    console.log("Entry not found.");
+                }
+
+                // Extract the cover image and save it to the covers directory
+                //const coverEntry = zip.getEntry(coverHref);
+                //const coverEntry = zip.getEntry(`OEBPS/${coverHref}`);
+                if (coverEntry) {
+                    // Extract the EPUB name without the extension
+                    epubName = path.parse(fileName).name;
+                    const coverFileName = `${epubName}`; // Rename the cover image
+                    coverFilePath = path.join(coversDir, coverFileName);
+                    zip.extractEntryTo(coverEntry, coverFilePath, false, true);
+                    console.log(
+                        "Cover image extracted and saved successfully:",
+                        coverFilePath
+                    );
+
+                    // Delete the opf directory and its contents
+                    const opfDir = path.join(__dirname, "opf");
+                    fsExtra.removeSync(opfDir);
+                    console.log("OPF directory deleted:", opfDir);
+
+                    coverPath = `./covers/${epubName}/${coverHref}`;
+                    console.log("cover path:", coverPath);
+
+                    // Use the coverPath variable here or call a function that depends on it
+                    // ...
+                    console.log("test");
+                } else {
+                    console.log("Cover item not found in EPUB.");
+                }
+            } else {
+                console.log("Cover item not found in manifest.");
+            }
+        } else {
+            console.log("Cover meta element not found.");
+        }
     });
     epub.on("end", () => {
-      // Create a Book
-      res.json({
-        titre: epub.metadata.title,
-        auteur: epub.metadata.creator,
-        genre: epub.metadata.subject,
-        date_parution: toDate(epub.metadata.date).getFullYear(),
-        langue: epub.metadata.language,
-        resume: epub.metadata.description,
-        url: filePathdb,
-        image_src: coverPath, // Use the coverPath variable here
-      });
+        // Create a Book
+        res.json({
+            titre: epub.metadata.title,
+            auteur: epub.metadata.creator,
+            genre: epub.metadata.subject,
+            date_parution: toDate(epub.metadata.date).getFullYear(),
+            langue: epub.metadata.language,
+            resume: epub.metadata.description,
+            url: filePathdb,
+            image_src: coverPath, // Use the coverPath variable here
+        });
     });
     epub.parse();
-  };
+};
 
 // retourne tous les genres de la base de données
 exports.getAllGenres = (req, res) => {
@@ -537,8 +563,118 @@ exports.getAllGenres = (req, res) => {
         console.log("Genres fetched from the database");
         res.json(result);
     });
-}
+};
 
+/**
+ * Partage un livre.
+ * 
+ * Renvoie un token donnant l'accès à la lecture d'un livre pendant 25 jours et envoie automatiquement un mail si le destinataire est spécifié.
+ * 
+ * Le corps de la requête doit contenir les informations suivantes :
+ * - from_email : adresse e-mail de l'utilisateur qui partage le livre
+ * - book : la référence du livre à partager
+ * - to : l'adresse e-mail du destinataire à qui envoyer le mail
+ * 
+ * @link /api/livre/share
+ *
+ * @param {Object} req           La requête envoyée à l'API.
+ * @param {Object} res           La réponse renvoyée par l'API.
+ */
+exports.share = (req, res) => {
+    // 1. Récupérer les informations de la requête concernant l'utilisateur qui souhaite partager et le livre
+    if (!req.body.from_email || !req.body.book_ref) {
+        res.status(400).json({ message: "Request body cannot be empty!" });
+        return;
+    }
+
+    const Info = {
+        from_email: req.body.from_email,
+        book_ref: req.body.book_ref,
+        to: req.body.to
+    };
+
+    // 2. Vérifier possibilité de partager de la part de l'utilisateur
+    // On vérifie que l'utilisateur existe, et on en profite pour récupérer son nom
+    Utilisateur.get({ email_user: Info.from_email }, (err, result) => {
+        if (err) {
+            // Il y a une erreur interne
+            res.status(500).json({ message: err });
+            return;
+        }
+
+        if (result === false) {
+            // Erreur 400 : mauvais paramètres
+            res.status(400).json({ message: "User does not exist!" });
+            return;
+        }
+
+        // Aucune erreur, l'utilisateur a été trouvé
+        Info.from_name = result.pseudo;
+
+        // On vérifie si l'utilisateur peut partager
+        ShareToken.checkIfPossible(Info.from_email, (userCanShare) => {
+            if (!userCanShare) {
+                // L'utilisateur ne peut pas partager : il a déjà atteint sa limite
+                res.status(400).json({ message: "User has shared too many books!" });
+            } else {
+                // On récupère le nom du livre
+                Livre.findById(Info.book_ref, (err, book) => {
+                    if (err) {
+                        res.status(400).json({ message: "The book does not exist!" });
+                    } else {
+                        Info.book_name = book.titre;
+
+                        // 3. Générer le token pour le livre
+                        ShareToken.create(Info.book_ref, (token) => {
+                            // 4. Ajouter le token à la base de données
+                            var addedToDb = false;
+                            ShareToken.addToDb(token, Info.from_email, Info.book_ref,
+                                (err, result) => {
+                                    if (err) {
+                                        // Il y a eu une erreur
+                                        res.status(500).json({ message: "An error occured while adding the token to the database." });
+                                        return;
+                                    } else {
+                                        // 5. Si req.to existe, envoyer un mail au destinataire avec le lien vers le livre et le token
+                                        if (Info.to != undefined) {
+                                            // Info.to existe, on veut partager le mail
+                                            var email = new Email({
+                                                to: Info.to,
+                                                subject: "A new book is waiting for you!",
+                                                template: "email-share",
+                                                context: {
+                                                    from: Info.from_name,
+                                                    book_name: Info.book_name,
+                                                    link: "http://129.151.226.75/read/" + Info.book_ref + "?token=" + token
+                                                },
+                                                attachments: [
+                                                    {
+                                                        filename: "LogoJour.png",
+                                                        path: "LogoJour.png",
+                                                        cid: "image_cid"
+                                                    }
+                                                ]
+                                            });
+                                            Email.send(email, (emailWasSent) => {
+                                                // 6. Retourner le token à l'utilisateur
+                                                if (!emailWasSent) {
+                                                    res.status(500).json({ message: "Could not send email!", token: token });
+                                                } else {
+                                                    res.status(200).json({ token: token });
+                                                }
+                                            });
+                                        }
+                                        return;
+                                    }
+                                }
+                            );
+                        });
+                    }
+                });
+            }
+        });
+    });
+};
 
 // Convert a string to a Date object
 function toDate(value) {
@@ -610,8 +746,8 @@ exports.toggleFromPersonalList = (req, res) => {
                     res.status(500).json({ message: error });
                     return;
                 }
-        
-                res.status(200).json({ message : "Removed book from personal list." });
+
+                res.status(200).json({ message: "Removed book from personal list." });
             });
         else
             sql.execute("INSERT INTO sauvegarder (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
@@ -619,13 +755,23 @@ exports.toggleFromPersonalList = (req, res) => {
                     res.status(500).json({ message: error });
                     return;
                 }
-        
-                res.status(200).json({ message : "Added book to personal list." });
+                res.status(200).json({ message: "Added book to personal list." });
             });
 
         return;
     });
-}
+};
+
+
+
+
+
+
+
+
+
+
+
 
 exports.hadBeenRead = (req, res) => {
     if (req.body.ref === undefined || req.body.email_user === undefined) {
@@ -649,45 +795,44 @@ exports.hadBeenRead = (req, res) => {
 
         return;
     });
-}
+},
 
-exports.toggleRead = (req, res) => {
-    if (req.body.ref === undefined || req.body.email_user === undefined) {
-        res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
-        return;
-    }
-
-    var bookId = req.body.ref;
-    var email_user = req.body.email_user;
-
-    sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
-        if (error) {
-            console.log(error);
-            res.status(500).json({ message: error });
+    exports.toggleRead = (req, res) => {
+        if (req.body.ref === undefined || req.body.email_user === undefined) {
+            res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
             return;
         }
 
-        if (result.length >= 1)
-            sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
-                if (error) {
-                    console.log(error);
-                    res.status(500).json({ message: error });
-                    return;
-                }
-        
-                res.status(200).json({ message : "Removed book from list of books already read." });
-            });
-        else
-            sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
-                if (error) {
-                    console.log(error);
-                    res.status(500).json({ message: error });
-                    return;
-                }
-        
-                res.status(200).json({ message : "Added book to list of books already read." });
-            });
+        var bookId = req.body.ref;
+        var email_user = req.body.email_user;
 
-        return;
-    });
-}
+        sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({ message: error });
+                return;
+            }
+
+            if (result.length >= 1)
+                sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
+                    if (error) {
+                        console.log(error);
+                        res.status(500).json({ message: error });
+                        return;
+                    }
+                    res.status(200).json({ message: "Removed book from list of books already read." });
+                });
+            else
+                sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
+                    if (error) {
+                        console.log(error);
+                        res.status(500).json({ message: error });
+                        return;
+                    }
+
+                    res.status(200).json({ message: "Added book to list of books already read." });
+                });
+
+            return;
+        });
+    }

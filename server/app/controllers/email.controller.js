@@ -1,8 +1,6 @@
 const Email = require("../models/email.model.js");
 
 exports.send = (req, res) => {
-    console.log("in");
-    console.log(req.body);
     if (!req.body) {
         res.status(400).send({ message: "Content cannot be empty!" });
         return;

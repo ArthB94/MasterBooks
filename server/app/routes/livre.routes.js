@@ -51,6 +51,10 @@ module.exports = app =>{
     // Ajoute un livre comment ayant été lu par un utilisateur
     router.post('/toggleRead', livres.toggleRead);
 
+    // Partager un livre
+    router.post("/share", livres.share);
+
+
 
     app.use('/api/livre', router);
 }

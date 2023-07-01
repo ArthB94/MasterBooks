@@ -68,6 +68,13 @@ export default {
       this.rendition.display()
       this.showNavigation = true
   },
+  beforeRouteLeave(to, from, next) {
+    this.rendition.destroy();
+    this.epub.destroy();
+    next();
+  },
+
+
   methods: {
     handleFileUpload(event) {
       const file = event.target.files[0]

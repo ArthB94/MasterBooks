@@ -556,6 +556,14 @@ exports.getAllGenres = (req, res) => {
         res.json(result);
     });
 }
+// Convert a string to a Date object
+function toDate(value) {
+    if (value instanceof Date) {
+        return value; // Return the value as is if it's already a Date object
+    } else {
+        return new Date(value); // Convert the value to a Date object
+    }
+}
 
 exports.getComments = (req,res)=>{
     if (!req.body.reference){
@@ -626,15 +634,6 @@ exports.addComment = (req,res)=>{
 
 }
 
-// Convert a string to a Date object
-function toDate(value) {
-    if (value instanceof Date) {
-        return value; // Return the value as is if it's already a Date object
-    } else {
-        return new Date(value); // Convert the value to a Date object
-    }
-}
-
 exports.getInfo = (req, res) => {
     console.log("bookId: " + JSON.stringify(req.body.ref));
     Livre.findById(req.body.ref, (err, result) => {
@@ -646,3 +645,135 @@ exports.getInfo = (req, res) => {
         res.status(200).json(result);
     });
 };
+
+exports.isInPersonalList = (req, res) => {
+    if (req.body.ref === undefined || req.body.email_user === undefined) {
+        res.status(400).json({ message: "Body cannot be empty or incomplete!" });
+        return;
+    }
+
+    var bookId = req.body.ref;
+    var email_user = req.body.email_user;
+
+    sql.execute("SELECT * FROM sauvegarder WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+            return;
+        }
+
+        if (result.length >= 1)
+            res.status(200).json({ isInPersonalList: true });
+        else
+            res.status(200).json({ isInPersonalList: false });
+
+        return;
+    });
+};
+
+exports.toggleFromPersonalList = (req, res) => {
+    if (req.body.ref === undefined || req.body.email_user === undefined) {
+        res.status(400).json({ message: "Body cannot be empty or incomplete!" });
+        return;
+    }
+
+    var bookId = req.body.ref;
+    var email_user = req.body.email_user;
+
+    console.log(bookId);
+    console.log(email_user);
+
+    sql.execute("SELECT * FROM sauvegarder WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+            return;
+        }
+
+        if (result.length >= 1)
+            sql.execute("DELETE FROM sauvegarder WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
+                if (error) {
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Removed book from personal list." });
+            });
+        else
+            sql.execute("INSERT INTO sauvegarder (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
+                if (error) {
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Added book to personal list." });
+            });
+
+        return;
+    });
+}
+
+exports.hadBeenRead = (req, res) => {
+    if (req.body.ref === undefined || req.body.email_user === undefined) {
+        res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
+        return;
+    }
+
+    var bookId = req.body.ref;
+    var email_user = req.body.email_user;
+
+    sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+        if (error) {
+            res.status(500).json({ message: error });
+            return;
+        }
+
+        if (result.length >= 1)
+            res.status(200).json({ hasBeenRead: true });
+        else
+            res.status(200).json({ hasBeenRead: false });
+
+        return;
+    });
+}
+
+exports.toggleRead = (req, res) => {
+    if (req.body.ref === undefined || req.body.email_user === undefined) {
+        res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
+        return;
+    }
+
+    var bookId = req.body.ref;
+    var email_user = req.body.email_user;
+
+    sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+            return;
+        }
+
+        if (result.length >= 1)
+            sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Removed book from list of books already read." });
+            });
+        else
+            sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Added book to list of books already read." });
+            });
+
+        return;
+    });
+}

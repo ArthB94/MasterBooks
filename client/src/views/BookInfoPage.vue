@@ -1,5 +1,7 @@
 <template>
     <body>
+
+
         <header>
             <div class="headernav">
                 <div class="header-container">
@@ -51,8 +53,8 @@
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
-                        <div><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div><font-awesome-icon icon="fa-regular fa-bookmark" /></div>
+                        <div><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" @click="ToggleHasRead()" /></div>
+                        <div><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" @click="ToggleFromPersonalList()" /></div>
                     </div>
                 </div>
                 <div class="save-share-info">
@@ -179,9 +181,13 @@ export default {
             bookSummary: null,
             bookReadUrl: null,
             bookRating: null,
-
+            bookInPersonalList: false,
+            isInPersonalList: false,
+            isInPersonalListClass: "fa-regular",
+            hasBeenRead: false,
+            hasBeenReadClass: "fa-regular",
+            email_user: null,
             // TODO: Ajouter les commentaires
-            // TODO: Mettre si le livre appartient à une liste
         };
     },
     components: {
@@ -191,16 +197,19 @@ export default {
     created() {
         // On récupère l'identifiant du livre
         // L'URL est de la forme https://masterbooks.com/book?ref=1
-        
-        var bookId = this.$route.query.ref;
-        if (bookId === undefined) {
+        this.bookRef = this.$route.query.ref;
+        if (this.bookRef === null || this.bookRef === undefined) {
             this.$router.push('catalog-page');
         }
 
+        var userData = JSON.parse(localStorage.getItem("userData"));
+        this.email_user = userData.email_user;
+
+
         // Récupérer le livre depuis l'API
         axios
-            .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: bookId })
-            //.post("http://localhost:8080/api/livre/getInfo", { ref: bookId })
+            .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: this.bookRef })
+            //.post("http://localhost:8080/api/livre/getInfo", { ref: this.bookRef })
             .then((response) => {
                 if (response.status === 200) {
                     return response.data;
@@ -242,6 +251,50 @@ export default {
                 console.log("error getgenres");
             }
         });
+
+        
+        // On veut savoir si le livre est dans l'une des listes de l'utilisateur 
+        // Liste personnelle à lire plus tard
+        axios
+        .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        //.post("http://localhost:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                if (response.data.isInPersonalList === false) 
+                {
+                    this.isInPersonalList = false;
+                    this.isInPersonalListClass = "fa-regular";
+                }
+                else
+                {                    
+                    this.isInPersonalList = true;
+                    this.isInPersonalListClass = "fa-solid";
+                }
+            }
+        });
+
+        // Liste des livres déjà lus
+        axios
+        .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        //.post("http://localhost:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                console.log(response.data);
+                if (response.data.hasBeenRead === false) 
+                {
+                    this.hasBeenRead = false;
+                    this.hasBeenReadClass = "fa-regular";
+                }
+                else
+                {                    
+                    this.hasBeenRead = true;
+                    this.hasBeenReadClass = "fa-solid";
+                }
+            }
+        });
+        
     },
     mounted() {
         var thisID = document.getElementById("TopBtn");
@@ -314,6 +367,44 @@ export default {
 
     },
     methods: {
+        ToggleFromPersonalList() {
+            // On inverse maintennt pour plus de fluidité
+            this.isInPersonalListClass = (this.isInPersonalList === true) ? "fa-regular" : "fa-solid";
+            this.isInPersonalList = !this.isInPersonalList;
+
+            axios
+            .post("http://129.151.226.75:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            //.post("http://localhost:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            .then((response) => {
+                if (response.status !== 200) {
+                    console.log("An error occurred!");
+
+                    // On inverse à nouveau pour annuler les modifications front
+                    this.isInPersonalListClass = (this.isInPersonalList === true) ? "fa-regular" : "fa-solid";
+                    this.isInPersonalList = !this.isInPersonalList;
+                }
+            })
+        },
+        ToggleHasRead() {
+            // On inverse maintenant pour plus de fluidité
+            this.hasBeenReadClass = (this.hasBeenRead === true) ? "fa-regular" : "fa-solid";
+            this.hasBeenRead = !this.hasBeenRead;
+
+            axios
+             .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+            //.post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("An error occurred!");
+
+                    // On inverse à nouveau pour annuler les modifications front
+                    this.hasBeenReadClass = (this.hasBeenRead === true) ? "fa-regular" : "fa-solid";
+                    this.hasBeenRead = !this.hasBeenRead;
+                }
+            })
+        },
+
+
         OpenDeleteTask(id) {
 
             this.DeleteTaskIndex = id;

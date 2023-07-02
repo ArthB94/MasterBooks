@@ -394,7 +394,7 @@ export default {
             // .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             .post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status !== 200) {
                     console.log("An error occurred!");
 
                     // On inverse à nouveau pour annuler les modifications front

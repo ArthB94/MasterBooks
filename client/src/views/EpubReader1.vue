@@ -2,7 +2,7 @@
   <div class="epub-page-container">
     <!-- <input type="file" @change="handleFileUpload" accept=".epub"/> -->
     <div class="back-to-book-link">
-      <router-link to="/book-page" class="to-book-nav" ><font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"/><p>Library</p></router-link>
+      <router-link :to="{ path: 'book-page', query: {ref:$route.query.ref }}" class="to-book-nav" ><font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"/><p>Library</p></router-link>
     
     <div class="table-of-contents-toggle">
       <!-- <button @click="toggleTableOfContents">

@@ -59,7 +59,7 @@
                 </div>
                 <div class="save-share-info">
                     <div>
-                        <router-link :to="{ path: 'book-read-page', query: { url: bookReadUrl }}" class="LogRegBtnLink"
+                        <router-link :to="{ path: 'book-read-page', query: { url: bookReadUrl,ref:bookRef }}" class="LogRegBtnLink"
                             style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link>
                     </div>
                     <div class="help-question">
@@ -200,6 +200,7 @@ export default {
         this.bookRef = this.$route.query.ref;
         if (this.bookRef === null || this.bookRef === undefined) {
             this.$router.push('catalog-page');
+            return
         }
 
         var userData = JSON.parse(localStorage.getItem("userData"));

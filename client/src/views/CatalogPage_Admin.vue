@@ -421,10 +421,10 @@ export default {
         },
         // permet de définir le nombre de livre par page en fonction de la taille de la page
         getNbBooksPerPage() {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth < 1000) {
                 return 4;
             } 
-            else if (window.innerWidth <= 1200) {
+            else if (window.innerWidth <= 1100) {
                 return 8;
             }
             else {

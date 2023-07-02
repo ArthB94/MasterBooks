@@ -53,8 +53,8 @@
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
-                        <div><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" @click="ToggleHasRead()" /></div>
-                        <div><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" @click="ToggleFromPersonalList()" /></div>
+                        <div><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-heart'" @click="ToggleFromPersonalList()" /></div>
+                        <div><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-bookmark'" @click="ToggleHasRead()" /></div>
                     </div>
                 </div>
                 <div class="save-share-info">
@@ -276,7 +276,7 @@ export default {
 
         // Liste des livres déjà lus
         axios
-        .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        .post("http://129.151.226.75:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
         //.post("http://localhost:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
         .then((response) => {
             console.log(response);
@@ -394,8 +394,8 @@ export default {
              .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             //.post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
-                if (response.status === 200) {
-                    console.log("An error occurred!");
+                if (response.status !== 200) {
+                    console.log("An error occurred!",response);
 
                     // On inverse à nouveau pour annuler les modifications front
                     this.hasBeenReadClass = (this.hasBeenRead === true) ? "fa-regular" : "fa-solid";

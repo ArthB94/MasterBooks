@@ -194,7 +194,6 @@
                       <option value="English">English</option>
                       <option value="French">French</option>
                       <option value="Spanish">Spanish</option>
-                      <option value="Arabic">Arabic</option>
                       <option value="German">German</option>
                       <option value="Others">Others</option>
                     </select>

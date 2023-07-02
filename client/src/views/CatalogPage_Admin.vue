@@ -31,9 +31,9 @@
                                 <div class="filter-title">
                                     Genre
                                 </div>
-                                <div class="filters">
-                                    <label class="task-container" v-for = "genre in genres" :key = "genre" >{{ genre.genre }}
-                                        <input type="checkbox" :value = genre.genre_id  v-model="selectedGenres"/>
+                                <div class="filters" >
+                                    <label class="task-container"  v-for = "genre in genres" :key = "genre" >{{ genre.genre }}
+                                        <input type="checkbox" :value = genre.genre_id  v-model="selectedGenres" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>                             
                                 </div>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for = "language in languages" :key = language>{{language}}
-                                        <input type="checkbox" :value = "language" v-model="selectedLanguages"/>
+                                        <input type="checkbox" :value = "language" v-model="selectedLanguages" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for = "numberOfPage in numberOfPages" :key = "numberOfPage"> {{numberOfPage}}
-                                        <input type="checkbox" :value = "numberOfPage" v-model="selectedNumberOfPages"/>
+                                        <input type="checkbox" :value = "numberOfPage" v-model="selectedNumberOfPages" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for="parutionYear in parutionYears " :key = "parutionYear">{{parutionYear}}
-                                        <input type="checkbox" :value="parutionYear" v-model="selectedParutionYears"/>
+                                        <input type="checkbox" :value="parutionYear" v-model="selectedParutionYears" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -526,6 +526,7 @@ export default {
             await axios.post("http://129.151.226.75:8080/api/livre/filter", filters).then((response) => {
                     if (response.status === 200) {
                         this.books = response.data;
+                        this.selectedPage = 0
                         return response.data;
                     } else {
                         console.log(new Error(JSON.stringify(response.data)));

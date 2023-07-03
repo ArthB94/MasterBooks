@@ -37,13 +37,13 @@
                                 <p class="Form-question">Please enter the <i class="fa fa-bold" aria-hidden="true">book's
                                         author*</i> </p>
                                 <div class="loginInputBox">
-                                    <input v-model="email" type="text" name="txtEmail" placeholder="Author">
+                                    <input v-model="txtAuthor" type="text" name="txtEmail" placeholder="Author">
                                 </div>
 
                                 <p class="Form-question">If you know it, please enter the <i class="fa fa-bold"
                                         aria-hidden="true">book's edition</i></p>
                                 <div class="loginInputBox">
-                                    <input v-model="email" type="text" name="txtEmail" placeholder="Edition">
+                                    <input v-model="txtLangue" type="text" name="txtEmail" placeholder="Edition">
                                 </div>
                                 <!-- <p class="Form-question">Would you rather have schedules in the morning or the afternoon ?
                                 </p>

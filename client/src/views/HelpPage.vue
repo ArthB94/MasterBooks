@@ -30,7 +30,7 @@
                     <div class="all-questions">
                         <div class="help-question">
                             <label for="fname" class="help-label">Your Name * </label>
-                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..." v-model="name"><br>
+                            <input type="text" id="fname" name="fname" class="help-input" placeholder="..." v-model="txtName"><br>
                         </div>
                         <div class="help-question">
                             <label for="fname" class="help-label">Your Email * </label>
@@ -39,17 +39,17 @@
                         <div class="help-question">
                             <label for="fname" class="help-label">Summary * </label>
                             <input type="text" id="fname" name="fname" class="help-input"
-                                placeholder="Give us a brief description of what's happening." v-model="summary"><br>
+                                placeholder="Give us a brief description of what's happening." v-model="txtSummary"><br>
                         </div>
                         <div class="help-question">
                             <label for="fname" class="help-label">Add more details * </label>
                             <textarea name="" id="" cols="30" rows="10" class="help-input"
-                                placeholder="If you have more specific info, add it here." v-model="details"></textarea><br>
+                                placeholder="If you have more specific info, add it here." v-model="txtDetails"></textarea><br>
                         </div>
                         <div class="help-question">
                             <label for="fname" class="help-label">Page Link </label>
                             <input type="text" id="fname" name="fname" class="help-input"
-                                placeholder="Paste the link to where the issue is happening." v-model="link"><br>
+                                placeholder="Paste the link to where the issue is happening." v-model="txtLink"><br>
                         </div>
                         <!--
                         <div class="help-question">

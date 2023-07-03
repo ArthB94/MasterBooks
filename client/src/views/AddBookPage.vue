@@ -449,7 +449,11 @@ export default {
       console.log("here");
       if (file) {
         this.selectedFileEpub = file;
-        this.labelTextEpub = file.name;
+        if (file.name.length > 35) {
+          this.labelTextEpub = file.name.substring(0, 35) + "...";
+        } else {
+          this.labelTextEpub = file.name;
+        }
 
         const formData = new FormData();
         formData.append("file", file);

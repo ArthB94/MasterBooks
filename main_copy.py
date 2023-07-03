@@ -26,10 +26,61 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 """
 
+import mysql.connector
+import csv
+# Établir la connexion à la base de données
+conn = mysql.connector.connect(
+    host="localhost", # je crois que c'est 129.151.226.75
+    user="root",   # mastercamp 
+    password="password",  # mastercamp  
+    database="mastercamp"    
+)
+
+# Vérifier si la connexion a réussi
+if conn.is_connected():
+    print("Connecté à la base de données MySQL Workbench")
+
+# Créer un curseur pour exécuter la requête
+cursor = conn.cursor()
+
+# Exécuter la requête
+query = """
+SELECT l.reference, l.titre, l.auteur, l.pages, l.resume, l.date_parution, l.langue,
+       CASE WHEN r.email_user IS NULL THEN FALSE ELSE TRUE END AS lecture,
+       GROUP_CONCAT(a.genre_id SEPARATOR ', ') AS genres
+FROM livre l
+LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = 'arthur.billebaut@efrei.net'
+LEFT JOIN appartenir a ON l.reference = a.reference
+GROUP BY l.reference;
+"""
+
+cursor.execute(query)
+
+# Récupérer les résultats de la requête
+results = cursor.fetchall()
+
+# Définir le nom du fichier CSV
+filename = "resultats.csv"
+
+# Écrire les résultats dans le fichier CSV
+with open(filename, "w", newline="") as csvfile:
+    writer = csv.writer(csvfile)
+    
+    # Écrire l'en-tête des colonnes
+    writer.writerow(["reference", "titre", "auteur", "pages", "resume", "date_parution", "langue", "lecture", "genres"])
+    
+    # Écrire les lignes de données
+    for row in results:
+        writer.writerow(row)
+
+print("Les résultats ont été exportés vers", filename)
+
+
+
 
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
 
-dataframe = pd.read_csv('books_1.best_Books_Ever.csv');
+dataframe = pd.read_csv("resultats.csv");
 
 """
 dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
@@ -46,7 +97,7 @@ dataframe = dataframe.drop(colonnes_a_supprimer, axis=1)
 dataframe = dataframe.dropna(how="any")
 
 langues_a_supprimer = ['others'] 
-dataframe = dataframe.drop(dataframe[dataframe['language'].isin(langues_a_supprimer)].index)
+dataframe = dataframe.drop(dataframe[dataframe['langue'].isin(langues_a_supprimer)].index)
 
 """
 def reduireLignes(df, langue, df2):
@@ -137,14 +188,12 @@ print(df.loc[20, 'resume'])
 """
 # --------------- Vectorisation de la colonne description -------------------
 
-vectorizer = TfidfVectorizer(max_features=1000, min_df=10, max_df=0.85)
+vectorizer = TfidfVectorizer(max_features=1000, min_df=3, max_df=0.85)
 descriptions_vectorized = vectorizer.fit_transform(df['resume'])
 features = vectorizer.get_feature_names()
 
 
-
-
-k = 20 
+k = 20
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 clusters = kmeans.fit_predict(descriptions_vectorized)
 df['cluster'] = clusters
@@ -214,6 +263,9 @@ def trouver_livres_similaires(liste_livres):
     
     # Créer un DataFrame contenant les livres recommandés et les pourcentages
     result_df = pd.DataFrame({'reference': similar_books, 'Pourcentage': similarity_percentages.max(axis=1)})
+
+    # Ajouter la colonne email_user avec l'email spécifié
+    result_df = result_df.assign(email_user='arthur.billebaut@efrei.net')
     
     # Trier le DataFrame par ordre décroissant selon la colonne "pourcentage"
     result_df = result_df.sort_values(by='Pourcentage', ascending=True)
@@ -232,3 +284,30 @@ liste_livres = ["2.Harry_Potter_and_the_Order_of_the_Phoenix", "3.Harry_Potter_a
 resultat = trouver_livres_similaires(liste_livres)
 print(resultat)
 
+# supprimer tout le contenue de être_recommandé à chaque fois
+delete_query = "DELETE FROM être_recommandé"
+
+# Exécuter la requête DELETE
+cursor.execute(delete_query)
+
+# Valider la suppression
+conn.commit()
+
+# Parcourir les lignes du DataFrame et insérer chaque ligne dans la table être_recommandé
+for index, row in resultat.iterrows():
+    email_user = 'arthur.billebaut@efrei.net'  # Récupérer la valeur de email_user (remplacer par votre code)
+    reference = row['reference']
+    pourcentage = row['Pourcentage']
+    
+    # Requête SQL d'insertion
+    insert_query = "INSERT INTO être_recommandé (email_user, reference, Pourcentage) VALUES (%s, %s, %s)"
+    
+    # Exécuter la requête d'insertion avec les valeurs correspondantes
+    cursor.execute(insert_query, (email_user, reference, pourcentage))
+
+# Valider les insertions
+conn.commit()
+
+# Fermer le curseur et la connexion
+cursor.close()
+conn.close()

@@ -194,7 +194,6 @@
                       <option value="English">English</option>
                       <option value="French">French</option>
                       <option value="Spanish">Spanish</option>
-                      <option value="Arabic">Arabic</option>
                       <option value="German">German</option>
                       <option value="Others">Others</option>
                     </select>
@@ -434,7 +433,6 @@ export default {
             this.resumeExceedsLimit = false;
             this.bookAlreadyExists = false;
             this.notComplete = false;
-            this.genres = [];
             this.nbGenre = 1;
           } else if (data.message === "Book already exists") {
             this.bookAlreadyExists = true;
@@ -445,14 +443,6 @@ export default {
           // Handle any errors that occur during the fetch request
         });
 
-      // if (this.link != "") fdata.append("link", this.link);
-
-      // if (this.selectedFileCover)
-      //   fdata.append("report_photo", this.selectedFileEpub);
-
-      // const request = new XMLHttpRequest();
-      //request.open("POST", "http://127.0.0.1:8000/help_request");
-      // request.send(fdata);
     },
     handleEpubFileChange(event) {
       const file = event.target.files[0];

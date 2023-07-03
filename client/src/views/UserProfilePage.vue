@@ -114,17 +114,6 @@ export default {
         .then(response => {
           if (response.ok) {
             this.message = 'Information updated';
-            
-            // Mise à jour de la variable locale (dans le navigateur) userData
-            console.log(response.body);
-            const newUserData = {
-              email_user: (response.body.userData.email_user != "") ? response.body.userData.email_user : this.txtEmail,
-              pseudo: (response.body.userData.pseudo != "") ? response.body.userData.pseudo : this.txtFName,
-              mdp: this.userData.mdp,
-              admin: this.userData.admin,
-            };
-
-            localStorage.setItem("userData", JSON.stringify(newUserData))
           } else {
             throw new Error('Error updating information');
           }
@@ -133,6 +122,18 @@ export default {
         })
         .then(data => {
           console.log('Response:', data);
+
+          // Mise à jour de la variable locale (dans le navigateur) userData
+
+          const newUserData = {
+            token: this.userData.token,
+            email_user: (data.userData.email_user != "") ? data.userData.email_user : this.txtEmail,
+            pseudo: (data.userData.pseudo != undefined) ? data.userData.pseudo : this.txtFName
+          };
+
+          console.log(newUserData);
+
+          localStorage.setItem("userData", JSON.stringify(newUserData));
         })
         .catch(error => {
           console.log('Error:', error);
@@ -168,7 +169,7 @@ export default {
     this.placeholderEmail = userData.email_user;
 
     // Vérifier si l'utilisateur est admin
-    if (userData.admin !== null) {
+    if (localStorage.getItem("isAdmin") == "true") {
       this.isAdmin = true
     }
   },

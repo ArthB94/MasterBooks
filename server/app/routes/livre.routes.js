@@ -36,6 +36,25 @@ module.exports = app =>{
     //retourne tous les genres de la base de données
     router.get('/getgenres', livres.getAllGenres);
 
+    router.post('/getComments',livres.getComments);
+
+    router.post('/addComment',livres.addComment)
+
+    // Retourne les informations d'un livre
+    router.post('/getInfo', livres.getInfo);
+
+    // Retourne si un livre est dans la liste personnelle d'un utilisateur
+    router.post('/isInPersonalList', livres.isInPersonalList);
+
+    // Ajoute un livre à la liste personnelle d'un utilisateur
+    router.post('/toggleFromPersonalList', livres.toggleFromPersonalList);
+
+    // Retourne si un livre a été lu par un utilisateur
+    router.post('/hasBeenRead', livres.hadBeenRead);
+
+    // Ajoute un livre comment ayant été lu par un utilisateur
+    router.post('/toggleRead', livres.toggleRead);
+
     // Retourne les informations d'un livre
     router.post('/getInfo', livres.getInfo);
 

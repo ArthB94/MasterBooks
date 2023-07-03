@@ -31,9 +31,9 @@
                                 <div class="filter-title">
                                     Genre
                                 </div>
-                                <div class="filters">
-                                    <label class="task-container" v-for = "genre in genres" :key = "genre" >{{ genre.genre }}
-                                        <input type="checkbox" :value = genre.genre_id  v-model="selectedGenres"/>
+                                <div class="filters" >
+                                    <label class="task-container"  v-for = "genre in genres" :key = "genre" >{{ genre.genre }}
+                                        <input type="checkbox" :value = genre.genre_id  v-model="selectedGenres" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>                             
                                 </div>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for = "language in languages" :key = language>{{language}}
-                                        <input type="checkbox" :value = "language" v-model="selectedLanguages"/>
+                                        <input type="checkbox" :value = "language" v-model="selectedLanguages" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for = "numberOfPage in numberOfPages" :key = "numberOfPage"> {{numberOfPage}}
-                                        <input type="checkbox" :value = "numberOfPage" v-model="selectedNumberOfPages"/>
+                                        <input type="checkbox" :value = "numberOfPage" v-model="selectedNumberOfPages" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="filters">
                                     <label class="task-container" v-for="parutionYear in parutionYears " :key = "parutionYear">{{parutionYear}}
-                                        <input type="checkbox" :value="parutionYear" v-model="selectedParutionYears"/>
+                                        <input type="checkbox" :value="parutionYear" v-model="selectedParutionYears" @change="getFilteredBooks()"/>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -125,7 +125,7 @@
 
                     <!--------------------si l'utilisateur est un admin, on affiche le bouton de suppression et le css de admin-->
                     <div :class="[recomandations ?'book-catalog-container1' :'book-catalog-container']"  >
-                        <router-link v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]"  :to="/book-page/+book.reference">
+                        <router-link v-for="book in  filteredBooks.slice(selectedPage*(nbBooksPerPage - booksNotVisible),(selectedPage+1)*nbBooksPerPage)"  :key = "books.indexOf(book)" :class="[isAdmin ? 'book-page-link1' : (recomandations ? 'book-page-link2' : 'book-page-link')]"  :to="{ path: 'book-page', query: { ref: book.reference }}">
                             <button  v-if="isAdmin" :id="'CloseTask-' + book" class="CloseTask" @click.prevent="OpenDeleteBook(book)">
                                 <font-awesome-icon icon="fa-solid fa-plus" size="sm" style="transform:rotate(45deg); margin-left: 15px;" />
                             </button>
@@ -254,7 +254,7 @@ export default {
             //filtres
             genres:[],
             selectedGenres:[],
-            languages:["English","French","Arabic","German"],
+            languages:["English","French","Spanish","German","Others"],
             selectedLanguages:[],
             numberOfPages:["Under 100","100 ~ 500","500 ~ 1000","Over 1000"],
             selectedNumberOfPages:[],
@@ -421,10 +421,10 @@ export default {
         },
         // permet de définir le nombre de livre par page en fonction de la taille de la page
         getNbBooksPerPage() {
-            if (window.innerWidth <= 900) {
+            if (window.innerWidth < 1000) {
                 return 4;
             } 
-            else if (window.innerWidth <= 1200) {
+            else if (window.innerWidth <= 1100) {
                 return 8;
             }
             else {
@@ -526,6 +526,7 @@ export default {
             await axios.post("http://129.151.226.75:8080/api/livre/filter", filters).then((response) => {
                     if (response.status === 200) {
                         this.books = response.data;
+                        this.selectedPage = 0
                         return response.data;
                     } else {
                         console.log(new Error(JSON.stringify(response.data)));

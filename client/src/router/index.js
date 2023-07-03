@@ -23,8 +23,8 @@ const routes = [
   },
   {
     path: "/book-page",
-    name: "BookInfoPage",
-    component: BookInfoPage,
+    name: "BookInfoPag",
+    component: BookInfoPage
   },
   {
     path: "/catalog-page",
@@ -47,7 +47,7 @@ const routes = [
     component: CatalogPageAdmin,
   },
   {
-    path: "/epub-reader-page",
+    path: "/book-read-page",
     name: "EpubReaderPage",
     component: EpubReaderPage,
   },
@@ -92,6 +92,10 @@ const routes = [
     name: "ProfilePage",
     component: ProfilePage,
   },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/landing-page'
+  }
 ];
 
 const router = createRouter({

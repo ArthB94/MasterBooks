@@ -150,12 +150,26 @@ exports.delete = (req, res) => {
 
 //retourne les lires selon une requette sql
 exports.findByFilter = (req, res) => {
+    if (!req.body.token){
+        console.log("No authentification Token in body.")
+        res.status(500).json({error: "No authentification Token in body."});
+        return;
+    }
     const token = req.body.token;
-    console.log("token ", token);
-    const email = verifyResetToken(token).email;
-    console.log("email ", email);
-    const utilisateur = { email_user: email };
-    const filters = {
+    if (!verifyResetToken(token)){
+        console.log("Token invalide:",token)
+        res.status(500).json({error: "Token invalide"});
+        return;
+    }
+    const email = verifyResetToken(token).email;  
+    if(!email){
+        console.log("No email in token")
+        res.status(500).json({error: "No email in token"});
+        return;
+    }
+   
+    const utilisateur = {email_user: email};
+    const filters ={
         texte: req.body.texte,
         genres: req.body.genres,
         langues: req.body.langues,
@@ -370,6 +384,10 @@ exports.findByFilter = (req, res) => {
 
 //retourne un livre à partir de son id
 exports.findByID = (req, res) => {
+    if (!req.params.reference){
+        res.status(500).send("Error 'reference' not found in params");
+        return
+    }
     Livre.getById(req.params.reference, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -685,7 +703,77 @@ function toDate(value) {
     }
 }
 
+exports.getComments = (req,res)=>{
+    if (!req.body.reference){
+        res.status(500).json({error: "no reference"});
+        return
+    }
+    sql.query("SELECT * FROM critiquer WHERE reference = ?",[req.body.reference],
+    (err,result) => {
+        if (err){
+            console.log("error: ",err);
+            res.status(500).json({error: "An error occured while getting comments."});
+            return;
+        }
+        console.log('comments fetched from the database')
+        res.json(result);
+    })
+}
+
+// prend en paramtre "userData" "reference" "note" et "comment"
+exports.addComment = (req,res)=>{
+    console.log(JSON.stringify(req.body))
+    if (req.body.userData){
+        const userData = req.body.userData
+        if (userData.token){
+            const token = userData.token
+            console.log(JSON.stringify(verifyResetToken(token)))
+            if (verifyResetToken(token) !=null){
+                var email_user = verifyResetToken(token).email
+            }else{
+                res.status(500).json({error: "Token corrupted"});
+                return
+            }
+        }
+        else{
+            res.status(500).json({error: "No Token in userData."});
+            return;
+        }
+    }
+    else {
+        res.status(500).json({error: "No userData."});
+        return;
+    }
+    if(req.body.reference){
+        var reference = req.body.reference
+    }
+    else{
+        res.status(500).json({error: "No reference."})
+        return
+    }
+    if(req.body.note){
+        var note = req.body.note;
+    }else{
+        res.status(500).json({error: "No note."})
+        return
+    }
+    let comment = req.body.comment
+
+    sql.query("INSERT INTO critiquer VALUES(?,?,?,?)",[email_user,reference,note,comment],
+    (err,result) => {
+        if (err){
+            console.log("error: ",err);
+            res.status(500).json({error: "An error occured while getting comments."});
+            return;
+        }
+        console.log('comments fetched from the database')
+        res.json(result);
+    })
+
+}
+
 exports.getInfo = (req, res) => {
+    console.log("bookId: " + JSON.stringify(req.body.ref));
     Livre.findById(req.body.ref, (err, result) => {
         if (err) {
             res.status(500).json({ message: err });
@@ -746,8 +834,8 @@ exports.toggleFromPersonalList = (req, res) => {
                     res.status(500).json({ message: error });
                     return;
                 }
-
-                res.status(200).json({ message: "Removed book from personal list." });
+        
+                res.status(200).json({ message : "Removed book from personal list." });
             });
         else
             sql.execute("INSERT INTO sauvegarder (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
@@ -755,23 +843,13 @@ exports.toggleFromPersonalList = (req, res) => {
                     res.status(500).json({ message: error });
                     return;
                 }
-                res.status(200).json({ message: "Added book to personal list." });
+        
+                res.status(200).json({ message : "Added book to personal list." });
             });
 
         return;
     });
-};
-
-
-
-
-
-
-
-
-
-
-
+}
 
 exports.hadBeenRead = (req, res) => {
     if (req.body.ref === undefined || req.body.email_user === undefined) {
@@ -795,44 +873,45 @@ exports.hadBeenRead = (req, res) => {
 
         return;
     });
-},
+}
 
-    exports.toggleRead = (req, res) => {
-        if (req.body.ref === undefined || req.body.email_user === undefined) {
-            res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
+exports.toggleRead = (req, res) => {
+    if (req.body.ref === undefined || req.body.email_user === undefined) {
+        res.status(400).json({ message: "Body cannoy be empty or incomplete!" });
+        return;
+    }
+
+    var bookId = req.body.ref;
+    var email_user = req.body.email_user;
+
+    sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
             return;
         }
 
-        var bookId = req.body.ref;
-        var email_user = req.body.email_user;
+        if (result.length >= 1)
+            sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Removed book from list of books already read." });
+            });
+        else
+            sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ message: error });
+                    return;
+                }
+        
+                res.status(200).json({ message : "Added book to list of books already read." });
+            });
 
-        sql.execute("SELECT * FROM lire WHERE email_user = ? AND reference = ?", [email_user, bookId], (error, result) => {
-            if (error) {
-                console.log(error);
-                res.status(500).json({ message: error });
-                return;
-            }
-
-            if (result.length >= 1)
-                sql.execute("DELETE FROM lire WHERE email_user=? AND reference=?", [email_user, bookId], (error, result) => {
-                    if (error) {
-                        console.log(error);
-                        res.status(500).json({ message: error });
-                        return;
-                    }
-                    res.status(200).json({ message: "Removed book from list of books already read." });
-                });
-            else
-                sql.execute("INSERT INTO lire (email_user, reference) VALUES (?, ?)", [email_user, bookId], (error, result) => {
-                    if (error) {
-                        console.log(error);
-                        res.status(500).json({ message: error });
-                        return;
-                    }
-
-                    res.status(200).json({ message: "Added book to list of books already read." });
-                });
-
-            return;
-        });
-    }
+        return;
+    });
+}

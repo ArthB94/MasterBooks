@@ -2,7 +2,7 @@
   <div class="epub-page-container">
     <!-- <input type="file" @change="handleFileUpload" accept=".epub"/> -->
     <div class="back-to-book-link">
-      <router-link to="/book-page" class="to-book-nav" ><font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"/><p>Library</p></router-link>
+      <router-link :to="{ path: 'book-page', query: {ref:$route.query.ref }}" class="to-book-nav" ><font-awesome-icon icon="fa-solid fa-angle-left" class="arrow-left-calendar"/><p>Library</p></router-link>
     
     <div class="table-of-contents-toggle">
       <!-- <button @click="toggleTableOfContents">
@@ -43,7 +43,7 @@ import Epub from 'epubjs'
 export default {
   data() {
     return {
-      file : `http://129.151.226.75:8080/uploads/_OceanofPDF.com_Circe_-_Madeline_Miller.epub`,
+      file : `http://129.151.226.75:8080/`+this.$route.query.url,
       epub: null,
       rendition: null,
       showTableOfContents: false,
@@ -68,6 +68,13 @@ export default {
       this.rendition.display()
       this.showNavigation = true
   },
+  beforeRouteLeave(to, from, next) {
+    this.rendition.destroy();
+    this.epub.destroy();
+    next();
+  },
+
+
   methods: {
     handleFileUpload(event) {
       const file = event.target.files[0]

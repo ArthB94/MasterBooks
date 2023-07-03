@@ -59,7 +59,7 @@
                 </div>
                 <div class="save-share-info">
                     <div>
-                        <router-link to="/book-read-page" class="LogRegBtnLink"
+                        <router-link :to="{ path: 'book-read-page', query: { url: bookReadUrl,ref:bookRef }}" class="LogRegBtnLink"
                             style="--shadow: #9216ffd1; --color: #f291bb; --background: #f291bbba; text-align: center;">Read</router-link>
                     </div>
                     <div class="help-question">
@@ -200,6 +200,7 @@ export default {
         this.bookRef = this.$route.query.ref;
         if (this.bookRef === null || this.bookRef === undefined) {
             this.$router.push('catalog-page');
+            return
         }
 
         var userData = JSON.parse(localStorage.getItem("userData"));
@@ -208,8 +209,8 @@ export default {
 
         // Récupérer le livre depuis l'API
         axios
-            // .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: this.bookRef })
-            .post("http://localhost:8080/api/livre/getInfo", { ref: this.bookRef })
+            .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: this.bookRef })
+            //.post("http://localhost:8080/api/livre/getInfo", { ref: this.bookRef })
             .then((response) => {
                 if (response.status === 200) {
                     return response.data;
@@ -235,8 +236,7 @@ export default {
         
         // On récupère le nom des genres
         axios
-        // .get("http://129.151.226.75:8080/api/livre/getgenres")
-        .get("http://localhost:8080/api/livre/getgenres")
+        .get("http://129.151.226.75:8080/api/livre/getgenres")
         .then((response) => {
             if (response.status === 200) {
                 console.log(response.data);
@@ -257,8 +257,8 @@ export default {
         // On veut savoir si le livre est dans l'une des listes de l'utilisateur 
         // Liste personnelle à lire plus tard
         axios
-        // .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
-        .post("http://localhost:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        //.post("http://localhost:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
         .then((response) => {
             console.log(response);
             if (response.status === 200) {
@@ -277,8 +277,8 @@ export default {
 
         // Liste des livres déjà lus
         axios
-        // .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
-        .post("http://localhost:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        .post("http://129.151.226.75:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        //.post("http://localhost:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
         .then((response) => {
             console.log(response);
             if (response.status === 200) {
@@ -374,8 +374,8 @@ export default {
             this.isInPersonalList = !this.isInPersonalList;
 
             axios
-            // .post("http://129.151.226.75:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
-            .post("http://localhost:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            .post("http://129.151.226.75:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            //.post("http://localhost:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
                 if (response.status !== 200) {
                     console.log("An error occurred!");
@@ -392,11 +392,11 @@ export default {
             this.hasBeenRead = !this.hasBeenRead;
 
             axios
-            // .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
-            .post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+             .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+            //.post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
                 if (response.status !== 200) {
-                    console.log("An error occurred!");
+                    console.log("An error occurred!",response);
 
                     // On inverse à nouveau pour annuler les modifications front
                     this.hasBeenReadClass = (this.hasBeenRead === true) ? "fa-regular" : "fa-solid";

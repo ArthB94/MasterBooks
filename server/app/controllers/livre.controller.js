@@ -8,6 +8,7 @@ const fsExtra = require("fs-extra");
 const sql = require("../models/db.js");
 const { verifyResetToken, verif_token } = require('./utilisateur.controller');
 const { isAdmin } = require("../models/utilisateur.model.js");
+const { exec } = require('child_process');
 
 // Prend un livre en paramètre et le sauvegarde dans la base de données
 exports.store = (req, res) => {
@@ -775,5 +776,20 @@ exports.toggleRead = (req, res) => {
             });
 
         return;
+    });
+}
+
+exports.addReco = (req,res) => {
+    exec('python ../script.py', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Erreur d'exécution : ${error.message}`);
+            return res.status(500).send('Erreur d\'exécution du code Python.');
+        }
+        if (stderr) {
+            console.error(`Erreur Python : ${stderr}`);
+            return res.status(500).send('Erreur dans le code Python.');
+        }
+        const result = stdout.trim();
+        res.send(result);
     });
 }

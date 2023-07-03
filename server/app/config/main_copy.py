@@ -15,17 +15,58 @@ from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer # permet de vectoriser le texte
 import matplotlib.pyplot as plt
 
+# import pour db
+import mysql.connector
+import json
+
+
+
+
 # Téléchargement des ressources nécessaires pour NLTK
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 
 
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
 
-dataframe = pd.read_csv('books_1.best_Books_Ever.csv');
+# Lire le contenu du fichier db.config.js
+# with open('server/app/config/main_copy.py', 'r', encoding='utf-8') as file:
+js_code = '''
+{
+  "HOST": "129.151.226.75",
+  "USER": "mastercamp",
+  "PASSWORD": "mastercamp",
+  "DB": "masterbooks"
+}
+'''
+
+# Extraire les informations de connexion du code JavaScript
+config = json.loads(js_code)
+host = config['HOST']
+user = config['USER']
+password = config['PASSWORD']
+database = config['DB']
+
+connection = mysql.connector.connect(
+    host=host,
+    user=user,
+    password=password,
+    database=database
+)
+
+query = "SELECT l.reference, l.titre, l.auteur, l.pages, l.resume, l.date_parution, l.langue, CASE WHEN r.email_user IS NULL THEN FALSE ELSE TRUE END AS lecture, GROUP_CONCAT(a.genre_id SEPARATOR ', ') AS genres FROM livre l LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = 'arthur.billebaut@efrei.net' LEFT JOIN appartenir a ON l.reference = a.reference GROUP BY l.reference;"
+
+dataframe = pd.read_sql(query, connection)
+
+connection.close()
+
+# ------------------------fin connection db
+
+# dataframe = pd.read_csv('books_1.best_Books_Ever.csv');
 print("\n----Contenue dataframe initial----\n")
 print(dataframe)
 print("\n----colonnes dataframe initial----\n")
@@ -39,8 +80,8 @@ pour savoir si le livre a été lu et/ou ajouté à la wishlist
 """
 
 # création de la colonne lire et sauvegarder (contenant des valeurs au hasard entre True ou False) le temps d'avoir la vraie base de données remplie
-dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
-dataframe['sauvegarder']= [random.choice([True,False]) for _ in range(len(dataframe))]
+#dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
+#dataframe['sauvegarder']= [random.choice([True,False]) for _ in range(len(dataframe))]
 
 print("\n----colonnes dataframe après ajout de lire et sauvegarder----\n")
 print(dataframe.columns)
@@ -52,13 +93,13 @@ Pour cela, on doit supprimer les colonnes qui contiennent des valeurs numérique
 intéressantes (pages et publishDate).
 On doit aussi supprimer les colonnes qui ne nous intéressent pas
 """
-colonnes_a_supprimer = ['series', 'rating','isbn', 'characters', 'bookFormat', 'edition', 'publisher', 
+"""colonnes_a_supprimer = ['series', 'rating','isbn', 'characters', 'bookFormat', 'edition', 'publisher', 
                         'firstPublishDate', 'awards','numRatings', 'ratingsByStars', 'likedPercent', 'setting', 
                         'coverImg','bbeScore', 'bbeVotes', 'price','pages','publishDate']
-
+"""
 
 # axis = 1 <== axe des colonnes
-dataframe = dataframe.drop(colonnes_a_supprimer, axis=1)
+#dataframe = dataframe.drop(colonnes_a_supprimer, axis=1)
 print("\n----colonnes dataframe après suppression de certaines colonnes----\n")
 print(dataframe.columns)
 print("\n----Contenue dataframe après modification sur colonnes----\n")
@@ -68,7 +109,7 @@ print(dataframe)
 dataframe = dataframe.dropna(how="any")
  
 # afficher les différentes langues de livres dans le csv
-langues = dataframe['language'].unique()
+langues = dataframe['langue'].unique()
 print("\nToutes les langues qu'il y a \n")
 print(langues, "\nnb de langues : ", len(langues))
 
@@ -84,26 +125,11 @@ si l'utilisateur a lu et/ou sauvegarder un livre dans une langue donnée, alors 
 Ex : si l'utilisateur a lu un livre en espagnol, et a sauvegardé un livre en francais alors on garde tous les livres en espagnol et
 tous les livres en français dans le dataframe car l'utilisateur sait lire cela
 """
-langues_a_supprimer = ['Persian','Arabic',
- 'Multiple languages', 'Portuguese', 'Indonesian', 'Turkish', 'Polish',
- 'Bulgarian', 'Tamil', 'Japanese', 'Romanian', 'Italian',
- 'Norwegian', 'Urdu', 'Dutch', 'Finnish','Marathi', 'Chinese', 
- 'Swedish', 'Icelandic', 'Malayalam', 'Croatian',
- 'Estonian', 'Greek, Modern (1453-)', 'Russian', 'Kurdish', 'Danish', 'Hindi',
- 'Filipino; Pilipino', 'Serbian', 'Bengali', 'Malay', 'Catalan; Valencian',
- 'Czech', 'Vietnamese', 'Armenian', 'Georgian', 'Kannada', 'Korean', 'Nepali',
- 'Telugu', 'Hungarian', 'Farsi', 'Lithuanian',
- 'Ukrainian', 'Bokmål, Norwegian; Norwegian Bokmål', 'Slovak', 'Faroese',
- 'Basque', 'Macedonian', 'Maltese', 'Amharic', 'Assamese', 'Gujarati',
- 'Panjabi; Punjabi', 'Albanian', 'Latvian', 'Bosnian', 'Thai',
- 'Dutch, Middle (ca.1050-1350)', 'Mongolian', 'Tagalog', 'Galician', 'Aleut',
- 'Slovenian', 'Undetermined', 'Greek, Ancient (to 1453)', 'Mayan languages',
- 'Duala', 'Norwegian Nynorsk; Nynorsk, Norwegian',
- 'Afrikaans'] 
-dataframe = dataframe.drop(dataframe[dataframe['language'].isin(langues_a_supprimer)].index)
+langues_a_supprimer = ['others'] 
+dataframe = dataframe.drop(dataframe[dataframe['langue'].isin(langues_a_supprimer)].index)
+df = dataframe
 
-
-def reduireLignes(df, langue, df2):
+"""def reduireLignes(df, langue, df2):
     df = df2[df2['language'] == langue]
     print(len(df))
     df = df[:250]
@@ -121,8 +147,8 @@ df_ger = reduireLignes(df_ger, 'German', dataframe)
 
 df = pd.concat([df_fr,df_eng,df_spa, df_ger], axis=0)
 df_end = df
-
-langues_save = df['language'].unique()
+"""
+langues_save = df['langue'].unique()
 print("\nToutes les langues qu'on veut garder : \n")
 print(langues_save, "\nnb de langues_save : ", len(langues_save))
 print("\n nombre de lignes : \n", df.shape[0])
@@ -153,8 +179,8 @@ lemmatizer = WordNetLemmatizer() # retourne cela : <WordNetLemmatizer>
 
 def preProcessing_description(ligne):
 
-    text = ligne['description']
-    language = ligne['language']
+    text = ligne['resume']
+    language = ligne['langue']
 
     text = espaceApresPoint(text)
 
@@ -195,24 +221,24 @@ def preProcessing_description(ligne):
 
 
 print("\ndeux descriptions avant pre-process\n")
-print(df.loc[20, 'description']) # 19033
-df['description'] = df.apply(preProcessing_description, axis=1) # rappel : axis = 1  première ligne
+print(df.loc[20, 'resume']) # 19033
+df['resume'] = df.apply(preProcessing_description, axis=1) # rappel : axis = 1  première ligne
 print("\ndeux descriptions après pre-process\n")
-print(df.loc[20, 'description'])
+print(df.loc[20, 'resume'])
 
 #df.to_excel('df.xlsx', index=False)
 
 # --------------- Vectorisation de la colonne description -------------------
 
 vectorizer = TfidfVectorizer(max_features=1000, min_df=10, max_df=0.85)
-descriptions_vectorized = vectorizer.fit_transform(df['description'])
-features = vectorizer.get_feature_names_out()
+descriptions_vectorized = vectorizer.fit_transform(df['resume'])
+features = vectorizer.get_feature_names()
 
 
 from sklearn.cluster import KMeans
 
 # Définir le nombre de clusters
-k = 100 # essayer 20 clusters
+k = 20 # essayer 20 clusters
 # Créer une instance de l'algorithme K-means
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 # Appliquer l'algorithme K-means sur les données vectorisées
@@ -231,38 +257,38 @@ for center in centers:
     # Obtenir les indices des mots les plus importants (ceux avec les valeurs les plus élevées)
     top_word_indices = center.argsort()[-num_words:][::-1]
     # Obtenir les mots correspondants à ces indices
-    top_words.append([vectorizer.get_feature_names_out()[i] for i in top_word_indices])
+    top_words.append([vectorizer.get_feature_names()[i] for i in top_word_indices])
 
 # Afficher les mots dans chaque cluster
 for i, words in enumerate(top_words):
     print(f"Cluster {i+1}: {', '.join(words)}")
 
 import matplotlib.pyplot as plt
-"""
+
 # Liste pour stocker les valeurs de l'inertie
 inertias = []
 
 # Essayer différents nombres de clusters de 2 à 10
-for k in range(2, 70):
+for k in range(2, 20):
     kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
     kmeans.fit(descriptions_vectorized)
     inertias.append(kmeans.inertia_)
 
 # Tracer la courbe d'inertie
-plt.plot(range(2, 70), inertias, marker='o')
+plt.plot(range(2, 20), inertias, marker='o')
 plt.xlabel('Nombre de clusters')
 plt.ylabel("Inertie")
 plt.title("Méthode du coude")
 plt.show()
-"""
+
 def analyse_cluster(int): # int est un entier entre 1 et 1000 (les lignes)
     cluster_1_books = df[df['cluster'] == int]
     from collections import Counter
-    cluster_1_keywords = ' '.join(cluster_1_books['description']).split()
+    cluster_1_keywords = ' '.join(cluster_1_books['resume']).split()
     keyword_counts = Counter(cluster_1_keywords)
     top_keywords = keyword_counts.most_common(10)
     print(top_keywords)
-    top_authors = cluster_1_books['author'].value_counts().head(10)
+    top_authors = cluster_1_books['auteur'].value_counts().head(10)
     print(top_authors)
     top_genres = cluster_1_books['genres'].value_counts().head(10)
     print(top_genres)
@@ -285,10 +311,10 @@ print("Silhouette moyenne :", silhouette_avg)
 
 def trouver_livres_similaires(liste_livres):
     # Trouver les clusters correspondants aux livres de la liste donnée
-    clusters = df.loc[df['bookId'].isin(liste_livres), 'cluster'].values
+    clusters = df.loc[df['reference'].isin(liste_livres), 'cluster'].values
     
     # Récupérer tous les autres livres des clusters correspondants
-    similar_books = df.loc[df['cluster'].isin(clusters) & (~df['bookId'].isin(liste_livres)), 'bookId'].values
+    similar_books = df.loc[df['cluster'].isin(clusters) & (~df['reference'].isin(liste_livres)), 'reference'].values
     
     # Retourner les livres similaires
     return similar_books
@@ -296,18 +322,17 @@ def trouver_livres_similaires(liste_livres):
 
 # Liste de livres donnée
 
-liste_livres2 = ["2653762-les-rois-maudits", "15774122-max", "94498.La_Mort_est_mon_m_tier"]
-liste_livres1 = ["345627.Vampire_Academy", "136251.Harry_Potter_and_the_Deathly_Hallows"]
-liste_livres3 = ["24478401-askir", "34298337-br-n", "1277611.Das_Haus_der_Ketten"]
+liste_livres2 = ["2", "5", "6"]
+
 # Appel de la fonction pour trouver les livres similaires
 
 livres_similaires2 = trouver_livres_similaires(liste_livres2)
-livres_similaires1 = trouver_livres_similaires(liste_livres1)
-livres_similaires3 = trouver_livres_similaires(liste_livres3)
+
 
 # Affichage des livres similaires
 
 print("Livres similaires2 :", livres_similaires2)
-print("Livres similaires1 :", livres_similaires1)
-print("Livres similaires3 :", livres_similaires3)
+
+
+
 

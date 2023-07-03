@@ -13,6 +13,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cd": "^0.3.3",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "epub": "^1.2.1",
@@ -32,7 +33,13 @@
     "sequelize": "^6.32.0"
   },
   "nodemonConfig": {
-    "ignore": ["public", "node_modules"],
-    "watch": ["app","server.js"]
+    "ignore": [
+      "public",
+      "node_modules"
+    ],
+    "watch": [
+      "app",
+      "server.js"
+    ]
   }
 }

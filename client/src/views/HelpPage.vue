@@ -108,6 +108,7 @@
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
 import axios from "axios";
+let imageContent = null;
 export default {
     name: "HelpPage",
     components: {
@@ -124,7 +125,7 @@ export default {
             sent: false,
             error: false,
             selectedFile: null,
-            labelText: "No file selected"
+            labelText: "No file selected",
         };
     },
     mounted() {
@@ -145,10 +146,18 @@ export default {
             if (file) {
                 this.selectedFile = file;
                 this.labelText = file.name;
+                const reader = new FileReader();
+                reader.onloaded = () =>{
+                    imageContent = reader.result;
+                    console.log("image Content",imageContent)                
+                }
+                
             } else {
                 this.selectedFile = null;
                 this.labelText = "No file selected";
             }
+
+
         },
         sendMail() {
             let mailOptions = {
@@ -161,6 +170,7 @@ export default {
                     summary: this.txtSummary,
                     details: this.txtDetails,
                     link: this.txtLink,
+                    img: imageContent
                 },
                 attachments: [
                     {

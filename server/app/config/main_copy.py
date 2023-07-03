@@ -18,16 +18,19 @@ import matplotlib.pyplot as plt
 # import pour db
 import mysql.connector
 import json
+import sys
 
 
+email = sys.argv[1]
+print(email)
 
 
 # Téléchargement des ressources nécessaires pour NLTK
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+# nltk.download('punkt')
+# nltk.download('stopwords')
+# nltk.download('wordnet')
+# nltk.download('omw-1.4')
 
 
 
@@ -67,10 +70,10 @@ connection.close()
 # ------------------------fin connection db
 
 # dataframe = pd.read_csv('books_1.best_Books_Ever.csv');
-print("\n----Contenue dataframe initial----\n")
-print(dataframe)
-print("\n----colonnes dataframe initial----\n")
-print(dataframe.columns)
+# print("\n----Contenue dataframe initial----\n")
+# print(dataframe)
+# print("\n----colonnes dataframe initial----\n")
+# print(dataframe.columns)
 
 """ 
 Les colonnes les plus importantes sont title, author, description (hyper important), language, genres, publishDate et pages
@@ -83,8 +86,8 @@ pour savoir si le livre a été lu et/ou ajouté à la wishlist
 #dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
 #dataframe['sauvegarder']= [random.choice([True,False]) for _ in range(len(dataframe))]
 
-print("\n----colonnes dataframe après ajout de lire et sauvegarder----\n")
-print(dataframe.columns)
+# print("\n----colonnes dataframe après ajout de lire et sauvegarder----\n")
+# print(dataframe.columns)
 
 
 """
@@ -100,18 +103,18 @@ On doit aussi supprimer les colonnes qui ne nous intéressent pas
 
 # axis = 1 <== axe des colonnes
 #dataframe = dataframe.drop(colonnes_a_supprimer, axis=1)
-print("\n----colonnes dataframe après suppression de certaines colonnes----\n")
-print(dataframe.columns)
-print("\n----Contenue dataframe après modification sur colonnes----\n")
-print(dataframe)
+# print("\n----colonnes dataframe après suppression de certaines colonnes----\n")
+# print(dataframe.columns)
+# print("\n----Contenue dataframe après modification sur colonnes----\n")
+# print(dataframe)
 
 # supprimer les lignes du dataframe qui contiennent au moins une valeur manquante donc un NaN
 dataframe = dataframe.dropna(how="any")
  
 # afficher les différentes langues de livres dans le csv
 langues = dataframe['langue'].unique()
-print("\nToutes les langues qu'il y a \n")
-print(langues, "\nnb de langues : ", len(langues))
+# print("\nToutes les langues qu'il y a \n")
+# print(langues, "\nnb de langues : ", len(langues))
 
 """
 Il y a 78 langues (beaucoup trop). Cela peut causer des problèmes dans le prétraitement du texte
@@ -131,9 +134,9 @@ df = dataframe
 
 """def reduireLignes(df, langue, df2):
     df = df2[df2['language'] == langue]
-    print(len(df))
+    # print(len(df))
     df = df[:250]
-    print(len(df))
+    # print(len(df))
     return df
 
 df_fr = 0
@@ -149,9 +152,9 @@ df = pd.concat([df_fr,df_eng,df_spa, df_ger], axis=0)
 df_end = df
 """
 langues_save = df['langue'].unique()
-print("\nToutes les langues qu'on veut garder : \n")
-print(langues_save, "\nnb de langues_save : ", len(langues_save))
-print("\n nombre de lignes : \n", df.shape[0])
+# print("\nToutes les langues qu'on veut garder : \n")
+# print(langues_save, "\nnb de langues_save : ", len(langues_save))
+# print("\n nombre de lignes : \n", df.shape[0])
 
 """
 fonction qui prend en paramêtre la langue et qui enlève tous les stop words ( = mots vide = mots pas important ) liés à cette langue
@@ -220,11 +223,11 @@ def preProcessing_description(ligne):
     return preprocessed_text
 
 
-print("\ndeux descriptions avant pre-process\n")
-print(df.loc[20, 'resume']) # 19033
+# print("\ndeux descriptions avant pre-process\n")
+# print(df.loc[20, 'resume']) # 19033
 df['resume'] = df.apply(preProcessing_description, axis=1) # rappel : axis = 1  première ligne
-print("\ndeux descriptions après pre-process\n")
-print(df.loc[20, 'resume'])
+# print("\ndeux descriptions après pre-process\n")
+# print(df.loc[20, 'resume'])
 
 #df.to_excel('df.xlsx', index=False)
 
@@ -260,8 +263,8 @@ for center in centers:
     top_words.append([vectorizer.get_feature_names()[i] for i in top_word_indices])
 
 # Afficher les mots dans chaque cluster
-for i, words in enumerate(top_words):
-    print(f"Cluster {i+1}: {', '.join(words)}")
+# for i, words in enumerate(top_words):
+    # print(f"Cluster {i+1}: {', '.join(words)}")
 
 import matplotlib.pyplot as plt
 
@@ -287,11 +290,11 @@ def analyse_cluster(int): # int est un entier entre 1 et 1000 (les lignes)
     cluster_1_keywords = ' '.join(cluster_1_books['resume']).split()
     keyword_counts = Counter(cluster_1_keywords)
     top_keywords = keyword_counts.most_common(10)
-    print(top_keywords)
+    # print(top_keywords)
     top_authors = cluster_1_books['auteur'].value_counts().head(10)
-    print(top_authors)
+    # print(top_authors)
     top_genres = cluster_1_books['genres'].value_counts().head(10)
-    print(top_genres)
+    # print(top_genres)
 
 
 """analyse_cluster(1)
@@ -300,13 +303,13 @@ analyse_cluster(14)"""
 
 
 inertia = kmeans.inertia_
-print("Inertie :", inertia)
+# print("Inertie :", inertia)
 
 from sklearn.metrics import silhouette_score
 
 labels = kmeans.labels_
 silhouette_avg = silhouette_score(descriptions_vectorized, labels)
-print("Silhouette moyenne :", silhouette_avg)
+# print("Silhouette moyenne :", silhouette_avg)
 
 
 def trouver_livres_similaires(liste_livres):

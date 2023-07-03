@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # COPIE DE LA VERSION QUE J'AI FINI DIMANCHE SOIR QUI FONCTIONNE BIEN
 
 import pandas as pd 

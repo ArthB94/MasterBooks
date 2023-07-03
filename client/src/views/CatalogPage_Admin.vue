@@ -235,9 +235,6 @@ export default {
 
     },
 
-
-
-
     // Definit les variables utilisées dans la page
     data() {
         return {

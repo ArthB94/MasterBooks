@@ -10,8 +10,8 @@
                     <li @click="this.$router.push('/profile-page')">
                         <router-link to="/profile-page" class="to-page-user-nav">My Profile</router-link>
                     </li>
-                    <li @click="this.$router.push('/entry-form2-page')">
-                        <router-link to="/entry-form2-page" class="to-page-user-nav">Request a book</router-link>
+                    <li @click="this.$router.push('/request-page')">
+                        <router-link to="/request-page" class="to-page-user-nav">Request a book</router-link>
                     </li>
                     <li @click="this.$router.push('/help-page')">
                         <router-link to="/help-page" class="to-page-user-nav">Help</router-link>

@@ -11,6 +11,7 @@ import HelpPage from "@/views/HelpPage.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+import RequestForm from "@/views/RequestForm.vue"
 import ResetPwd from "@/views/ResetPassword.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
 
@@ -81,6 +82,11 @@ const routes = [
     path: "/register-page",
     name: "RegisterPage",
     component: Register,
+  },
+  {
+    path: "/request-page",
+    name: "requestPage",
+    component: RequestForm,
   },
   {
     path: "/reset-password-page",

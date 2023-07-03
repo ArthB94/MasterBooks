@@ -83,8 +83,8 @@
 
                     </div>
                     <div class="lib-button-container" v-if="MyLibrary">
-                        <div @click="liked = true; read = false ;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-heart" /></div>
-                        <div @click="read = true; liked = false;getFilteredBooks()"><font-awesome-icon icon="fa-regular fa-bookmark"  /></div>
+                        <div @click="liked = true; read = false ;getFilteredBooks()"><font-awesome-icon v-bind:icon=" liked?'fa-solid fa-heart':'fa-regular fa-heart'" /></div>
+                        <div @click="read = true; liked = false;getFilteredBooks()"><font-awesome-icon v-bind:icon=" read?'fa-solid fa-bookmark':'fa-solid fa-bookmark'"  /></div>
                     </div>
                     <div class="page-turner">
                         <p class="page">Page</p>
@@ -138,7 +138,7 @@
                                     <!-- <img :src="require('@/assets/'+book.image_src)" alt="book_pic" class="book-cover"> -->
                                     <img :src="'http://129.151.226.75:8080/' + book.image_src" alt="book_pic" class="book-cover">
                                 </div>
-                                <div class="book-title">{{book.titre}}</div>
+                                <div class="book-title"> {{ (book.titre.length > 20 && isAdmin) ? book.titre.substring(0, 20) + "..." : book.titre }} </div>
                                 <div class="book-specs">{{book.auteur+", "+book.date_parution}}</div>
 
                                 <div class="book-descript" v-if="!isAdmin">
@@ -421,14 +421,27 @@ export default {
         },
         // permet de définir le nombre de livre par page en fonction de la taille de la page
         getNbBooksPerPage() {
-            if (window.innerWidth < 1000) {
-                return 4;
-            } 
-            else if (window.innerWidth <= 1100) {
-                return 8;
-            }
-            else {
-                return 16;
+            if (this.isAdmin){
+                    if (window.innerWidth < 900) {
+                        return 4;
+                    } 
+                    else if (window.innerWidth <= 1200) {
+                        return 8;
+                    }
+                    else {
+                        return 16;
+                    }
+
+            }else{
+                if (window.innerWidth < 1000) {
+                    return 4;
+                } 
+                else if (window.innerWidth <= 1100) {
+                    return 8;
+                }
+                else {
+                    return 16;
+                }
             }
         },
 

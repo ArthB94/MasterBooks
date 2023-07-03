@@ -663,7 +663,7 @@ exports.share = (req, res) => {
                                                 context: {
                                                     from: Info.from_name,
                                                     book_name: Info.book_name,
-                                                    link: "http://129.151.226.75/read/" + Info.book_ref + "?token=" + token
+                                                    link: "http://129.151.226.75:8081/book-read-page?url=" + book.url + "&ref=" + Info.book_ref + "&token=" + token
                                                 },
                                                 attachments: [
                                                     {

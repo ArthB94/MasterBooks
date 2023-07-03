@@ -43,7 +43,7 @@ shareToken.addToDb = (token, from, book, result) => {
 
     // On insère le token dans la base de données
     sql.execute(
-        "INSERT INTO shareTokens (token, from_user, book, expires) VALUES (?, ?, ?, DATE_ADD(CURDATE(), INTERVAL 25 DAY));",
+        "INSERT INTO partager (token, email_user, reference, date_fin) VALUES (?, ?, ?, DATE_ADD(CURDATE(), INTERVAL 25 DAY));",
         [token, from, book],
         (err, rows) => {
             // On vérifie s'il y a eu une erreur
@@ -69,7 +69,7 @@ shareToken.addToDb = (token, from, book, result) => {
  * @returns {boolean} Vrai si l'utilisateur peut, faux s'il ne peut pas ou s'il y a une erreur.
  */
 shareToken.checkIfPossible = (user_email, result) => {
-    sql.execute("SELECT * FROM shareTokens WHERE from_user = ? AND expires > CURDATE() LIMIT ?", [user_email, sharingLimit], (err, rows) => {
+    sql.execute("SELECT * FROM partager WHERE email_user = ? AND date_fin > CURDATE() LIMIT ?", [user_email, sharingLimit], (err, rows) => {
         if (err) {
             // Il y a eu une erreur
             console.log("Error: ", err);
@@ -140,7 +140,7 @@ shareToken.getSharesLeft = (req, res) => {
         return;
     }
 
-    sql.execute("SELECT * FROM shareTokens WHERE from_user = ? AND expires > CURDATE() LIMIT ?", [req.body.email_user, sharingLimit], (err, rows) => {
+    sql.execute("SELECT * FROM partager WHERE email_user = ? AND date_fin > CURDATE() LIMIT ?", [req.body.email_user, sharingLimit], (err, rows) => {
         if (err) {
             console.log("Error: ", err);
             res.status(500).json({ message: err });

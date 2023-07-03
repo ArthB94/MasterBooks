@@ -68,13 +68,9 @@
                         <input type="text" id="fname" name="fname" class="help-input label-recs-book" placeholder="Email"
                             v-model="email"><br>
                     </div>
-                    <!-- <p class="Form-question"><i class="fa fa-bold" aria-hidden="true">Number of pages*</i> </p>
-                                <div class="loginInputBox">
-                                    <input v-model="email" type="text" name="txtEmail" placeholder="Number of pages">
-                                </div> -->
-                    <button to="/register-page" @click="OpenDeleteTask()" class="LogRegBtnLink"
+                    <button @click="ShareBook()" class="LogRegBtnLink"
                         style="--shadow: #f291bb; --color: rgb(162, 85, 255,0.3); --background: #c18cd6; border-top: transparent; border-left:transparent; margin-top: 10px;">Share</button>
-                    <p class="book-disclaimer-info">*Read/Share available for 30 days</p>
+                    <p class="book-disclaimer-info">*Share available for 25 days</p>
 
 
                 </div>
@@ -107,9 +103,14 @@
                     </div>
                 </div>
             </div>
-            <div id="myModalDeleteTask" class="modal">
+
+
+
+
+            <!-- Modal original -->
+            <!-- <div id="myModalDeleteTask" class="modal"> -->
                 <!-- Modal content -->
-                <div class="modal-content">
+                <!-- <div class="modal-content">
                     <span class="close" @click='CloseDeleteTask'>&times;</span>
                     <h1 class="modal-Title">Share this Book ?</h1>
                     <div class="modal-center">
@@ -131,7 +132,62 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+
+            <!-- Modal mail envoyé -->
+            <div id="modalEmailSent" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" @click="CloseModalEmailSent">&times;</span>
+                    <h1 class="modal-Title">The invitation was sent!</h1>
+                    <div class="modal-center">
+                        <p style="margin-top: 50px; margin-bottom: 10px;">We just sent an email to let them know a new book is waiting for them!</p>
+                        <div class="delete-list-button">
+                            <div class="AddTaskInputBox yes">
+                                <input class="close" type="submit" value="OK" name="submit" @click='CloseModalEmailSent' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Modal erreur lors de l'envoi de mail -->
+            <div id="modalEmailError" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" @click="CloseModalEmailError">&times;</span>
+                    <h1 class="modal-Title">An error occurred!</h1>
+                    <div class="modal-center">
+                        <p style="margin-top: 50px; margin-bottom: 10px;">Something happened when trying to send the email! Please verify that the email is correct or try again later.</p>
+                        <div class="delete-list-button">
+                            <div class="AddTaskInputBox yes">
+                                <input class="close" type="submit" value="OK" name="submit" @click='CloseModalEmailError' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal erreur lors de l'envoi de mail -->
+            <div id="modalTooManyBooksShared" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close" @click="CloseModalTooManyBooksShared">&times;</span>
+                    <h1 class="modal-Title">You share too many books!</h1>
+                    <div class="modal-center">
+                        <p style="margin-top: 50px; margin-bottom: 10px;">Uh oh... It seems like you already shared three books in the last twenty-five days! Please try again later.</p>
+                        <div class="delete-list-button">
+                            <div class="AddTaskInputBox yes">
+                                <input class="close" type="submit" value="OK" name="submit" @click='CloseModalTooManyBooksShared' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
         <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
                 icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe;" /></a>
@@ -404,16 +460,57 @@ export default {
                 }
             })
         },
+        ShareBook() {
+            var to_email = this.email;
 
-
-        OpenDeleteTask(id) {
-
-            this.DeleteTaskIndex = id;
-            document.getElementById("myModalDeleteTask").style.display = "block";
+            if (to_email !== undefined) {
+                axios
+                .post("http://localhost:8080/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
+                .then((response) => {
+                    if (response.status === 200) {
+                        console.log("Email was sent.");
+                        this.OpenModalEmailSent();
+                    }
+                })
+                .catch((response) => {
+                    console.log(response.response.data);
+                    if (response.response.data.message === "User has shared too many books!") {
+                        this.OpenModalTooManyBooksShared();
+                    } else {
+                        console.log("An error occurred!");
+                        this.OpenModalEmailError();
+                    }
+                })
+            }
         },
-        CloseDeleteTask() {
-            document.getElementById("myModalDeleteTask").style.display = "none";
+
+        OpenModalEmailSent() {
+            document.getElementById("modalEmailSent").style.display = "block";
         },
+        CloseModalEmailSent() {
+            document.getElementById("modalEmailSent").style.display = "none";
+        },
+        OpenModalEmailError () {
+            document.getElementById("modalEmailError").style.display = "block";
+        },  
+        CloseModalEmailError () {
+            document.getElementById("modalEmailError").style.display = "none";
+        },
+        OpenModalTooManyBooksShared() {
+            document.getElementById("modalTooManyBooksShared").style.display = "block";
+        },
+        CloseModalTooManyBooksShared() {
+            document.getElementById("modalTooManyBooksShared").style.display = "none";
+        },
+
+        // OpenDeleteTask(id) {
+
+        //     this.DeleteTaskIndex = id;
+        //     document.getElementById("myModalDeleteTask").style.display = "block";
+        // },
+        // CloseDeleteTask() {
+        //     document.getElementById("myModalDeleteTask").style.display = "none";
+        // },
     }
 }
 </script>

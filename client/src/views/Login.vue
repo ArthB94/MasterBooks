@@ -61,6 +61,7 @@ export default {
       email_user: "",
       password: "",
       message: "",
+      addressServer: localStorage.getItem("addressServer"),
     };
   },
   methods: {
@@ -71,7 +72,7 @@ export default {
         mdp: this.password,
       };
       axios
-        .post("http://129.151.226.75:8080/api/auth/login", userData)
+        .post(this.addressServer+"/api/auth/login", userData)
         .then((response) => {
           if (response.status === 200) {
             localStorage.setItem("userData", JSON.stringify(response.data));
@@ -86,7 +87,7 @@ export default {
         })
         .then(() => {
           axios
-            .post("http://129.151.226.75:8080/api/auth/isAdmin", {email_user: this.email_user})
+            .post(this.addressServer+"/api/auth/isAdmin", {email_user: this.email_user})
             .then((response_admin) => {
               if(response_admin.status === 200){
                 let admin = response_admin.data.isAdmin;

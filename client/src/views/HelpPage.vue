@@ -124,7 +124,8 @@ export default {
             sent: false,
             error: false,
             selectedFile: null,
-            labelText: "No file selected"
+            labelText: "No file selected",
+            addressServer: localStorage.getItem('addressServer')
         };
     },
     mounted() {
@@ -171,7 +172,7 @@ export default {
                 ],
             };
 
-            axios.post("http://129.151.226.75:8080/api/email/send", mailOptions)
+            axios.post(this.addressServer+"/api/email/send", mailOptions)
                 .then((response) => {
                     console.log(response)
                 })

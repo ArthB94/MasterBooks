@@ -53,8 +53,8 @@
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
-                        <div><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" @click="ToggleHasRead()" /></div>
-                        <div><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" @click="ToggleFromPersonalList()" /></div>
+                        <div @click="ToggleHasRead()"><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" /></div>
+                        <div @click="ToggleFromPersonalList()"><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" /></div>
                     </div>
                 </div>
                 <div class="save-share-info">
@@ -235,7 +235,8 @@ export default {
         
         // On récupère le nom des genres
         axios
-        .get("http://129.151.226.75:8080/api/livre/getgenres")
+        // .get("http://129.151.226.75:8080/api/livre/getgenres")
+        .get("http://localhost:8080/api/livre/getgenres")
         .then((response) => {
             if (response.status === 200) {
                 console.log(response.data);

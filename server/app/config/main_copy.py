@@ -22,6 +22,7 @@ import sys
 
 
 email = sys.argv[1]
+connection = sys.argv[2]
 print(email)
 
 
@@ -37,15 +38,8 @@ print(email)
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
 
 # Lire le contenu du fichier db.config.js
-# with open('server/app/config/main_copy.py', 'r', encoding='utf-8') as file:
-js_code = '''
-{
-  "HOST": "129.151.226.75",
-  "USER": "mastercamp",
-  "PASSWORD": "mastercamp",
-  "DB": "masterbooks"
-}
-'''
+
+js_code = connection
 
 # Extraire les informations de connexion du code JavaScript
 config = json.loads(js_code)

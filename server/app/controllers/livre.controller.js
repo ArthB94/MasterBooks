@@ -9,6 +9,7 @@ const sql = require("../models/db.js");
 const { verifyResetToken, verif_token } = require('./utilisateur.controller');
 const { isAdmin } = require("../models/utilisateur.model.js");
 const { exec } = require('child_process');
+const db = require('../config/db.config.js')
 
 // Prend un livre en paramètre et le sauvegarde dans la base de données
 exports.store = (req, res) => {
@@ -783,16 +784,17 @@ exports.addReco = (req,res) => {
     if(!req.body.email_user){
         return res.status(500).send('pas de email_user dans body.')
     }
-    exec(`python3 ${__dirname}/../config/main_copy.py ${req.body.email_user}`, (error, stdout, stderr) => {
+    exec(`python3 ${__dirname}/../config/main_copy.py ${req.body.email_user} '${JSON.stringify(db)}'`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Erreur d'exécution : ${error.message}`);
-            return res.status(500).send('Erreur d\'exécution du code Python.');
+            return res.status(500).send('Erreur d\'exécution du code Python.'+error.message);
         }
         if (stderr) {
             console.error(`Erreur Python : ${stderr}`);
             return res.status(500).send('Erreur dans le code Python.');
         }
         const result = stdout.trim();
+        console.log(result)
         res.send(result);
     });
 }

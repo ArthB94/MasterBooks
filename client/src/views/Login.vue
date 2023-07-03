@@ -82,6 +82,7 @@ export default {
             throw new Error(JSON.stringify(response.data));
           }
         }).then((data) => {
+
           const token = data.token;
           localStorage.setItem("token", token);
         })
@@ -103,6 +104,12 @@ export default {
                   this.$router.push("/catalog-page");
                 }
                 localStorage.setItem("userData", JSON.stringify(userData))
+                axios
+                .post(this.addressServer+"/api/livre/addReco", {email_user: this.email_user})
+                .then((response_recomendation) =>{
+                  console.log("recomendation",response_recomendation)
+                });
+
               }
               else{
                 throw new Error(JSON.stringify(response_admin.data));

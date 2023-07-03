@@ -43,7 +43,17 @@ CREATE TABLE critiquer(
    FOREIGN KEY(reference) REFERENCES Livre(reference)
 );
 
-CREATE TABLE partager(
+create table partager
+(
+    email_user varchar(50)  not null,
+    reference  int          not null,
+    token      varchar(200) not nullprimary key,
+    date_fin   date         not null,
+    constraint partager_livre_reference_fk foreign key (reference) references livre (reference),
+    constraint partager_utilisateur_email_user_fk foreign key (email_user) references utilisateur (email_user)
+);
+
+CREATE TABLE partager-old(
    email_user VARCHAR(50),
    reference INT,
    token VARCHAR(100),

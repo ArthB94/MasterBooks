@@ -94,7 +94,8 @@ export default {
       selectedFile: null,
       labelText: "No file selected",
       isAdmin: false,
-      userData: null
+      userData: null,
+      addressServer: localStorage.getItem('addressServer')
     };
 
   },
@@ -104,7 +105,7 @@ export default {
   },
   methods: {
     updateInformation() {
-      fetch("http://129.151.226.75:8080/api/auth/updateProfile", {
+      fetch(this.addressServer+"/api/auth/updateProfile", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

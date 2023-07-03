@@ -330,6 +330,7 @@ export default {
       notComplete: false,
       genres: [],
       nbGenre: 1,
+      addressServer: localStorage.getItem('addressServer'),
     };
   },
   mounted() {
@@ -348,7 +349,7 @@ export default {
   },
   methods: {
     fetchGenres() {
-      fetch("http://129.151.226.75:8080/api/livre/getgenres")
+      fetch(this.addressServer+"/api/livre/getgenres")
         .then((response) => response.json())
         .then((data) => {
           this.genres = data;
@@ -397,7 +398,7 @@ export default {
 
       const jsonData = JSON.stringify(data);
 
-      fetch("http://129.151.226.75:8080/api/livre/store", {
+      fetch(this.addressServer+"/api/livre/store", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -458,7 +459,7 @@ export default {
         const formData = new FormData();
         formData.append("file", file);
         console.log("here");
-        fetch("http://129.151.226.75:8080/api/livre/metadata", {
+        fetch(this.addressServer+"/api/livre/metadata", {
           method: "POST",
           body: formData,
         })

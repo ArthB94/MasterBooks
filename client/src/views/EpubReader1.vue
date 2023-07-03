@@ -43,7 +43,7 @@ import Epub from 'epubjs'
 export default {
   data() {
     return {
-      file : `http://129.151.226.75:8080/`+this.$route.query.url,
+      file : localStorage.getItem('addressServer') + `/` +this.$route.query.url,
       epub: null,
       rendition: null,
       showTableOfContents: false,

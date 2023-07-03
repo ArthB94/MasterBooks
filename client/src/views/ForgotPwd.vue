@@ -37,11 +37,12 @@
           return{
             email: "",
             message : "",
+            addressServer: localStorage.getItem('addressServer')
           }
         },
         methods:{
           send(){
-            fetch("http://129.151.226.75:8080/api/auth/recovery", 
+            fetch(this.addressServer+"/api/auth/recovery", 
             {method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -88,6 +88,7 @@ export default {
       password: "",
       matching: true,
       message: "",
+      addressServer: localStorage.getItem('addressServer')
     };
   },
   methods: {
@@ -95,7 +96,7 @@ export default {
       this.matching = true;
       this.message = "";
       if (this.email === this.reemail) {
-        fetch("http://129.151.226.75:8080/api/auth/register", {
+        fetch(this.addressServer+"/api/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

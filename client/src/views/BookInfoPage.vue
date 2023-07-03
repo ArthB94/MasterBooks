@@ -29,7 +29,7 @@
         <div class="Book-page-container">
             <div class="Book-info-container">
                 <div class="Book-image-container">
-                    <img v-bind:src="'http://129.151.226.75:8080/' + this.bookCover" alt="book_pic" class="book-cover-info">
+                    <img v-bind:src="addressServer+'/' + this.bookCover" alt="book_pic" class="book-cover-info">
                 </div>
                 <div class="Book-info-specs-container">
                     <div class="book-title-info" v-html="bookTitle"></div>
@@ -187,6 +187,7 @@ export default {
             hasBeenRead: false,
             hasBeenReadClass: "fa-regular",
             email_user: null,
+            addressServer: localStorage.getItem('addressServer'),
             // TODO: Ajouter les commentaires
         };
     },
@@ -209,7 +210,7 @@ export default {
 
         // Récupérer le livre depuis l'API
         axios
-            .post("http://129.151.226.75:8080/api/livre/getInfo", { ref: this.bookRef })
+            .post(this.addressServer+"/api/livre/getInfo", { ref: this.bookRef })
             //.post("http://localhost:8080/api/livre/getInfo", { ref: this.bookRef })
             .then((response) => {
                 if (response.status === 200) {
@@ -236,7 +237,7 @@ export default {
         
         // On récupère le nom des genres
         axios
-        .get("http://129.151.226.75:8080/api/livre/getgenres")
+        .get(this.addressServer+"/api/livre/getgenres")
         .then((response) => {
             if (response.status === 200) {
                 console.log(response.data);
@@ -257,7 +258,7 @@ export default {
         // On veut savoir si le livre est dans l'une des listes de l'utilisateur 
         // Liste personnelle à lire plus tard
         axios
-        .post("http://129.151.226.75:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        .post(this.addressServer+"/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
         //.post("http://localhost:8080/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
         .then((response) => {
             console.log(response);
@@ -277,7 +278,7 @@ export default {
 
         // Liste des livres déjà lus
         axios
-        .post("http://129.151.226.75:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        .post(this.addressServer+"/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
         //.post("http://localhost:8080/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
         .then((response) => {
             console.log(response);
@@ -374,7 +375,7 @@ export default {
             this.isInPersonalList = !this.isInPersonalList;
 
             axios
-            .post("http://129.151.226.75:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            .post(this.addressServer+"/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
             //.post("http://localhost:8080/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
                 if (response.status !== 200) {
@@ -392,7 +393,7 @@ export default {
             this.hasBeenRead = !this.hasBeenRead;
 
             axios
-             .post("http://129.151.226.75:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+             .post(this.addressServer+"/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             //.post("http://localhost:8080/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
             .then((response) => {
                 if (response.status !== 200) {

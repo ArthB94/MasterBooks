@@ -8,7 +8,7 @@ Ce projet est une proposition de site web permettant à chaque bibliothèque d'h
 
 ### Installer toutes les dépendances côté serveur et client :
 
-#### Se placer dans le dossier racine et lancer la commande :
+ Se placer dans le dossier racine et lancer la commande :
 
 ```
 npm install
@@ -18,23 +18,23 @@ npm install
 
 ### Connecter la base de données MySQL :
 
-#### Aller dans ``server/app/config/``, ouvrir le fichier db.config.js et remplacer les exemples par les paramètres de connexion de votre base de données MySQL.  `<br><br>`
+ Aller dans ``server/app/config/``, ouvrir le fichier db.config.js et remplacer les exemples par les paramètres de connexion de votre base de données MySQL.  `<br><br>`
 
 ### Générer les tables:
 
-#### Exécuter le fichier ``server/app/config/bdd.sql`` dans votre base de données pour générer les tables nécessaires.
+ Exécuter le fichier ``server/app/config/bdd.sql`` dans votre base de données pour générer les tables nécessaires.
 
 <br>
 
 ### Connecter le client au bon serveur :
 
-#### Aller dans ``client/src/main.js`` et remplacer l'adresse du serveur par celle de votre serveur à la ligne suivante :
+ Aller dans ``client/src/main.js`` et remplacer l'adresse du serveur par celle de votre serveur à la ligne suivante :
 
 ```
 localStorage.setItem('addressServer', 'http://129.151.226.75:8080')
 ```
 
-#### Par défaut, votre serveur tournera à l'adresse :
+ Par défaut, votre serveur tournera à l'adresse :
 
 ```
 localStorage.setItem('addressServer', 'http://localhost:8080')
@@ -43,35 +43,36 @@ localStorage.setItem('addressServer', 'http://localhost:8080')
 <br>
 
 ### Dépendances Python pour les recommandations (_peut fonctionner sans mais la page recommendation sera vide_):
+<br>
+ Avoir python3 sur son ordinateur avec une version 3.6 minimum et pip. Ensuite, installer les dépendances suivantes :
+ 
+ <small>Si python3 n'est pas reconnu, remplacer python3 par python et pip3 par pip dans les commandes suivantes. Il faudra egalement remplacer python3 par python dans le fichier ``server/app/controller/livre.controller.js`` ligne 226.</small>
 
-#### Avoir python3 sur son ordinateur avec une version 3.6 minimum et pip. Ensuite, installer les dépendances suivantes :
-##### _Si python3 n'est pas reconnu, remplacer python3 par python et pip3 par pip dans les commandes suivantes. Il faudra egalement remplacer python3 par python dans le fichier ``server/app/controller/livre.controller.js`` ligne 226._
-
-##### numpy :
+<small>numpy :</small>
 
 ```
 python3 -m pip install numpy
 ```
 
-##### pandas :
+<small> pandas</small> :
 
 ```
 python3 -m pip install pandas
 ```
 
-##### matplotlib :
+<small>matplotlib</small> :
 
 ```
 python3 -m pip install matplotlib
 ```
 
-##### sklearn :
+<small>sklearn :</small>
 
 ```
 python3 -m pip install sklearn
 ```
 
-##### nltk :
+<small> nltk :</small>
 
 ```
 python3 -m pip install nltk

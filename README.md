@@ -68,7 +68,7 @@ python3 -m pip install matplotlib
 ##### sklearn :
 
 ```
-python3 -m pip install sklearn
+python3 -m pip install scikit-learn
 ```
 
 ##### nltk :

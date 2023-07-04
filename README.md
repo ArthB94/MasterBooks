@@ -1,5 +1,6 @@
 # Masterbooks
 
+Ce projet est une proposition de site web permettant à chaque bibliothèque d'héberger une bibliothèque en ligne de fichiers EPUB. Chaque administrateur peut ajouter les livres de leur choix au format EPUB dans le serveur en utilisant la page ```/add-book-page```. Ces livres seront ensuite disponibles sur la page ```/catalog-page```. Les administrateurs peuvent supprimer des livres en utilisant la page ```/catalog-admin-page```.
 
 ## Setup projet:
 <br>

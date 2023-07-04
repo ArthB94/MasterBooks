@@ -1,5 +1,4 @@
 const Utilisateur = require("../models/utilisateur.model.js");
-const db = require("../models/db.js");
 const bcrypt = require("bcrypt");
 const emailController = require("./email.controller.js");
 var jwt = require('jsonwebtoken'); // Importation de la librairie pour générer les jwt
@@ -101,7 +100,7 @@ exports.forgot_password = (req, res) => {
     
       const token = jwt.sign(payload, secretKey, options);
     
-      const resetLink = `http://localhost:8081/reset-password?token=${token}`;
+      const resetLink = `http://129.151.226.75:8081/reset-password-page?token=${token}`;
 
       const email = new Email({
         to: req.body.email,
@@ -155,7 +154,7 @@ exports.verif_token = (req,res) => {
     // Token verification failed, handle accordingly (e.g., show error page)
     console.log("failed");
     // return res.status(400).json({ error: 'Invalid or expired reset token' });
-    const redirectLink = `https://localhost:8081/reset-password`;
+    const redirectLink = `http://129.151.226.75:8081/reset-password`;
     res.redirect(redirectLink);
   }
   // Token is valid, render the password reset page
@@ -280,7 +279,7 @@ exports.updateProfile = (req, res) => {
   console.log(query);
   console.log(args);
 
-  db.execute(query, args, (err, result) => {
+  sql.execute(query, args, (err, result) => {
     if (err) {
       res.status(500).send({ message: err });
       return;

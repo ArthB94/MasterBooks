@@ -40,15 +40,15 @@
                         {{ this.bookGenres.join(', ') }}
                     </div>
                     <div class="rate">
-                        <input type="radio" id="star5" name="rate" value="5" />
+                        <input type="radio" id="star5" v-model="rate" name="rate" v-bind:value="5" :checked="this.note === 5" @change="changeNote(5)"/>
                         <label for="star5" title="Must read - 5">5 stars</label>
-                        <input type="radio" id="star4" name="rate" value="4" />
+                        <input type="radio" id="star4" v-model="rate" name="rate" v-bind:value="4" :checked="this.note === 4" @change="changeNote(4)"/>
                         <label for="star4" title="Really good - 4">4 stars</label>
-                        <input type="radio" id="star3" name="rate" value="3" />
+                        <input type="radio" id="star3" v-model="rate" name="rate" v-bind:value="3" :checked="this.note === 3" @change="changeNote(3)"/>
                         <label for="star3" title="Entertaining - 3">3 stars</label>
-                        <input type="radio" id="star2" name="rate" value="2" />
+                        <input type="radio" id="star2" v-model="rate" name="rate" v-bind:value="2" :checked="this.note === 2" @change="changeNote(2)"/>
                         <label for="star2" title="Passable - 2">2 stars</label>
-                        <input type="radio" id="star1" name="rate" value="1" />
+                        <input type="radio" id="star1" v-model="rate" name="rate" v-bind:value="1" :checked="this.note === 1" @change="changeNote(1)"/>
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
@@ -77,7 +77,7 @@
             <div class="Comment-section-container">
                 <div class="FAQcontainer">
                     <!-- <h3 class="comment-container-title">Feedback & Comments</h3> -->
-                    <div class="comments">
+                    <div>
                         <div class="comment flex items-start justify-start">
                             <img class="comment-avatar" src="../assets/UserMe.png" alt="Admin img">
                             <div class="flex-1">
@@ -86,6 +86,7 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="comments"></div>
                     </div>
                     <!--------------------------------------------------Comment input section--------------------------------------------------------------->
 
@@ -94,7 +95,7 @@
                         <div class="flex-1">
 
                             <form action="#" class="comment-form">
-                                <textarea placeholder="Username" class="comment-author" v-model="commentUsername"></textarea>
+                                <textarea :placeholder="userPseudo" class="comment-author" v-model="commentUsername" disabled></textarea>
                                 <textarea placeholder="Add your comment" class="comment-input" v-model="commentBody"></textarea>
                                 <input type="submit" class="comment-submit" value="Submit" @click="addComment">
                             </form>
@@ -214,7 +215,6 @@
     </body>
 </template>
 
-
 <script>
 import UserMenu from "../components/UserMenu.vue";
 import DarkLightMode from "../components/DarkLightMode.vue";
@@ -248,6 +248,9 @@ export default {
             commentInput: null,
             note: null,
             commentList: null,
+            commentBody:[],
+            userPseudo :"",
+            
             addressServer: localStorage.getItem('addressServer')
         };
     },
@@ -266,11 +269,14 @@ export default {
 
         this.userData = JSON.parse(localStorage.getItem("userData"));
         this.email_user = this.userData.email_user;
+        this.userPseudo = this.userData.pseudo;
 
 
         // Récupérer le livre depuis l'API
         axios
-            .post(this.addressServer+"/api/livre/getInfo", { ref: this.bookRef })            .then((response) => {
+            .post(this.addressServer+"/api/livre/getInfo", { ref: this.bookRef })
+            //.post(this.addressServer+"/api/livre/getInfo", { ref: this.bookRef })
+            .then((response) => {
                 if (response.status === 200) {
                     return response.data;
                 }
@@ -316,7 +322,9 @@ export default {
         // On veut savoir si le livre est dans l'une des listes de l'utilisateur 
         // Liste personnelle à lire plus tard
         axios
-        .post(this.addressServer+"/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })        .then((response) => {
+        .post(this.addressServer+"/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        //.post(this.addressServer+"/api/livre/isInPersonalList", { ref: this.bookRef, email_user: this.email_user })
+        .then((response) => {
             console.log(response);
             if (response.status === 200) {
                 if (response.data.isInPersonalList === false) 
@@ -334,7 +342,9 @@ export default {
 
         // Liste des livres déjà lus
         axios
-        .post(this.addressServer+"/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })        .then((response) => {
+        .post(this.addressServer+"/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        //.post(this.addressServer+"/api/livre/hasBeenRead", { ref: this.bookRef, email_user: this.email_user })
+        .then((response) => {
             console.log(response);
             if (response.status === 200) {
                 console.log(response.data);
@@ -353,30 +363,12 @@ export default {
         
 
         // Récupérer les commentaires des utilisateurs
-        axios
-        .post(this.addressServer+"/api/livre/getComments", { reference: this.bookRef })
-        .then((response) => {
-            console.log(response);
-            console.log(response.data);
-
-            const commentList = document.querySelector('.comments');
-            response.data.forEach((element) => {
-                commentList.insertAdjacentHTML("beforeend", `
-                    <div class="comment flex items-start justify-start">
-                        <img class="comment-avatar" :src="avatar" />
-                        <div class="flex-1">
-                            <h3 class="comment-author1">${element.pseudo}</h3>
-                            <p class="comment-body">${element.commenter}</p>
-                        </div>
-                        </div>
-                    </div>`);
-            })
-        })
+        this.getComments();
 
         const commentList = document.querySelector('.comments');
         const commentAuthor = document.querySelector('.comment-author');
         const commentInput = document.querySelector('.comment-input');
-        const note = document.querySelector('input[name="rate"]'); //FIXME: La note ne fonctionne pas et sort toujours 5
+        const note = document.querySelector('input[name="rate"]');
         this.commentList = commentList;
         this.commentAuthor = commentAuthor;
         this.commentInput = commentInput;
@@ -406,7 +398,9 @@ export default {
             this.isInPersonalList = !this.isInPersonalList;
 
             axios
-            .post(this.addressServer+"/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })            .then((response) => {
+            .post(this.addressServer+"/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            //.post(this.addressServer+"/api/livre/toggleFromPersonalList", { ref: this.bookRef, email_user: this.email_user })
+            .then((response) => {
                 if (response.status !== 200) {
                     console.log("An error occurred!");
 
@@ -422,7 +416,9 @@ export default {
             this.hasBeenRead = !this.hasBeenRead;
 
             axios
-             .post(this.addressServer+"/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })            .then((response) => {
+             .post(this.addressServer+"/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+            //.post(this.addressServer+"/api/livre/toggleRead", { ref: this.bookRef, email_user: this.email_user })
+            .then((response) => {
                 if (response.status !== 200) {
                     console.log("An error occurred!",response);
 
@@ -431,13 +427,20 @@ export default {
                     this.hasBeenRead = !this.hasBeenRead;
                 }
             })
+
+            //recharge la db recommendations
+            axios
+                .post(this.addressServer+"/api/livre/addReco", {email_user: this.email_user})
+                .then((response_recomendation) =>{
+                  console.log("recomendation",response_recomendation)
+                });
+
         },
         ShareBook() {
             var to_email = this.email;
 
             if (to_email !== undefined) {
                 axios
-                // .post(this.addressServer+"/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
                 .post(this.addressServer+"/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
                 .then((response) => {
                     if (response.status === 200) {
@@ -475,10 +478,43 @@ export default {
         CloseModalTooManyBooksShared() {
             document.getElementById("modalTooManyBooksShared").style.display = "none";
         },
-        addComment() {
-            console.log(this);
-            console.log(this.commentAuthor);
+        changeNote(note) {
+            this.note = note;
+            this.addComment();
+        },
+        getComments() {
+            axios
+            .post(this.addressServer+"/api/livre/getComments", { reference: this.bookRef })
+            .then((response) => {
+                console.log(response);
+                console.log(response.data);
 
+                const commentList = document.querySelector('.comments');
+
+                commentList.innerHTML = "";
+
+                response.data.forEach((element) => {
+                    if (element.email_user === this.userData.email_user) {
+                        console.log(element);
+                        this.note = element.noter;
+                        this.rate = element.noter;
+
+                        this.commentUsername = element.pseudo;
+                        this.commentBody = element.commenter;
+                    } 
+                    commentList.innerHTML += ("beforeend", `
+                        <div class="comment flex items-start justify-start">
+                            <img class="comment-avatar" :src="avatar" />
+                            <div class="flex-1">
+                                <h3 class="comment-author1">${element.pseudo}</h3>
+                                <p class="comment-body">${element.commenter}</p>
+                            </div>
+                            </div>
+                        </div>`);
+                })
+            })
+        },
+        addComment() {
             const data = {
                 avatar: this.UserAvatar,
                 author: this.commentUsername,
@@ -490,29 +526,11 @@ export default {
 
             // Send comment to API
             axios
-            // .post(this.addressServer+"/api/livre/addComment", { userData: this.userData, reference: this.bookRef, note: data.note, comment: data.comment })
-            .post(this.addressServer+"/api/livre/addComment", { userData: this.userData, reference: this.bookRef, note: data.note, comment: data.comment })
+            .post(this.addressServer+"/api/livre/addComment", { userData: this.userData, reference: this.bookRef, note: this.rate, comment: data.comment })
             .then((response) => {
                 if (response.status === 200) {
                     // On ajoute le commentaire au front
-                    const commentList = document.querySelector('.comments');
-                    commentList.insertAdjacentHTML("beforeend", `
-                    <div class="comment flex items-start justify-start">
-                        <img class="comment-avatar" :src="avatar" />
-                        <div class="flex-1">
-                            <h3 class="comment-author1">${data.author}</h3>
-                            <p class="comment-body">${data.comment}</p>
-                        </div>
-                        </div>
-                    </div>`);
-
-                    // Reset Author text area value
-                    const commentAuthor = document.querySelector('.comment-author');
-                    const commentInput = document.querySelector('.comment-input');
-                    commentAuthor.value = "";
-
-                    // Reset text area value
-                    commentInput.value = "";
+                    this.getComments();
                 }
             })
             .catch((response) => {

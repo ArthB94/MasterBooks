@@ -164,7 +164,7 @@ exports.findByFilter = (req, res) => {
     let or = false;
 
     if(filters.recommandés){
-        filterQuerry += "join être_recommandé using(reference) where (email_user = '" + utilisateur.email_user + "') ";
+        filterQuerry += "JOIN être_recommandé using(reference) where (email_user = '" + utilisateur.email_user + "') ";
         and = true;
     }
 
@@ -254,6 +254,7 @@ exports.findByFilter = (req, res) => {
         }
         filterQuerry += "livre.langue = '" + filters.langues[0] + "' ";
         filterQuerry += ") ";
+        and = true;
 
     }
 
@@ -347,6 +348,9 @@ exports.findByFilter = (req, res) => {
         }
         filterQuerry += ") "
 
+    }
+    if(filters.recommandés){
+        filterQuerry += "ORDER BY Pourcentage DESC "
     }
     console.log(filters);
     Livre.getByFilter(filterQuerry, (err, data) => {

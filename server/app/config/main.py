@@ -1,7 +1,6 @@
 # COPIE DE LA VERSION QUE J'AI FINI DIMANCHE SOIR QUI FONCTIONNE BIEN
 
 import pandas as pd 
-import random
 from nltk.corpus import stopwords 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -58,7 +57,7 @@ SELECT l.reference, l.titre, l.auteur, l.pages, l.resume, l.date_parution, l.lan
        CASE WHEN r.email_user IS NULL THEN FALSE ELSE TRUE END AS lecture,
        GROUP_CONCAT(a.genre_id SEPARATOR ', ') AS genres
 FROM livre l
-LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = '"""+email_user+"""'
+LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = '"""+ email_user +"""'
 LEFT JOIN appartenir a ON l.reference = a.reference
 GROUP BY l.reference;
 """
@@ -75,43 +74,12 @@ livres_lus = get_references_lecture(dataframe)
 
 
 
-"""
-dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
-dataframe['sauvegarder']= [random.choice([True,False]) for _ in range(len(dataframe))]
-
-colonnes_a_supprimer = ['series', 'rating','isbn', 'characters', 'bookFormat', 'edition', 'publisher', 
-                        'firstPublishDate', 'awards','numRatings', 'ratingsByStars', 'likedPercent', 'setting', 
-                        'coverImg','bbeScore', 'bbeVotes', 'price','pages','publishDate']
-
-dataframe = dataframe.drop(colonnes_a_supprimer, axis=1)
-"""
-
 # supprimer les lignes du dataframe qui contiennent au moins une valeur manquante donc un NaN
 dataframe = dataframe.dropna(how="any")
 
 langues_a_supprimer = ['others'] 
 dataframe = dataframe.drop(dataframe[dataframe['langue'].isin(langues_a_supprimer)].index)
 
-"""
-def reduireLignes(df, langue, df2):
-    df = df2[df2['language'] == langue]
-    print(len(df))
-    df = df[:250]
-    print(len(df))
-    return df
-
-df_fr = 0
-df_fr = reduireLignes(df_fr, 'French', dataframe)
-df_eng = 0
-df_eng = reduireLignes(df_eng, 'English', dataframe)
-df_spa = 0
-df_spa = reduireLignes(df_spa, 'Spanish', dataframe)
-df_ger = 0
-df_ger = reduireLignes(df_ger, 'German', dataframe)
-
-df = pd.concat([df_fr,df_eng,df_spa, df_ger], axis=0)
-df_end = df
-"""
 
 df = dataframe
 
@@ -169,18 +137,9 @@ def preProcessing_description(ligne):
     return preprocessed_text
 
 
-"""
-print("\nune description avant pre-process\n")
-print(df.loc[20, 'resume']) # 19033
-"""
+
 df['resume'] = df.apply(preProcessing_description, axis=1) # rappel : axis = 1  première ligne
 
-"""
-print("\nune description après pre-process\n")
-print(df.loc[20, 'resume'])
-
-#df.to_excel('df.xlsx', index=False)
-"""
 # --------------- Vectorisation de la colonne description -------------------
 
 vectorizer = TfidfVectorizer()# TfidfVectorizer(max_features=1000, min_df=3, max_df=0.85)

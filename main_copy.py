@@ -17,7 +17,7 @@ from collections import Counter
 from sklearn.metrics import silhouette_score
 import pandas as pd
 from sklearn.metrics.pairwise import pairwise_distances
-
+import json
 
 # Téléchargement des ressources nécessaires pour NLTK
 """
@@ -28,12 +28,21 @@ nltk.download('wordnet')
 
 import mysql.connector
 import csv
+import sys
+
+
+#email_user = sys.argv[1]
+email_user = 'arthur2.billebaut@free.fr'
+# jsonConnect = sys.argv[2]
+"""jsonConnect ={"HOST":"129.151.226.75","USER":"mastercamp","PASSWORD":"mastercamp","DB":"masterbooks"}
+config = json.loads(jsonConnect)
+print(jsonConnect)"""
 # Établir la connexion à la base de données
 conn = mysql.connector.connect(
-    host="localhost", # je crois que c'est 129.151.226.75
-    user="root",   # mastercamp 
-    password="password",  # mastercamp  
-    database="mastercamp"    
+    host = "129.151.226.75", #host = config['HOST'],
+    user = "mastercamp",
+    password = "mastercamp",
+    database = "masterbooks"  
 )
 
 # Vérifier si la connexion a réussi
@@ -49,7 +58,7 @@ SELECT l.reference, l.titre, l.auteur, l.pages, l.resume, l.date_parution, l.lan
        CASE WHEN r.email_user IS NULL THEN FALSE ELSE TRUE END AS lecture,
        GROUP_CONCAT(a.genre_id SEPARATOR ', ') AS genres
 FROM livre l
-LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = 'arthur.billebaut@efrei.net'
+LEFT JOIN lire r ON l.reference = r.reference AND r.email_user = 'arthur2.billebaut@free.fr'
 LEFT JOIN appartenir a ON l.reference = a.reference
 GROUP BY l.reference;
 """
@@ -81,6 +90,7 @@ print("Les résultats ont été exportés vers", filename)
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
 
 dataframe = pd.read_csv("resultats.csv");
+
 
 """
 dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
@@ -265,7 +275,7 @@ def trouver_livres_similaires(liste_livres):
     result_df = pd.DataFrame({'reference': similar_books, 'Pourcentage': similarity_percentages.max(axis=1)})
 
     # Ajouter la colonne email_user avec l'email spécifié
-    result_df = result_df.assign(email_user='arthur.billebaut@efrei.net')
+    result_df = result_df.assign(email_user='arthur2.billebaut@free.fr')
     
     # Trier le DataFrame par ordre décroissant selon la colonne "pourcentage"
     result_df = result_df.sort_values(by='Pourcentage', ascending=True)
@@ -285,7 +295,7 @@ resultat = trouver_livres_similaires(liste_livres)
 print(resultat)
 
 # supprimer tout le contenue de être_recommandé à chaque fois
-delete_query = "DELETE FROM être_recommandé"
+delete_query = "DELETE FROM être_recommandé WHERE email_user = 'arthur2.billebaut@efrei.net'"
 
 # Exécuter la requête DELETE
 cursor.execute(delete_query)
@@ -295,7 +305,7 @@ conn.commit()
 
 # Parcourir les lignes du DataFrame et insérer chaque ligne dans la table être_recommandé
 for index, row in resultat.iterrows():
-    email_user = 'arthur.billebaut@efrei.net'  # Récupérer la valeur de email_user (remplacer par votre code)
+    email_user = 'arthur2.billebaut@free.fr'  # Récupérer la valeur de email_user (remplacer par votre code)
     reference = row['reference']
     pourcentage = row['Pourcentage']
     

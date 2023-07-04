@@ -100,6 +100,99 @@ Utilisateur.login = (req, result) => {
   );
 };
 
+
+Utilisateur.exists = (req, result) => {
+  const email = req.body.email;
+
+  sql.query(
+    "SELECT * FROM utilisateur WHERE email_user = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (rows.length === 0) {
+        const errorMessage = "User not registered";
+        console.log(errorMessage);
+        result(errorMessage, null);
+        return;
+      }
+
+      result(null, { message: "User found." });
+      return;
+    }
+  );
+};
+
+Utilisateur.change_password = (req, result) => {
+  console.log(req.body);
+  const email = req.body.email;
+  const oldpassword = req.body.oldpassword;
+  const newpassword = req.body.newpassword;
+  console.log(oldpassword);
+
+  sql.query(
+    "SELECT * FROM utilisateur WHERE email_user = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (rows.length === 0) {
+        const errorMessage = "Email not registered";
+        console.log(errorMessage);
+        result(errorMessage, null);
+        return;
+      }
+
+      const utilisateur = rows[0];
+
+      bcrypt.compare(oldpassword, utilisateur.mdp, (err, isMatch) => {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+          return;
+        }
+
+        if (isMatch) {
+          bcrypt.hash(newpassword, 10, (err, hashedNewPassword) => {
+            if (err) {
+              console.log("error: ", err);
+              result(err, null);
+              return;
+            } else {
+              sql.query(
+                "UPDATE utilisateur SET mdp = ? WHERE email_user = ?",
+                [hashedNewPassword, email],
+                (err, rows) => {
+                  if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                    return;
+                  }
+                  result(null, { message: "Password updated successfully" });
+                  return;
+                }
+              );
+            }
+          });
+        } else {
+          const errorMessage = "Wrong password";
+          console.log(errorMessage);
+          result(errorMessage, null);
+        }
+      });
+    }
+  );
+};
+
+
 Utilisateur.isAdmin = (req, result) => {
   const email = req.body.email_user;
   sql.query(

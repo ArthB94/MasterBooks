@@ -106,3 +106,5 @@ npm run cli
 ```
 
 #### Pour accéder au site une fois que le script est en fonctionnement, il suffit de se connecter à l'adresse de votre serveur sur le port ``8081`` dans le navigateur de votre choix.
+
+#### Vous pouvez avoir une démonstration du site à l'adresse suivante : http://http://129.151.226.75:8081/

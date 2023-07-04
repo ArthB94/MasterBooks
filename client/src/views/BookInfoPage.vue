@@ -283,6 +283,7 @@ export default {
                 console.log("An error occurred.");
                 throw new Error(JSON.stringify(response.data));
             }).then((data) => {
+                console.log("book retrieved !");
                 console.log(data);
                 this.bookTitle = data.titre;
                 this.bookAuthor = data.auteur;
@@ -299,24 +300,49 @@ export default {
             }
         );
         
-        // On récupère le nom des genres
-        axios
-        .get(this.addressServer+"/api/livre/getgenres")
-        .then((response) => {
-            if (response.status === 200) {
-                console.log(response.data);
+        setTimeout(() => {
+            axios
+            .get(this.addressServer+"/api/livre/getgenres")
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response.data);
 
-                response.data.forEach(element => {
-                    if (this.bookGenresId.includes(element.genre_id)) {
-                        this.bookGenres.push(element.genre);
-                        console.log("added genre " + element.genre);
-                    }
-                });
-                console.log(this.bookGenres);
-            } else {
-                console.log("error getgenres");
-            }
-        });
+                    response.data.forEach(element => {
+                        console.log(element.genre_id)
+                        if (this.bookGenresId.includes(element.genre_id)) {
+                            this.bookGenres.push(element.genre);
+                            console.log("added genre " + element.genre);
+                        }
+                    });
+                    console.log(this.bookGenres);
+                } else {
+                    console.log("error getgenres");
+                }
+            });
+              }, 200);
+
+        // On récupère le nom des genres
+        // axios
+        // .get(this.addressServer+"/api/livre/getgenres")
+        // .then((response) => {
+        //     if (response.status === 200) {
+        //         console.log("getgenres");
+        //         console.log("this.bookGenred ID ", this.bookGenresId);
+        //         console.log(response.data);
+
+        //         response.data.forEach(element => {
+        //             console.log(element.genre_id)
+        //             if (this.bookGenresId.includes(element.genre_id)) {
+        //                 this.bookGenres.push(element.genre);
+        //                 console.log("added genre " + element.genre);
+        //             }
+        //         });
+        //         console.log(this.bookGenres);
+        //     } else {
+        //         console.log("error getgenres");
+        //     }
+        // });
+
 
         
         // On veut savoir si le livre est dans l'une des listes de l'utilisateur 

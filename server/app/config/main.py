@@ -35,7 +35,7 @@ import sys
 email_user = sys.argv[1]
 jsonConnect = sys.argv[2]
 config = json.loads(jsonConnect)
-
+print(jsonConnect)
 
 # Établir la connexion à la base de données
 connection = mysql.connector.connect(
@@ -181,12 +181,12 @@ print(df.loc[20, 'resume'])
 """
 # --------------- Vectorisation de la colonne description -------------------
 
-vectorizer = TfidfVectorizer(max_features=1000, min_df=3, max_df=0.85)
+vectorizer = TfidfVectorizer()# TfidfVectorizer(max_features=1000, min_df=3, max_df=0.85)
 descriptions_vectorized = vectorizer.fit_transform(df['resume'])
 features = vectorizer.get_feature_names()
 
 
-k = 20
+k = 5
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 clusters = kmeans.fit_predict(descriptions_vectorized)
 df['cluster'] = clusters

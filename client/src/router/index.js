@@ -12,7 +12,8 @@ import LandingPage from "@/views/LandingPage.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import RequestForm from "@/views/RequestForm.vue"
-import ResetPwd from "@/views/ResetPassword.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
+import ResetPwd from "@/views/ResetPwd.vue";
 import ProfilePage from "@/views/UserProfilePage.vue";
 
 const routes = [
@@ -90,6 +91,11 @@ const routes = [
   },
   {
     path: "/reset-password-page",
+    name: "ResetPasswordPage",
+    component: ResetPassword,
+  },
+  {
+    path: "/reset-pwd-page",
     name: "ResetPwdPage",
     component: ResetPwd,
   },

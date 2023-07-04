@@ -278,7 +278,7 @@ resultat = trouver_livres_similaires(liste_livres)
 print(resultat)
 
 # supprimer tout le contenue de être_recommandé à chaque fois
-delete_query = "DELETE FROM être_recommandé"
+delete_query = "DELETE FROM être_recommandé WHERE email_user = '"+email_user+"'"
 
 # Exécuter la requête DELETE
 cursor.execute(delete_query)

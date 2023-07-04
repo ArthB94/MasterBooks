@@ -1,25 +1,26 @@
 <template>
   <body>
-    <header>
-      <div class="headernav">
-        <div class="header-container">
-          <div class="header-image">
-            <img alt="Vue logo" src="../assets/logo_book.png" class="VueLogo" />
+    <div class="Profile-page-container">
+      <header>
+        <div class="headernav">
+          <div class="header-container">
+            <div class="header-image">
+              <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
+            </div>
+          </div>
+          <div class="Navbar">
+            <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+            <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+            <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
+          </div>
+          <UserMenu></UserMenu>
+          <div class="light">
+            <DarkLightMode></DarkLightMode>
           </div>
         </div>
-        <div class="Navbar">
-          <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
-          <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
-          <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
-        </div>
-        <UserMenu></UserMenu>
-        <div class="light">
-          <DarkLightMode></DarkLightMode>
-        </div>
-      </div>
-    </header>
-    <a id="top"></a>
-    <div class="Profile-page-container">
+      </header>
+      <a id="top"></a>
+
       <div class="edit-profile-container">
         <div class="formContainer">
           <div class="loginContainer">
@@ -48,27 +49,27 @@
           <router-link to="/catalog-admin-page" class="to-page-nav">Delete Book</router-link>
         </div>
       </div>
-    </div>
-    <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"></a>
-    <footer>
-      <div class="content-footer">
-        <div class="top">
-          <div class="logo-details">
-            <img src="../assets/logo_book.png" alt="LB logo" />
-            <p class="logo-name">
-              BOOK MASTER <br />
-              <small>est. 2023</small>
-            </p>
-          </div>
-          <div class="media-icons">
-            <a href="https://www.linkedin.com/in/lou-brunesseaux-a843aa248"><font-awesome-icon
-                icon="fa-brands fa-linkedin-in" /></a>
-            <a href="mailto:loubruness@gmail.com"><font-awesome-icon icon="fa-brands fa-google" /></a>
-            <a href="https://github.com/loubruness"><font-awesome-icon icon="fa-brands fa-github" /></a>
+      <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"></a>
+      <footer>
+        <div class="content-footer">
+          <div class="top">
+            <div class="logo-details">
+              <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
+              <p class="logo-name">
+                BOOK MASTER <br />
+                <small>est. 2023</small>
+              </p>
+            </div>
+            <div class="media-icons">
+              <a href="https://www.linkedin.com/in/lou-brunesseaux-a843aa248"><font-awesome-icon
+                  icon="fa-brands fa-linkedin-in" /></a>
+              <a href="mailto:loubruness@gmail.com"><font-awesome-icon icon="fa-brands fa-google" /></a>
+              <a href="https://github.com/loubruness"><font-awesome-icon icon="fa-brands fa-github" /></a>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </body>
 </template>
 
@@ -105,7 +106,7 @@ export default {
   },
   methods: {
     updateInformation() {
-      fetch(this.addressServer+"/api/auth/updateProfile", {
+      fetch(this.addressServer + "/api/auth/updateProfile", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

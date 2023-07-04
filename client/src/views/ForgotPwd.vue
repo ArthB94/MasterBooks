@@ -42,7 +42,7 @@
         },
         methods:{
           send(){
-            fetch(this.addressServer+"/api/auth/recovery", 
+            fetch(this.addressServer+"/api/auth/forgot_password", 
             {method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

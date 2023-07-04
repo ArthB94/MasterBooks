@@ -53,8 +53,9 @@
                         <label for="star1" title="No comment - 1">1 star</label>
                     </div>
                     <div class="lib-button-container adapted-wishlist" style="padding-left: 35px; padding-top: 40px; ">
-                        <div @click="ToggleHasRead()"><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-heart'" /></div>
-                        <div @click="ToggleFromPersonalList()"><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-bookmark'" /></div>
+                        <div @click="ToggleFromPersonalList()"><font-awesome-icon v-bind:icon="isInPersonalListClass + ' fa-heart'" /></div>
+                        <div @click="ToggleHasRead()"><font-awesome-icon v-bind:icon="hasBeenReadClass + ' fa-bookmark'" /></div>
+
                     </div>
                 </div>
                 <div class="save-share-info">

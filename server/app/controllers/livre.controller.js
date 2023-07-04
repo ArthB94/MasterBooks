@@ -899,7 +899,7 @@ exports.addReco = (req,res) => {
     if(!req.body.email_user){
         return res.status(500).send('pas de email_user dans body.')
     }
-    exec(`python3 ${__dirname}/../config/main_copy.py ${req.body.email_user} '${JSON.stringify(db)}'`, (error, stdout, stderr) => {
+    exec(`python3 ${__dirname}/../config/main.py ${req.body.email_user} '${JSON.stringify(db)}'`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Erreur d'exécution : ${error.message}`);
             return res.status(500).send('Erreur d\'exécution du code Python.'+error.message);

@@ -65,8 +65,10 @@ GROUP BY l.reference;
 print(query)
 
 dataframe = pd.read_sql(query, connection)
-
-
+def get_references_lecture(dataframe):
+    references = dataframe.loc[dataframe['lecture'] == 1, 'reference'].tolist()
+    return references
+livres_lus = get_references_lecture(dataframe)
 
 
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
@@ -273,8 +275,8 @@ def trouver_livres_similaires(liste_livres):
     return result_df
 
 
-liste_livres = ["2", "5", "6"]
-resultat = trouver_livres_similaires(liste_livres)
+
+resultat = trouver_livres_similaires(livres_lus)
 print(resultat)
 
 # supprimer tout le contenue de être_recommandé à chaque fois

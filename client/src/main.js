@@ -22,8 +22,8 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 import VScrollLock from 'v-scroll-lock'
 
-localStorage.setItem('addressServer', 'http://localhost:8080')
-//localStorage.setItem('addressServer', 'http://129.151.226.75:8080')
+//localStorage.setItem('addressServer', 'http://localhost:8080')
+localStorage.setItem('addressServer', 'http://129.151.226.75:8080')
 console.log('addressServer: ' + localStorage.getItem('addressServer'))
 /* add icons to the library */
 library.add(faGoogle, faLinkedinIn, faGithub, faUserLarge, faArrowUp, faMagnifyingGlass, faAngleLeft, faAngleRight, faPlus, faHeart, faHeartSolid, faHeartCirclePlus, faBookmark, faBookmarkSolid, faBars)

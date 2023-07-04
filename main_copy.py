@@ -17,7 +17,7 @@ from collections import Counter
 from sklearn.metrics import silhouette_score
 import pandas as pd
 from sklearn.metrics.pairwise import pairwise_distances
-import json
+
 
 # Téléchargement des ressources nécessaires pour NLTK
 """
@@ -28,22 +28,25 @@ nltk.download('wordnet')
 
 import mysql.connector
 import csv
+import json
 import sys
-
 
 #email_user = sys.argv[1]
 email_user = 'arthur2.billebaut@free.fr'
 # jsonConnect = sys.argv[2]
-"""jsonConnect ={"HOST":"129.151.226.75","USER":"mastercamp","PASSWORD":"mastercamp","DB":"masterbooks"}
+"""
+jsonConnect ={"HOST":"129.151.226.75","USER":"mastercamp","PASSWORD":"mastercamp","DB":"masterbooks"}
 config = json.loads(jsonConnect)
-print(jsonConnect)"""
+print(jsonConnect)
+"""
 # Établir la connexion à la base de données
 conn = mysql.connector.connect(
-    host = "129.151.226.75", #host = config['HOST'],
+    host = "129.151.226.75",
     user = "mastercamp",
     password = "mastercamp",
-    database = "masterbooks"  
+    database = "masterbooks"      
 )
+
 
 # Vérifier si la connexion a réussi
 if conn.is_connected():
@@ -89,9 +92,13 @@ print("Les résultats ont été exportés vers", filename)
 
 # ------------------------------ Pre-processing sur le dataframe ------------------------------
 
-dataframe = pd.read_csv("resultats.csv");
+#dataframe = pd.read_csv("resultats.csv");
+dataframe = pd.read_sql(query, conn)
+def get_references_lecture(dataframe):
+    references = dataframe.loc[dataframe['lecture'] == 1, 'reference'].tolist()
+    return references
 
-
+livres_lus = get_references_lecture(dataframe)
 """
 dataframe['lire']= [random.choice([True,False]) for _ in range(len(dataframe))]
 dataframe['sauvegarder']= [random.choice([True,False]) for _ in range(len(dataframe))]
@@ -198,12 +205,12 @@ print(df.loc[20, 'resume'])
 """
 # --------------- Vectorisation de la colonne description -------------------
 
-vectorizer = TfidfVectorizer(max_features=1000, min_df=3, max_df=0.85)
+vectorizer = TfidfVectorizer() # max_features=1000, min_df=3, max_df=0.85
 descriptions_vectorized = vectorizer.fit_transform(df['resume'])
-features = vectorizer.get_feature_names()
+features = vectorizer.get_feature_names_out()
 
 
-k = 20
+k = 5
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 clusters = kmeans.fit_predict(descriptions_vectorized)
 df['cluster'] = clusters
@@ -218,7 +225,7 @@ for center in centers:
     # Obtenir les indices des mots les plus importants (ceux avec les valeurs les plus élevées)
     top_word_indices = center.argsort()[-num_words:][::-1]
     # Obtenir les mots correspondants à ces indices
-    top_words.append([vectorizer.get_feature_names()[i] for i in top_word_indices])
+    top_words.append([vectorizer.get_feature_names_out()[i] for i in top_word_indices])
 
 # Afficher les mots dans chaque cluster
 for i, words in enumerate(top_words):
@@ -290,12 +297,11 @@ def trouver_livres_similaires(liste_livres):
     return result_df
 
 
-liste_livres = ["2.Harry_Potter_and_the_Order_of_the_Phoenix", "3.Harry_Potter_and_the_Sorcerer_s_Stone", "136251.Harry_Potter_and_the_Deathly_Hallows"]
-resultat = trouver_livres_similaires(liste_livres)
+resultat = trouver_livres_similaires(livres_lus)
 print(resultat)
 
 # supprimer tout le contenue de être_recommandé à chaque fois
-delete_query = "DELETE FROM être_recommandé WHERE email_user = 'arthur2.billebaut@efrei.net'"
+delete_query = "DELETE FROM être_recommandé WHERE email_user = 'arthur2.billebaut@free.fr'"
 
 # Exécuter la requête DELETE
 cursor.execute(delete_query)

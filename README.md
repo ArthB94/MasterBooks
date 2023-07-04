@@ -39,27 +39,27 @@ localStorage.setItem('addressServer', 'http://localhost:8080')
 ### Dépendances Python pour les recommandations :
 
 #### Avoir python3 sur son ordinateur avec une version 3.6 minimum et pip. Ensuite, installer les dépendances suivantes :
-##### numpy:
+##### numpy :
 ```
 python3 -m pip install numpy
 ```
-##### pandas:
+##### pandas :
 ```
 python3 -m pip install pandas
 ```
-##### matplotlib:
+##### matplotlib :
 ```
 python3 -m pip install matplotlib
 ```
-##### sklearn:
+##### sklearn :
 ```
 python3 -m pip install sklearn
 ```
-##### nltk:
+##### nltk :
 ```
 python3 -m pip install nltk
 ```
-#### Enfin, exécuter le fichier ```server/app/config/setupNltk.py``` avec Python 3 pour télécharger les ressources nltk nécessaires au traitement de texte. (Si vous observez des erreurs Python, il se peut qu'il faille rajouter des ressources dans ce fichier)
+#### Enfin, exécuter le fichier ```server/app/config/setupNltk.py``` avec Python 3 pour télécharger les ressources nltk nécessaires au traitement de texte. (Si vous observez des erreurs Python, il se peut qu'il faille rajouter des ressources dans ce fichier).
 ```
 python3 server/app/config/setupNltk.py
 ```
@@ -69,16 +69,16 @@ python3 server/app/config/setupNltk.py
 
 #### Se placer dans le dossier racine avant d'exécuter la commande :
 
-##### server & client:
+##### server & client :
 ```
 npm start
 ```
-##### server:
+##### server : 
 ```
 npm run serve
 ```
 
-##### client:
+##### client :
 ```
 npm run cli
 ```

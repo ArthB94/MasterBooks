@@ -1,6 +1,5 @@
 <template>
   <body>
-    <div class="Profile-page-container">
     <header>
       <div class="headernav">
         <div class="header-container">
@@ -50,7 +49,6 @@
         </div>
       </div>
     </div>
-  </div>
     <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"></a>
     <footer>
       <div class="content-footer">

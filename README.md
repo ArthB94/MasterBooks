@@ -45,7 +45,7 @@ localStorage.setItem('addressServer', 'http://localhost:8080')
 ### Dépendances Python pour les recommandations (_peut fonctionner sans mais la page recommendation sera vide_):
 
 #### Avoir python3 sur son ordinateur avec une version 3.6 minimum et pip. Ensuite, installer les dépendances suivantes :
-^ _Si python3 n'est pas reconnu, remplacer python3 par python et pip3 par pip dans les commandes suivantes. Il faudra egalement remplacer python3 par python dans le fichier ``server/app/controller/livre.controller.js`` ligne 226._^
+ _Si python3 n'est pas reconnu, remplacer python3 par python et pip3 par pip dans les commandes suivantes. Il faudra egalement remplacer python3 par python dans le fichier ``server/app/controller/livre.controller.js`` ligne 226._
 
 ##### numpy :
 

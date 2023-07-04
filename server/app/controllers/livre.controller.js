@@ -779,17 +779,39 @@ exports.addComment = (req,res)=>{
     }
     let comment = req.body.comment
 
-    sql.query("INSERT INTO critiquer VALUES(?,?,?,?)",[email_user,reference,note,comment],
-    (err,result) => {
-        if (err){
-            console.log("error: ",err);
-            res.status(500).json({error: "An error occured while getting comments."});
+    console.log("OK");
+    // On vérifie si une note / commentaire existe déjà
+    sql.query("SELECT * FROM critiquer WHERE email_user = ? AND reference = ?", [email_user, reference], (error, rows) => {
+        if (error) {
+            console.log("Error: ", error);
             return;
         }
-        console.log('comments fetched from the database')
-        res.status(200).json(result);
-    })
-
+        if (rows.length >= 1) {
+            // ça existe déjà, on update juste
+            sql.query("UPDATE critiquer SET noter = ?, commenter = ? WHERE email_user = ? AND reference = ?", 
+            [note, comment, email_user, reference], (err, result) => {
+                if (err) {
+                    console.log("error: ", err);
+                    res.status(500).json({ error: "An error occurred while updating comment." });
+                    return;
+                }
+                console.log('Updated user comment.');
+                res.status(200).json(result);
+            });
+        } else {
+            // ça n'existe pas, on insère
+            sql.query("INSERT INTO critiquer VALUES(?,?,?,?)",[email_user,reference,note,comment],
+            (err,result) => {
+                if (err){
+                    console.log("error: ",err);
+                    res.status(500).json({error: "An error occured while inserting comment."});
+                    return;
+                }
+                console.log('comments fetched from the database')
+                res.status(200).json(result);
+            });
+        }
+    });
 }
 
 exports.getInfo = (req, res) => {

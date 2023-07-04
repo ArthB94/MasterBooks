@@ -66,7 +66,7 @@ python3 server/app/config/setupNltk.py
 ```
 
 
-## Exécuter le projet :
+## Exécution projet :
 
 #### Se placer dans le dossier racine avant d'exécuter la commande :
 

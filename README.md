@@ -52,9 +52,6 @@ localStorage.setItem('addressServer', 'http://localhost:8080')
 ```
 python3 -m pip install mysql-connector-python
 ```
-```
-python3 -m pip install numpy
-```
 ##### numpy :
 
 ```

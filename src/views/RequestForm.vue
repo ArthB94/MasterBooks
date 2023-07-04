@@ -3,7 +3,7 @@
         <a id="top"></a>
         <!-- <?php if($_SESSION['admin']==1){?> -->
         <div class="FormPage1">
-            <div class="headernav">
+            <div class="headernav" style="align-items: center;">
 
                 <div class="header-image">
                     <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />

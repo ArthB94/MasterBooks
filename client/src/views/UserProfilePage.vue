@@ -38,7 +38,7 @@
                   <input @click="updateInformation" type="submit" value="Update Information" name="btnUpdate">
                 </div>
               </form>
-              <p class="forgotPswd">Change password ?<router-link to="/reset-password-page">Reset</router-link>
+              <p class="forgotPswd">Change password ?<router-link to="/reset-pwd-page">Reset</router-link>
               </p>
             </div>
           </div>

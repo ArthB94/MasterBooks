@@ -40,10 +40,10 @@
                                 <input v-model="txtAuthor" type="text" name="txtEmail" placeholder="Author">
                             </div>
 
-                            <p class="Form-question">If you know it, please enter the <i class="fa fa-bold"
-                                    aria-hidden="true">book's edition</i></p>
+                            <p class="Form-question">Please enter the <i class="fa fa-bold" aria-hidden="true">book's
+                                    language*</i></p>
                             <div class="loginInputBox">
-                                <input v-model="txtLangue" type="text" name="txtEmail" placeholder="Edition">
+                                <input v-model="txtLangue" type="text" name="txtEmail" placeholder="Language">
                             </div>
                             <br><br>
                             <div class="loginInputBox FormInputBox">

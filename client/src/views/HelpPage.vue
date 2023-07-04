@@ -1,18 +1,20 @@
 <template>
     <body>
-
-
         <header>
             <div class="headernav">
                 <div class="header-container">
                     <div class="header-image">
-                        <img alt="Vue logo" src="../assets/logo_book.png" class="VueLogo" />
+                        <!-- <img alt="Vue logo" src="../assets/LogoDay.png" class="VueLogo" style="    width: 177px;
+    height: 167px;
+    margin: 0px;
+    margin-bottom: 50px; margin-left: 37px;" /> -->
+                        <div class="logo-nav"></div>
                     </div>
                 </div>
                 <div class="Navbar">
-                    <router-link to="/calendar-page" class="to-page-nav">Book catalog</router-link>
-                    <router-link to="/todo-list2-page" class="to-page-nav">My Library</router-link>
-                    <router-link to="/create-calendar-page" class="to-page-nav">Recommendations</router-link>
+                    <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+                    <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+                    <router-link to="/catalog-recs-page" class="to-page-nav">Recommendations</router-link>
                 </div>
                 <UserMenu></UserMenu>
                 <div class="light">
@@ -86,7 +88,8 @@
             <div class="content-footer">
                 <div class="top">
                     <div class="logo-details">
-                        <img src="../assets/logo_book.png" alt="LB logo" />
+                        <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png"
+                            class="logo-nav-clean" />
                         <p class="logo-name">
                             BOOK MASTER <br />
                             <small>est. 2023</small>
@@ -148,11 +151,11 @@ export default {
                 this.selectedFile = file;
                 this.labelText = file.name;
                 const reader = new FileReader();
-                reader.onloaded = () =>{
+                reader.onloaded = () => {
                     imageContent = reader.result;
-                    console.log("image Content",imageContent)                
+                    console.log("image Content", imageContent)
                 }
-                
+
             } else {
                 this.selectedFile = null;
                 this.labelText = "No file selected";
@@ -182,7 +185,7 @@ export default {
                 ],
             };
 
-            axios.post(this.addressServer+"/api/email/send", mailOptions)
+            axios.post(this.addressServer + "/api/email/send", mailOptions)
                 .then((response) => {
                     console.log(response)
                 })

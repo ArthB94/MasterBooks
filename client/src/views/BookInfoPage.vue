@@ -371,7 +371,7 @@ export default {
                     <div class="comment flex items-start justify-start">
                         <img class="comment-avatar" :src="avatar" />
                         <div class="flex-1">
-                            <h3 class="comment-author1">${element.email_user}</h3>
+                            <h3 class="comment-author1">${element.pseudo}</h3>
                             <p class="comment-body">${element.commenter}</p>
                         </div>
                         </div>

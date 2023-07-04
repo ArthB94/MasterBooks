@@ -703,19 +703,33 @@ function toDate(value) {
     }
 }
 
-exports.getComments = (req,res)=>{
+exports.getComments = (req,res) => { 
     if (!req.body.reference){
         res.status(500).json({error: "no reference"});
         return
     }
     sql.query("SELECT * FROM critiquer WHERE reference = ?",[req.body.reference],
-    (err,result) => {
+    async (err,result) => {
         if (err){
             console.log("error: ",err);
             res.status(500).json({error: "An error occured while getting comments."});
             return;
         }
         console.log('comments fetched from the database')
+
+        const querys = ((result) => {
+            return new Promise((resolve, reject) => {
+                sql.query("SELECT pseudo FROM utilisateur WHERE email_user = ?", [result.email_user], (err, row) => {
+                    result["pseudo"] = row[0].pseudo;
+                    resolve();
+                });
+            });
+        });
+
+        for (var i = 0; i < result.length; i++) {
+            await querys(result[i])
+        }
+
         res.json(result);
     })
 }

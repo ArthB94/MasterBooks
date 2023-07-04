@@ -427,6 +427,14 @@ export default {
                     this.hasBeenRead = !this.hasBeenRead;
                 }
             })
+
+            //recharge la db recommendations
+            axios
+                .post(this.addressServer+"/api/livre/addReco", {email_user: this.email_user})
+                .then((response_recomendation) =>{
+                  console.log("recomendation",response_recomendation)
+                });
+
         },
         ShareBook() {
             var to_email = this.email;

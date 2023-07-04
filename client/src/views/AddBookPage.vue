@@ -3,26 +3,17 @@
     <a id="top"></a>
     <div class="FormPage2" style="overflow-y: hidden">
       <div class="headernav">
+
         <div class="header-image">
-          <img
-            alt="Vue logo"
-            style="opacity: 0.7"
-            src="../assets/logo_book.png"
-            class="VueLogo"
-          />
+          <img alt="Vue logo" style="opacity: 0.7;" src="../assets/LogoDayClean1.png" class="logo-nav-clean" />
         </div>
         <div class="Navbar">
-          <router-link to="/catalog-page" class="to-page-nav"
-            >Book catalog</router-link
-          >
-          <router-link to="/catalog-library-page" class="to-page-nav"
-            >My Library</router-link
-          >
-          <router-link to="/catalog-pag" class="to-page-nav"
-            >Recommendations</router-link
-          >
+          <router-link to="/catalog-page" class="to-page-nav">Book catalog</router-link>
+          <router-link to="/catalog-library-page" class="to-page-nav">My Library</router-link>
+          <router-link to="/catalog-pag" class="to-page-nav">Recommendations</router-link>
         </div>
         <UserMenu></UserMenu>
+
       </div>
       <div class="FormBox">
         <div class="FormContainer">
@@ -38,38 +29,22 @@
               </p>
               <form action="#" method="post" @submit.prevent="handleSend">
                 <div class="Form-question">
-                  <p
-                    class="CharacterLimitMessage"
-                    style="color: red"
-                    v-if="bookAlreadyExists"
-                  >
+                  <p class="CharacterLimitMessage" style="color: red" v-if="bookAlreadyExists">
                     Book already stored in the database.
                   </p>
-                  <label for="file-upload"
-                    ><p class="Form-question">
-                      <i class="fa fa-bold" aria-hidden="true"
-                        >Book's epub file*</i
-                      >
-                    </p></label
-                  >
+                  <label for="file-upload">
+                    <p class="Form-question">
+                      <i class="fa fa-bold" aria-hidden="true">Book's epub file*</i>
+                    </p>
+                  </label>
                   <div class="AddBookInput">
-                    <button
-                      class="Create-planning-Btn"
-                      style="margin-right: 15px; margin-bottom: 8px"
-                      @click="$refs.epubfileupload.click()"
-                    >
+                    <button class="Create-planning-Btn" style="margin-right: 15px; margin-bottom: 8px"
+                      @click="$refs.epubfileupload.click()">
                       Click here
                     </button>
-                    <input
-                      type="file"
-                      id="epubfile-upload"
-                      ref="epubfileupload"
-                      name="file-upload"
-                      class="loginInputBox"
-                      placeholder="Upload a screenshot of the issue."
-                      @change="handleEpubFileChange"
-                      style="display: none"
-                    />
+                    <input type="file" id="epubfile-upload" ref="epubfileupload" name="file-upload" class="loginInputBox"
+                      placeholder="Upload a screenshot of the issue." @change="handleEpubFileChange"
+                      style="display: none" />
                     {{ labelTextEpub }}
                   </div>
                 </div>
@@ -77,52 +52,30 @@
                   <i class="fa fa-bold" aria-hidden="true">Book's title*</i>
                 </p>
                 <div class="loginInputBox">
-                  <input
-                    v-model="titre"
-                    type="text"
-                    name="txtEmail"
-                    placeholder="Title"
-                  />
+                  <input v-model="titre" type="text" name="txtEmail" placeholder="Title" />
                 </div>
 
                 <p class="Form-question">
                   <i class="fa fa-bold" aria-hidden="true">Book's author*</i>
                 </p>
                 <div class="loginInputBox">
-                  <input
-                    v-model="auteur"
-                    type="text"
-                    name="txtEmail"
-                    placeholder="Author"
-                  />
+                  <input v-model="auteur" type="text" name="txtEmail" placeholder="Author" />
                 </div>
 
                 <div class="Form-question">
-                  <label for="file-upload"
-                    ><p class="Form-question">
-                      <i class="fa fa-bold" aria-hidden="true"
-                        >Book's cover picture*</i
-                      >
-                    </p></label
-                  >
+                  <label for="file-upload">
+                    <p class="Form-question">
+                      <i class="fa fa-bold" aria-hidden="true">Book's cover picture*</i>
+                    </p>
+                  </label>
                   <div class="AddBookInput">
-                    <button
-                      class="Create-planning-Btn"
-                      style="margin-right: 15px; margin-bottom: 8px"
-                      @click="$refs.coverfileupload.click()"
-                    >
+                    <button class="Create-planning-Btn" style="margin-right: 15px; margin-bottom: 8px"
+                      @click="$refs.coverfileupload.click()">
                       Click here
                     </button>
-                    <input
-                      type="file"
-                      id="coverfile-upload"
-                      ref="coverfileupload"
-                      name="file-upload"
-                      class="loginInputBox"
-                      placeholder="Upload a screenshot of the issue."
-                      @change="handleFileChange"
-                      style="display: none"
-                    />
+                    <input type="file" id="coverfile-upload" ref="coverfileupload" name="file-upload"
+                      class="loginInputBox" placeholder="Upload a screenshot of the issue." @change="handleFileChange"
+                      style="display: none" />
                     {{ labelTextCover }}
                   </div>
                 </div>
@@ -130,59 +83,33 @@
                   <i class="fa fa-bold" aria-hidden="true">Number of pages*</i>
                 </p>
                 <div class="loginInputBox">
-                  <input
-                    v-model="pages"
-                    type="text"
-                    name="txtEmail"
-                    placeholder="Number of pages"
-                  />
+                  <input v-model="pages" type="text" name="txtEmail" placeholder="Number of pages" />
                 </div>
                 <p class="Form-question">
                   <i class="fa fa-bold" aria-hidden="true">Publication year*</i>
                 </p>
                 <div class="loginInputBox">
-                  <input
-                    v-model="date_parution"
-                    type="text"
-                    name="txtEmail"
-                    placeholder="Year in 4 digits"
-                  />
+                  <input v-model="date_parution" type="text" name="txtEmail" placeholder="Year in 4 digits" />
                 </div>
                 <p class="Form-question">
                   <i class="fa fa-bold" aria-hidden="true">Book's genre(s)*</i>
                 </p>
-                <div
-                  class="loginInputBox"
-                  v-for="i in nbGenre"
-                  :key="i"
-                  style="
+                <div class="loginInputBox" v-for="i in nbGenre" :key="i" style="
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
-                  "
-                >
+                  ">
                   <div class="custom-select1" style="width: 90%">
-                    <select
-                      v-model="selectedGenres[i]"
-                    >
-                      <option
-                        v-for="genre in genres"
-                        :key="genre.genre"
-                        :value="genre.genre_id"
-                      >
+                    <select v-model="selectedGenres[i]">
+                      <option v-for="genre in genres" :key="genre.genre" :value="genre.genre_id">
                         {{ genre.genre }}
                       </option>
                     </select>
                   </div>
-                  <font-awesome-icon
-                    @click="
-                      nbGenre += 1;
-                      console.log(selectedGenres);
-                    "
-                    id="TaskPlus"
-                    icon="fa-solid fa-plus"
-                    size="sm"
-                  />
+                  <font-awesome-icon @click="
+                    nbGenre += 1;
+                  console.log(selectedGenres);
+                  " id="TaskPlus" icon="fa-solid fa-plus" size="sm" />
                 </div>
                 <p class="Form-question">
                   <i class="fa fa-bold" aria-hidden="true">Book's language*</i>
@@ -203,54 +130,27 @@
                   <i class="fa fa-bold" aria-hidden="true">Book's summary*</i>
                 </p>
                 <div class="loginInputBox">
-                  <p
-                    class="CharacterLimitMessage"
-                    style="color: red"
-                    v-if="resumeExceedsLimit"
-                  >
+                  <p class="CharacterLimitMessage" style="color: red" v-if="resumeExceedsLimit">
                     Summary should not exceed 1000 characters.
                   </p>
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="10"
-                    class="add-book-input"
-                    placeholder="Enter a short summary."
-                    v-model="resume"
-                    @input="handleResumeInput"
-                  ></textarea
-                  ><br />
+                  <textarea name="" id="" cols="30" rows="10" class="add-book-input" placeholder="Enter a short summary."
+                    v-model="resume" @input="handleResumeInput"></textarea><br />
                 </div>
                 <br /><br />
                 <div class="loginInputBox FormInputBox">
-                  <p
-                    class="CharacterLimitMessage"
-                    style="color: red; text-align: center; font-weight: bold"
-                    v-if="bookAlreadyExists"
-                  >
+                  <p class="CharacterLimitMessage" style="color: red; text-align: center; font-weight: bold"
+                    v-if="bookAlreadyExists">
                     Book already stored in the database.
                   </p>
-                  <p
-                    class="CharacterLimitMessage"
-                    style="color: red; text-align: center; font-weight: bold"
-                    v-if="notComplete"
-                  >
+                  <p class="CharacterLimitMessage" style="color: red; text-align: center; font-weight: bold"
+                    v-if="notComplete">
                     Please fill all the fields with a * !
                   </p>
-                  <p
-                    class="CharacterLimitMessage"
-                    style="text-align: center; font-weight: bold"
-                    v-if="sent"
-                  >
+                  <p class="CharacterLimitMessage" style="text-align: center; font-weight: bold" v-if="sent">
                     Book successfully added !
                   </p>
 
-                  <input
-                    type="submit"
-                    value="Submit Information"
-                    name="btnUpdate"
-                  />
+                  <input type="submit" value="Submit Information" name="btnUpdate" />
                 </div>
                 <p class="forgotPswd MoveOn">
                   Done here ?
@@ -262,16 +162,8 @@
         </div>
       </div>
     </div>
-    <a
-      id="TopBtn"
-      href="#top"
-      class="fa fa-angle-double-up hide"
-      style="font-size: 24px"
-      ><font-awesome-icon
-        icon="fa-solid fa-arrow-up"
-        size="xs"
-        style="color: #fff0fe"
-    /></a>
+    <a id="TopBtn" href="#top" class="fa fa-angle-double-up hide" style="font-size: 24px"><font-awesome-icon
+        icon="fa-solid fa-arrow-up" size="xs" style="color: #fff0fe" /></a>
     <footer style="margin-top: 0%">
       <div class="content-footer">
         <div class="top">
@@ -283,15 +175,10 @@
             </p>
           </div>
           <div class="media-icons">
-            <a href="https://www.linkedin.com/in/lou-brunesseaux-a843aa248"
-              ><font-awesome-icon icon="fa-brands fa-linkedin-in"
-            /></a>
-            <a href="mailto:loubruness@gmail.com"
-              ><font-awesome-icon icon="fa-brands fa-google"
-            /></a>
-            <a href="https://github.com/loubruness"
-              ><font-awesome-icon icon="fa-brands fa-github"
-            /></a>
+            <a href="https://www.linkedin.com/in/lou-brunesseaux-a843aa248"><font-awesome-icon
+                icon="fa-brands fa-linkedin-in" /></a>
+            <a href="mailto:loubruness@gmail.com"><font-awesome-icon icon="fa-brands fa-google" /></a>
+            <a href="https://github.com/loubruness"><font-awesome-icon icon="fa-brands fa-github" /></a>
           </div>
         </div>
       </div>
@@ -349,7 +236,7 @@ export default {
   },
   methods: {
     fetchGenres() {
-      fetch(this.addressServer+"/api/livre/getgenres")
+      fetch(this.addressServer + "/api/livre/getgenres")
         .then((response) => response.json())
         .then((data) => {
           this.genres = data;
@@ -398,7 +285,7 @@ export default {
 
       const jsonData = JSON.stringify(data);
 
-      fetch(this.addressServer+"/api/livre/store", {
+      fetch(this.addressServer + "/api/livre/store", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -459,7 +346,7 @@ export default {
         const formData = new FormData();
         formData.append("file", file);
         console.log("here");
-        fetch(this.addressServer+"/api/livre/metadata", {
+        fetch(this.addressServer + "/api/livre/metadata", {
           method: "POST",
           body: formData,
         })

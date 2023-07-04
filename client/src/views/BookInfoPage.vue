@@ -95,12 +95,13 @@
                         <div class="flex-1">
 
                             <form action="#" class="comment-form">
-                                <textarea placeholder="Username" class="comment-author"></textarea>
-                                <textarea placeholder="Add your comment" class="comment-input"></textarea>
-                                <input type="submit" class="comment-submit" value="Submit">
+                                <textarea placeholder="Username" class="comment-author" v-model="commentUsername"></textarea>
+                                <textarea placeholder="Add your comment" class="comment-input" v-model="commentBody"></textarea>
+                                <input type="submit" class="comment-submit" value="Submit" @click="addComment">
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -243,7 +244,11 @@ export default {
             hasBeenRead: false,
             hasBeenReadClass: "fa-regular",
             email_user: null,
-            // TODO: Ajouter les commentaires
+            userAvatar: UserAvatar,
+            commentAuthor: null,
+            commentInput: null,
+            note: null,
+            commentList: null,
         };
     },
     components: {
@@ -259,8 +264,8 @@ export default {
             return
         }
 
-        var userData = JSON.parse(localStorage.getItem("userData"));
-        this.email_user = userData.email_user;
+        this.userData = JSON.parse(localStorage.getItem("userData"));
+        this.email_user = this.userData.email_user;
 
 
         // Récupérer le livre depuis l'API
@@ -352,8 +357,43 @@ export default {
             }
         });
         
+
+        // Récupérer les commentaires des utilisateurs
+        axios
+        .post("http://localhost:8080/api/livre/getComments", { reference: this.bookRef })
+        .then((response) => {
+            console.log(response);
+            console.log(response.data);
+
+            const commentList = document.querySelector('.comments');
+            response.data.forEach((element) => {
+                commentList.insertAdjacentHTML("beforeend", `
+                    <div class="comment flex items-start justify-start">
+                        <img class="comment-avatar" :src="avatar" />
+                        <div class="flex-1">
+                            <h3 class="comment-author1">${element.email_user}</h3>
+                            <p class="comment-body">${element.commenter}</p>
+                        </div>
+                        </div>
+                    </div>`);
+            })
+        })
+
+        const commentList = document.querySelector('.comments');
+        const commentAuthor = document.querySelector('.comment-author');
+        const commentInput = document.querySelector('.comment-input');
+        const note = document.querySelector('input[name="rate"]'); //FIXME: La note ne fonctionne pas et sort toujours 5
+        this.commentList = commentList;
+        this.commentAuthor = commentAuthor;
+        this.commentInput = commentInput;
+        this.note = note;
     },
     mounted() {
+        const submit = document.querySelector('.comment-submit');
+        submit.addEventListener("click", function(event){
+            event.preventDefault()
+        });
+
         var thisID = document.getElementById("TopBtn");
         var myScrollFunc = function () {
             var y = window.scrollY;
@@ -364,64 +404,6 @@ export default {
             }
         };
         window.addEventListener("scroll", myScrollFunc);
-
-
-        const submit = document.querySelector('.comment-submit');
-        const commentList = document.querySelector('.comments');
-        const commentAuthor = document.querySelector('.comment-author');
-        const commentInput = document.querySelector('.comment-input');
-
-
-        function template(data) {
-            commentList.insertAdjacentHTML("beforeend", `
-  <div class="comment flex items-start justify-start">
-      <img class="comment-avatar" :src="avatar" />
-      <div class="flex-1">
-        <h3 class="comment-author1">${data.author}</h3>
-        <p class="comment-body">${data.comment}</p>
-      </div>
-    </div>
-  </div>`);
-        }
-
-        function appendComment(event) {
-
-            const data = {
-                avatar: UserAvatar,
-                author: commentAuthor.value,
-                comment: commentInput.value,
-            };
-
-            event.preventDefault();
-
-            if (commentInput.value.length < 1) return;
-
-            // Insert new template into DOM
-            template(data);
-
-            // Reset Author text area value
-            commentAuthor.value = "";
-
-            // Reset text area value
-            commentInput.value = "";
-
-            // Save the list to localStorage
-            localStorage.setItem('commentListing', JSON.stringify(commentList.innerHTML));
-        }
-
-
-        submit.addEventListener('click', appendComment, false)
-
-        // Check for saved items
-
-        const saved = JSON.parse(localStorage.getItem('commentListing'));
-
-
-        // If there are any saved items, update the current list
-        if (saved) {
-            commentList.innerHTML = saved;
-        }
-
     },
     methods: {
         ToggleFromPersonalList() {
@@ -465,7 +447,8 @@ export default {
 
             if (to_email !== undefined) {
                 axios
-                .post("http://localhost:8080/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
+                // .post("http://localhost:8080/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
+                .post("http://129.151.226.75:8080/api/livre/share", { to: to_email, from_email: this.email_user, book_ref: this.bookRef })
                 .then((response) => {
                     if (response.status === 200) {
                         console.log("Email was sent.");
@@ -502,15 +485,50 @@ export default {
         CloseModalTooManyBooksShared() {
             document.getElementById("modalTooManyBooksShared").style.display = "none";
         },
+        addComment() {
+            console.log(this);
+            console.log(this.commentAuthor);
 
-        // OpenDeleteTask(id) {
+            const data = {
+                avatar: this.UserAvatar,
+                author: this.commentUsername,
+                comment: this.commentBody,
+                note: document.querySelector('input[name="rate"]').value
+            };
 
-        //     this.DeleteTaskIndex = id;
-        //     document.getElementById("myModalDeleteTask").style.display = "block";
-        // },
-        // CloseDeleteTask() {
-        //     document.getElementById("myModalDeleteTask").style.display = "none";
-        // },
+            if (this.commentBody.length < 1) return;
+
+            // Send comment to API
+            axios
+            // .post("http://localhost:8080/api/livre/addComment", { userData: this.userData, reference: this.bookRef, note: data.note, comment: data.comment })
+            .post("http://129.151.226.75:8080/api/livre/addComment", { userData: this.userData, reference: this.bookRef, note: data.note, comment: data.comment })
+            .then((response) => {
+                if (response.status === 200) {
+                    // On ajoute le commentaire au front
+                    const commentList = document.querySelector('.comments');
+                    commentList.insertAdjacentHTML("beforeend", `
+                    <div class="comment flex items-start justify-start">
+                        <img class="comment-avatar" :src="avatar" />
+                        <div class="flex-1">
+                            <h3 class="comment-author1">${data.author}</h3>
+                            <p class="comment-body">${data.comment}</p>
+                        </div>
+                        </div>
+                    </div>`);
+
+                    // Reset Author text area value
+                    const commentAuthor = document.querySelector('.comment-author');
+                    const commentInput = document.querySelector('.comment-input');
+                    commentAuthor.value = "";
+
+                    // Reset text area value
+                    commentInput.value = "";
+                }
+            })
+            .catch((response) => {
+                console.error(response.message);
+            })
+        }
     }
 }
 </script>

@@ -722,25 +722,29 @@ exports.getComments = (req,res)=>{
 
 // prend en paramtre "userData" "reference" "note" et "comment"
 exports.addComment = (req,res)=>{
-    console.log(JSON.stringify(req.body))
+    console.log('body:' + JSON.stringify(req.body))
     if (req.body.userData){
-        const userData = req.body.userData
+        const userData = req.body.userData;
+        console.log("userData:" + userData);
         if (userData.token){
             const token = userData.token
             console.log(JSON.stringify(verifyResetToken(token)))
             if (verifyResetToken(token) !=null){
                 var email_user = verifyResetToken(token).email
             }else{
+                console.log("Token corrupted");
                 res.status(500).json({error: "Token corrupted"});
                 return
             }
         }
         else{
+            console.log("No Token in userData.");
             res.status(500).json({error: "No Token in userData."});
             return;
         }
     }
     else {
+        console.log("No userData.");
         res.status(500).json({error: "No userData."});
         return;
     }
@@ -748,12 +752,14 @@ exports.addComment = (req,res)=>{
         var reference = req.body.reference
     }
     else{
+        console.log("No reference");
         res.status(500).json({error: "No reference."})
         return
     }
     if(req.body.note){
         var note = req.body.note;
     }else{
+        console.log("No note.");
         res.status(500).json({error: "No note."})
         return
     }
@@ -767,7 +773,7 @@ exports.addComment = (req,res)=>{
             return;
         }
         console.log('comments fetched from the database')
-        res.json(result);
+        res.status(200).json(result);
     })
 
 }

@@ -4,7 +4,7 @@ Ce projet est une proposition de site web permettant à chaque bibliothèque d'h
 
 ## Setup projet:
 
-<br>
+
 
 ### Installer toutes les dépendances côté serveur et client :
 
@@ -14,17 +14,17 @@ Ce projet est une proposition de site web permettant à chaque bibliothèque d'h
 npm install
 ```
 
-<br>
+
 
 ### Connecter la base de données MySQL :
 
-#### Aller dans ``server/app/config/``, ouvrir le fichier db.config.js et remplacer les exemples par les paramètres de connexion de votre base de données MySQL.  `<br><br>`
+#### Aller dans ``server/app/config/``, copier le fichier db.config_example.js et remplacer les exemples par les paramètres de connexion de votre base de données MySQL puis le renomer db.config.js.  ``
 
 ### Générer les tables:
 
 #### Exécuter le fichier ``server/app/config/bdd.sql`` dans votre base de données pour générer les tables nécessaires.
 
-<br>
+
 
 ### Connecter le client au bon serveur :
 
@@ -40,13 +40,21 @@ localStorage.setItem('addressServer', 'http://129.151.226.75:8080')
 localStorage.setItem('addressServer', 'http://localhost:8080')
 ```
 
-<br>
+
 
 ### Dépendances Python pour les recommandations (_peut fonctionner sans mais la page recommendation sera vide_):
 
 #### Avoir python3 sur son ordinateur avec une version 3.6 minimum et pip. Ensuite, installer les dépendances suivantes :
  _Si python3 n'est pas reconnu, remplacer python3 par python et pip3 par pip dans les commandes suivantes. Il faudra egalement remplacer python3 par python dans le fichier ``server/app/controller/livre.controller.js`` ligne 226._
 
+##### mysql-connector-python :
+
+```
+python3 -m pip install mysql-connector-python
+```
+```
+python3 -m pip install numpy
+```
 ##### numpy :
 
 ```

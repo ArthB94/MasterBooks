@@ -254,6 +254,7 @@ exports.findByFilter = (req, res) => {
         }
         filterQuerry += "livre.langue = '" + filters.langues[0] + "' ";
         filterQuerry += ") ";
+        and = true;
 
     }
 

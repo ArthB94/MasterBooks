@@ -1,7 +1,6 @@
 # COPIE DE LA VERSION QUE J'AI FINI DIMANCHE SOIR QUI FONCTIONNE BIEN
 
 import pandas as pd 
-import random
 from nltk.corpus import stopwords 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize

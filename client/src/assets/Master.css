@@ -2393,18 +2393,20 @@ body.dark .task-container .checkmark:after {
   height:1480px;
   overflow: hidden;
   margin-bottom: 20px;
+  align-content: flex-start;
 }
 
 .book-catalog-container1 {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 97%;
   flex-wrap: wrap;
   justify-content: flex-start;
   height: 1290px;
   overflow: hidden;
   margin-bottom: 20px;
   margin-left: 37px;
+  align-content: flex-start;
 }
 
 .book-descript{

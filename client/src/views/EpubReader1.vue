@@ -18,7 +18,7 @@
         @click="previousPage" />
       
     </div>
-      <div ref="readerContainer" class="reader-container">
+      <div ref="readerContainer" class="reader-container no-select">
       </div>
     
     <div v-if="showNavigation" class="navigation-buttons">    
@@ -65,6 +65,16 @@ export default {
         width: '100%',
         height: '100%',
       })
+      this.rendition.themes.default({
+        body: {
+          "-webkit-touch-callout": "none" ,
+          "-webkit-user-select": "none" ,
+          "-khtml-user-select": "none",
+          "-moz-user-select": "none",
+          "-ms-user-select": "none",
+          "user-select": "none",
+        },
+      });
       this.rendition.display()
       this.showNavigation = true
   },
@@ -114,4 +124,10 @@ export default {
 </script>
 
 <style scoped>
+.no-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
 </style>

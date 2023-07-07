@@ -56,7 +56,7 @@
                             <input type="text" id="fname" name="fname" class="help-input"
                                 placeholder="Paste the link to where the issue is happening." v-model="txtLink"><br>
                         </div>
-                        <div class="help-question">
+                        <!-- <div class="help-question">
                             <label for="file-upload" class="help-label">Upload Screenshot</label>
                             <div class="help-input">
                                 <button class="Create-planning-Btn" style="margin-right: 15px;"
@@ -68,7 +68,7 @@
                             </div>
 
                             <br>
-                        </div>
+                        </div> -->
                         <button @click="sendMail" type="submit" class="submit-help-btn" id="UpdateBtn">
                             Send
                         </button>
